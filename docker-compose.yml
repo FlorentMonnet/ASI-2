@@ -1,0 +1,105 @@
+version: '3.3'
+services:
+  db-user:
+    container_name: postgres-user
+    image: postgres:14.2
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: user
+    ports:
+      - 5432:5432
+    networks:
+      - shared-network
+    volumes:
+      - postgres-data-user:/var/lib/postgresql/data
+
+  db-card:
+    container_name: postgres-card
+    image: postgres:14.2
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: card
+    ports:
+      - 5433:5432
+    networks:
+      - shared-network
+    volumes:
+      - postgres-data-card:/var/lib/postgresql/data
+
+  db-transaction:
+    container_name: postgres-transaction
+    image: postgres:14.2
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: transaction
+    ports:
+      - 5434:5432
+    networks:
+      - shared-network
+    volumes:
+      - postgres-data-transaction:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: "pgadmin"
+    image: dpage/pgadmin4:6.9
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - 3030:80
+    networks:
+      - shared-network
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - db-user
+      - db-card
+      - db-transaction
+
+  reverse-proxy:
+    container_name: "reverse-proxy"
+    image: nginx
+    volumes:
+      - ./reverse-proxy/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    depends_on:
+      - web-server
+    networks:
+      - shared-network
+
+  web-server:
+    build: ./web-server
+    ports:
+      - 8080:80
+    networks:
+      - shared-network
+
+  springboot-user:
+    container_name: springboot-user
+    build: 
+     ./micro-services/user
+    ports:
+      - 8081:8081
+    depends_on:
+      - db-user
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-user:5432/user
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    external: true
+volumes:
+  postgres-data-user:
+  postgres-data-card:
+  postgres-data-transaction:
+  pgadmin-data:
+    external: true
