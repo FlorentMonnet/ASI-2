@@ -70,6 +70,8 @@ services:
       - web-server
       - springboot-card
       - springboot-user
+      - springboot-auth
+      - springboot-transaction
     networks:
       - shared-network
 
@@ -112,6 +114,29 @@ services:
     networks:
       - shared-network
 
+  springboot-transaction:
+    container_name: springboot-transaction
+    build: 
+      ./micro-services/transaction
+    ports:
+      - 8083:8083
+    depends_on:
+      - db-transaction
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-transaction:5432/transaction
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - shared-network
+  springboot-auth:
+    container_name: springboot-auth
+    build: 
+      ./micro-services/authentication
+    ports:
+      - 8084:8084
+    networks:
+      - shared-network    
 networks:
   shared-network:
     external: true

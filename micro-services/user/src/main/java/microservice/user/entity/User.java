@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "User_Entity", uniqueConstraints={
+@Table(name = "utilisateur", uniqueConstraints={
         @UniqueConstraint( name = "uq_mail_user",  columnNames ={"mail_user"})
      })
 public class User {

@@ -12,11 +12,8 @@ import microservice.transaction.entity.Transaction;
 import microservice.transaction.entity.TransactionOrder;
 import microservice.transaction.service.TransactionService;
 
-
-//ONLY FOR TEST NEED ALSO TO ALLOW CROOS ORIGIN ON WEB BROWSER SIDE
-@CrossOrigin
 @RestController
-@RequestMapping(value="/store")
+@RequestMapping(value="/api/transaction-microservice")
 public class TransactionController {
 
 	private final TransactionService transactionService;

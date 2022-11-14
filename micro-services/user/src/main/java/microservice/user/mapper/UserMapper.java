@@ -1,5 +1,8 @@
 package microservice.user.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import microservice.user.dto.UserDTO;
@@ -33,7 +36,14 @@ public class UserMapper {
 		toReturn.setId_user(user.getId_user());
 		
 		return toReturn;
-		
+	}
+	
+	public List<UserDTO> toDTOList(List<User> users) {
+		List<UserDTO> usersDTOList=new ArrayList<UserDTO>();
+		for(User user: users){
+			usersDTOList.add(this.toDTO(user));
+		}
+		return usersDTOList;
 	}
 	
 }

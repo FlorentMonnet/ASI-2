@@ -3,10 +3,12 @@ package microservice.transaction.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 import microservice.transaction.entity.Transaction;
 import microservice.transaction.repository.TransactionRepository;
 
+@Service
 public class TransactionService {
 	//private final CardModelService cardService;
 	//private final UserService userService;
