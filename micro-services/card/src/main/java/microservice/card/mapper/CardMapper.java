@@ -1,5 +1,8 @@
 package microservice.card.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import microservice.card.dto.CardDTO;
@@ -36,5 +39,21 @@ public class CardMapper {
 			
 			return toReturn;
 			
+		}
+		
+		public List<CardDTO> toDTOList(List<Card> cards) {
+			List<CardDTO> cardsDTO=new ArrayList<>();
+			for(Card card: cards){
+				cardsDTO.add(this.toDTO(card));
+			}
+			return cardsDTO;
+		}
+		
+		public List<Card> toModelList(List<CardDTO> cardsDTO) {
+			List<Card> cards=new ArrayList<>();
+			for(CardDTO card: cardsDTO){
+				cards.add(this.toModel(card));
+			}
+			return cards;
 		}
 }

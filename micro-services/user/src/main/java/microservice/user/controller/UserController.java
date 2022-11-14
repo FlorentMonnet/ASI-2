@@ -32,7 +32,7 @@ public class UserController{
 	UserMapper userMapper;
 	
 	@GetMapping("/users")
-	private List<UserDTO> getAllUsers() {
+	public List<UserDTO> getAllUsers() {
 		return userMapper.toDTOList(userService.getUsers());
 	}
 
@@ -43,6 +43,7 @@ public class UserController{
 	
 	@PostMapping("/user")
 	public UserDTO addUser(@RequestBody UserDTO user) {
+		System.out.println(user.toString());
 		return userMapper.toDTO(userService.addUser(userMapper.toModel(user)));
 	}
 	

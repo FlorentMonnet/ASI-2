@@ -23,7 +23,7 @@ public class Card {
 		@Column(name="price_card")
 		private float price;
 		@Column(name="id_user")
-		private Integer id_user;
+		private Integer user;
 		
 		public Card() {		
 		}
@@ -77,16 +77,16 @@ public class Card {
 		}
 
 		public Integer getId_user() {
-			return id_user;
+			return user;
 		}
 
 		public void setId_user(Integer id_user) {
-			this.id_user = id_user;
+			this.user = id_user;
 		}
 
 		@Override
 		public String toString() {
 			return "Card [id_card=" + id_card + ", energy=" + energy + ", hp=" + hp + ", defense=" + defense
-					+ ", attack=" + attack + ", price=" + price + ", id_user=" + id_user + "]";
+					+ ", attack=" + attack + ", price=" + price + ", id_user=" + user + "]";
 		}		
 }
