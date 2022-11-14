@@ -68,6 +68,8 @@ services:
       - 80:80
     depends_on:
       - web-server
+      - springboot-card
+      - springboot-user
     networks:
       - shared-network
 
@@ -88,6 +90,22 @@ services:
       - db-user
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db-user:5432/user
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    networks:
+      - shared-network
+
+  springboot-card:
+    container_name: springboot-card
+    build: 
+      ./micro-services/card
+    ports:
+      - 8082:8082
+    depends_on:
+      - db-card
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-card:5432/card
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
