@@ -27,6 +27,7 @@ public class UserService {
 	}
 	
 	public User addUser(User user) {
+		System.out.println(user.toString());
 		// needed to avoid detached entity passed to persist error
 		userRepository.save(user);
 		/*List<CardModel> cardList = cardModelService.getRandCard(5);
