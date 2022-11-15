@@ -76,6 +76,7 @@ services:
       - shared-network
 
   web-server:
+    container_name: web-server
     build: ./web-server
     ports:
       - 8080:80
@@ -129,6 +130,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     networks:
       - shared-network
+      
   springboot-auth:
     container_name: springboot-auth
     build: 
@@ -136,7 +138,17 @@ services:
     ports:
       - 8084:8084
     networks:
-      - shared-network    
+      - shared-network
+
+  active-mq:
+    container_name: active-mq
+    image:
+      rmohr/activemq:5.15.9
+    ports:
+      - 8161:8161 
+    networks:
+      - shared-network
+     
 networks:
   shared-network:
     external: true
