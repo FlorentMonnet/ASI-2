@@ -9,6 +9,8 @@ import Register from './components/Register';
 import Login from './components/Login';
 
 import Config from './config';
+import GameZone from './components/GameZone';
+import SelectCardForGame from './components/SelectCardForGame';
 
 function App() {
     return (
@@ -70,7 +72,7 @@ function App() {
                                 title={Config.HEADER_CONFIG.play.title}
                                 subTitle={Config.HEADER_CONFIG.play.subTitle}
                             />{' '}
-                            <Home />
+                            <SelectCardForGame />
                         </>
                     }
                 />

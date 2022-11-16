@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { cardInit, cardsToSellInit } from '../../core/actions/cards.action';
+import { cardInit, userCardsToSell } from '../../core/actions/cards.action';
 import {
-    selectorCards,
+    selectorCardsToBuy,
     selectorCardsToSell,
     selectorSelectedCard,
 } from '../../core/selectors/card.selector';
@@ -15,7 +15,7 @@ function CardList(props) {
 
     //For redux
     const dispatch = useDispatch();
-    const cardsListToBuy = useSelector(selectorCards);
+    const cardsListToBuy = useSelector(selectorCardsToBuy);
     const cardsListToSell = useSelector(selectorCardsToSell);
     const selectedCard = useSelector(selectorSelectedCard);
 
@@ -28,7 +28,7 @@ function CardList(props) {
             .then((response) => response.json())
             .then((json) => {
                 mode === 'sell'
-                    ? dispatch(cardsToSellInit(json))
+                    ? dispatch(userCardsToSell(json))
                     : dispatch(cardInit(json));
             });
     }, [dispatch, mode]);

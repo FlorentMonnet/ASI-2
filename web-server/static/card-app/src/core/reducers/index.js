@@ -6,6 +6,7 @@ const initStateValue = {
     cardsToSell: [],
     cardSelected: {},
     userConnected: null,
+    cardToPlay: [],
 };
 
 export const rootReducer = (state = initStateValue, action) => {
@@ -31,10 +32,25 @@ export const rootReducer = (state = initStateValue, action) => {
     }
 
     if (action.type === CardsActions.INIT_CARD_TO_SELL) {
-        console.log(action.payload.cardsToSell);
         return {
             ...state,
             cardsToSell: action.payload.cardsToSell,
+        };
+    }
+
+    if (action.type === CardsActions.ADD_CARD_FOR_GAME) {
+        let temp = state.cardToPlay;
+        temp.push(action.payload.card);
+        return {
+            ...state,
+            cardToPlay: temp,
+        };
+    }
+
+    if (action.type === CardsActions.RESET_CARD_FOR_GAME) {
+        return {
+            ...state,
+            cardToPlay: [],
         };
     }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { selectCard } from '../../core/actions/cards.action';
+import { addCardForGame, selectCard } from '../../core/actions/cards.action';
 import { useSelector } from 'react-redux';
-import { userConnected } from '../../core/selectors/user.selector';
+import { selectorUserConnected } from '../../core/selectors/user.selector';
 import Config from '../../config';
 import { connectUserAction } from '../../core/actions/user.action';
 
@@ -10,7 +10,7 @@ function Card(props) {
     const { card, display, mode } = props;
     const dispatch = useDispatch();
 
-    const user = useSelector(userConnected);
+    const user = useSelector(selectorUserConnected);
 
     function displayInRow() {
         return (
@@ -97,9 +97,9 @@ function Card(props) {
                                     <textarea
                                         id="cardDescriptionId"
                                         className="overflowHiden"
-                                        readOnly=""
+                                        readOnly="True"
                                         rows="5"
-                                        defaultValue={card.description}
+                                        value={card.description}
                                     ></textarea>
                                 </div>
                             </div>
@@ -129,10 +129,10 @@ function Card(props) {
                         </div>
                         <button
                             className="ui bottom attached button"
-                            onClick={() => makeTransaction()}
+                            onClick={() => makeAction()}
                         >
                             <i className="money icon"></i>
-                            {mode === 'sell' ? 'Sell for ' : 'Buy for '}
+                            {getLabel()}
                             <span id="cardPriceId"> {card.price}$</span>
                         </button>
                     </div>
@@ -143,43 +143,44 @@ function Card(props) {
 
     function displayInShort() {
         return (
-            <div className="ui segment">
-                <div className="ui special cards">
-                    <div className="card">
-                        <div className="content">
-                            <div className="ui grid">
-                                <div className="three column row">
-                                    <div
-                                        className="column"
-                                        style={{ textAlign: 'center' }}
-                                    >
-                                        <a className="ui red circular label">
-                                            {card.hp}
-                                        </a>
-                                    </div>
-                                    <div className="column">
-                                        <h5>{card.name}</h5>
-                                    </div>
-                                    <div
-                                        className="column"
-                                        style={{ textAlign: 'center' }}
-                                    >
-                                        <a className="ui yellow circular label">
-                                            {card.energy}
-                                        </a>
-                                    </div>
+            <div
+                className="ui special cards"
+                onClick={() => onClickOnShortDisplay()}
+            >
+                <div className="card">
+                    <div className="content">
+                        <div className="ui grid">
+                            <div className="three column row">
+                                <div
+                                    className="column"
+                                    style={{ textAlign: 'center' }}
+                                >
+                                    <a className="ui red circular label">
+                                        {card.hp}
+                                    </a>
+                                </div>
+                                <div className="column">
+                                    <h5>{card.name}</h5>
+                                </div>
+                                <div
+                                    className="column"
+                                    style={{ textAlign: 'center' }}
+                                >
+                                    <a className="ui yellow circular label">
+                                        {card.energy}
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                        <div className="image imageCard">
-                            <div className="ui fluid image">
-                                <img
-                                    id="cardImgId"
-                                    className="ui centered image"
-                                    src={card.smallImgUrl}
-                                    alt="img"
-                                />
-                            </div>
+                    </div>
+                    <div className="image imageCard">
+                        <div className="ui fluid image">
+                            <img
+                                id="cardImgId"
+                                className="ui centered image"
+                                src={card.smallImgUrl}
+                                alt="img"
+                            />
                         </div>
                     </div>
                 </div>
@@ -217,6 +218,26 @@ function Card(props) {
                         });
                 }
             });
+    }
+
+    function makeAction() {
+        if (mode !== 'Game') {
+            makeTransaction();
+        }
+    }
+
+    function getLabel() {
+        if (mode === 'Game') {
+            return '';
+        } else if (mode === 'sell') {
+            return 'Sell for ';
+        } else if (mode === 'buy') {
+            return 'Buy for ';
+        }
+    }
+
+    function onClickOnShortDisplay() {
+        dispatch(addCardForGame(card));
     }
 
     if (display === 'short') {
