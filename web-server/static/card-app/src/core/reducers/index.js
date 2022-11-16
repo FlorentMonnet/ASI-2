@@ -9,6 +9,7 @@ const initStateValue = {
     userConnected: null,
     cardToPlay: [],
     userSelected: null,
+    cardSelectedInGame: null,
 };
 
 export const rootReducer = (state = initStateValue, action) => {
@@ -72,6 +73,13 @@ export const rootReducer = (state = initStateValue, action) => {
         return {
             ...state,
             cardToPlay: [],
+        };
+    }
+
+    if (action.type === CardsActions.SELECT_CARD_IN_GAME) {
+        return {
+            ...state,
+            cardSelectedInGame: action.payload.card,
         };
     }
 

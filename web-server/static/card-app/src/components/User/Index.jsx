@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Config from '../../config';
 
 function User(props) {
     const { mode, user } = props;
@@ -27,35 +28,37 @@ function User(props) {
     }
 
     function displayInGameZone() {
-        <div class="ui one  column centered grid">
-            <div class="row">
-                <div class="column">
-                    {' '}
-                    <i class="user circle huge icon "></i>
+        return (
+            <div className="ui one  column centered grid">
+                <div className="row">
+                    <div className="column">
+                        {' '}
+                        <i className="user circle huge icon "></i>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class=" column">{user.login}</div>
-            </div>
+                <div className="row">
+                    <div className=" column">{user.login}</div>
+                </div>
 
-            <div class="row">
-                <div class="column">
-                    <div
-                        class="ui teal progress"
-                        data-percent="74"
-                        id="progressBarId1"
-                    >
-                        <div class="bar"></div>
-                        <div class="label">Action Points</div>
+                <div className="row">
+                    <div className="column">
+                        <div
+                            className="ui teal progress"
+                            data-percent="74"
+                            id="progressBarId1"
+                        >
+                            <div className="bar"></div>
+                            <div className="label">Action Points</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>;
+        );
     }
 
-    if (mode === 'Header') {
+    if (mode === Config.MODE.HEADER) {
         return displayInHeader();
-    } else if (mode === 'GameZone') {
+    } else if (mode === Config.MODE.GAME_ZONE) {
         return displayInGameZone();
     }
 }

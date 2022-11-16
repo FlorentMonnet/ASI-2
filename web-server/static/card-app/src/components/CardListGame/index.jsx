@@ -2,16 +2,16 @@ import React from 'react';
 import Card from '../Card';
 
 function CardListGame(props) {
-    const { cardList } = props;
+    const { cards, mode } = props;
     return (
         <div className="ui four column grid">
-            {cardList.map((card) => (
+            {cards.map((card) => (
                 <div className="column">
                     <Card
                         card={card}
                         display="short"
                         key={card.id}
-                        mode="Game"
+                        mode={mode}
                     />
                 </div>
             ))}

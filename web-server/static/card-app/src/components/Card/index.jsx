@@ -1,16 +1,30 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { addCardForGame, selectCard } from '../../core/actions/cards.action';
+import {
+    addCardForGame,
+    selectCard,
+    selectCardInGame,
+} from '../../core/actions/cards.action';
 import { useSelector } from 'react-redux';
 import { selectorUserConnected } from '../../core/selectors/user.selector';
 import Config from '../../config';
 import { connectUserAction } from '../../core/actions/user.action';
+import { selectorUserCardsToPlay } from '../../core/selectors/card.selector';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 function Card(props) {
     const { card, display, mode } = props;
     const dispatch = useDispatch();
 
     const user = useSelector(selectorUserConnected);
+    const cardListToPlay = useSelector(selectorUserCardsToPlay);
+
+    const [color, setColor] = useState([]);
+
+    useEffect(() => {
+        setColor('#FFFFFF');
+    }, []);
 
     function displayInRow() {
         return (
@@ -33,7 +47,7 @@ function Card(props) {
                 <td>
                     <div className="ui vertical animated button" tabIndex="0">
                         <div className="hidden content">
-                            {mode === 'sell' ? 'Sell' : 'Buy'}
+                            {mode === Config.MODE.SELL ? 'Sell' : 'Buy'}
                         </div>
                         <div className="visible content">
                             <i className="shop icon"></i>
@@ -147,7 +161,7 @@ function Card(props) {
                 className="ui special cards"
                 onClick={() => onClickOnShortDisplay()}
             >
-                <div className="card">
+                <div className="card" style={{ backgroundColor: color }}>
                     <div className="content">
                         <div className="ui grid">
                             <div className="three column row">
@@ -190,7 +204,7 @@ function Card(props) {
 
     function makeTransaction() {
         let urlToFetch =
-            mode === 'sell'
+            mode === Config.MODE.SELL
                 ? Config.API_PATH + 'store/sell'
                 : Config.API_PATH + 'store/buy';
 
@@ -221,23 +235,30 @@ function Card(props) {
     }
 
     function makeAction() {
-        if (mode !== 'Game') {
+        if (mode !== Config.MODE.GAME) {
             makeTransaction();
         }
     }
 
     function getLabel() {
-        if (mode === 'Game') {
-            return '';
-        } else if (mode === 'sell') {
+        if (mode === Config.MODE.GAME) {
+            return 'Price : ';
+        } else if (mode === Config.MODE.SELL) {
             return 'Sell for ';
-        } else if (mode === 'buy') {
+        } else if (mode === Config.MODE.BUY) {
             return 'Buy for ';
         }
     }
 
     function onClickOnShortDisplay() {
-        dispatch(addCardForGame(card));
+        if (mode === Config.MODE.SELECT_CARD) {
+            if (cardListToPlay.length < 4) {
+                setColor('#DFDFDF');
+                dispatch(addCardForGame(card));
+            }
+        } else if (mode === Config.MODE.GAME) {
+            dispatch(selectCardInGame(card));
+        }
     }
 
     if (display === 'short') {
