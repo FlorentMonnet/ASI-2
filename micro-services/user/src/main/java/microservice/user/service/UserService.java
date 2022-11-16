@@ -9,12 +9,16 @@ import org.springframework.stereotype.Service;
 import microservice.user.dto.UserDTO;
 import microservice.user.entity.User;
 import microservice.user.repository.UserRepository;
+import microservice.user.service.queue.UserSenderQueueService;
 
 @Service
 public class UserService {
 	@Autowired
 	UserRepository userRepository;
-
+	
+	@Autowired
+	UserSenderQueueService userSenderQueueService;
+	
 	public User getUserById(Integer idUser) {
 		return userRepository.findById(idUser).orElseThrow(() -> new RuntimeException());
 	}
@@ -26,14 +30,19 @@ public class UserService {
 
 	}
 	
+	public String addUserToCreationQueue(User user) {
+		boolean result = userSenderQueueService.addUserToCreationQueue(user);
+		return result ? "Creation de l'utilisateur en cours" : "";
+	}
+	
+	public String addUserToUpdateQueue(User user) {
+		boolean result = userSenderQueueService.addUserToUpdateQueue(user);
+		return result ? "Mise à jour de l'utilisateur en cours" : "";
+	}
+	
+	
 	public User addUser(User user) {
-		System.out.println(user.toString());
-		// needed to avoid detached entity passed to persist error
 		userRepository.save(user);
-		/*List<CardModel> cardList = cardModelService.getRandCard(5);
-		for (CardModel card : cardList) {
-			u.addCard(card);
-		}*/
 		return user;
 	}
 	
@@ -41,6 +50,7 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 	
+
 	public User updateUser(User user) {
 		return userRepository.save(user);
 	}
