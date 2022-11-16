@@ -10,6 +10,7 @@ import {
 } from '../../core/selectors/user.selector';
 import CardListGame from '../CardListGame';
 import User from '../User/Index';
+import Chat from '../Chat/Chat';
 
 function GameZone() {
     const user = useSelector(selectorUserConnected);
@@ -22,7 +23,9 @@ function GameZone() {
         <div className="ui segment">
             <div className="ui grid">
                 <div className="four wide column">
-                    <div id="chatContent"></div>
+                    <div id="chatContent">
+                        <Chat></Chat>
+                    </div>
                 </div>
                 <div className="twelve wide column">
                     <div className="row">
