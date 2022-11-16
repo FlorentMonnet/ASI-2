@@ -67,21 +67,21 @@ services:
     ports:
       - 80:80
     depends_on:
-      - web-server
       - springboot-card
       - springboot-user
       - springboot-auth
       - springboot-transaction
+      - react-app
     networks:
       - shared-network
 
-  web-server:
-    container_name: web-server
-    build: ./web-server
-    ports:
-      - 8080:80
-    networks:
-      - shared-network
+  #web-server:
+    #container_name: web-server
+    #build: ./web-server
+    #ports:
+    #  - 8080:80
+    #networks:
+    #  - shared-network
 
   springboot-user:
     container_name: springboot-user
@@ -150,16 +150,14 @@ services:
     networks:
       - shared-network
 
-  app:
-    container_name: app-dev
-    image: app-dev
+  react-app:
+    container_name: react-app
     build:
-      context: ./test-react/mon-app
-      target: development
-    volumes:
-      - ./src:/app/src
+      ./web-server/card-app
     ports:
       - 3000:3000
+    networks:
+      - shared-network
      
 networks:
   shared-network:
