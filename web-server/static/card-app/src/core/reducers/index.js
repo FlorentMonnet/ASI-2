@@ -5,7 +5,9 @@ const initStateValue = {
     cards: [],
     cardsToSell: [],
     cardSelected: {},
+    users: [],
     userConnected: null,
+    cardToPlay: [],
     userSelected: null,
 };
 
@@ -26,7 +28,7 @@ export const rootReducer = (state = initStateValue, action) => {
     }
 
     if (action.type === CardsActions.INIT_CARD_TO_SELL) {
-        console.log(action.payload.cardsToSell);
+        // console.log(action.payload.cardsToSell);
         return {
             ...state,
             cardsToSell: action.payload.cardsToSell,
@@ -42,7 +44,7 @@ export const rootReducer = (state = initStateValue, action) => {
     }
 
     if (action.type === UserActions.SELECTED) {
-        console.log(action.payload)
+        console.log('In Reducer: ' + action.payload.user);
         return {
             ...state,
             userSelected: action.payload.user,
@@ -50,10 +52,26 @@ export const rootReducer = (state = initStateValue, action) => {
     }
 
     if (action.type === UserActions.INIT_USERS) {
-        console.log('Store : { payload : ' + action.payload.users + ', type : ' + action.type + '}');
+        // console.log('Store : { payload : ' + action.payload.users + ', type : ' + action.type + '}');
         return {
             ...state,
             users: action.payload.users,
+        };
+    }
+
+    if (action.type === CardsActions.ADD_CARD_FOR_GAME) {
+        let temp = state.cardToPlay;
+        temp.push(action.payload.card);
+        return {
+            ...state,
+            cardToPlay: temp,
+        };
+    }
+
+    if (action.type === CardsActions.RESET_CARD_FOR_GAME) {
+        return {
+            ...state,
+            cardToPlay: [],
         };
     }
 

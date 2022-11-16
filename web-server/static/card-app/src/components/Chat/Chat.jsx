@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react';
-import {ChatHeader} from './ChatHeader';
-import {ChatList} from './ChatList';
-import {useDispatch, useSelector} from 'react-redux';
+import ChatHeader from './ChatHeader';
+import ChatList from './ChatList';
+import { useDispatch, useSelector } from 'react-redux';
 import { userInit } from '../../core/actions/user.action';
-import {
-    selectorUsers,
-    selectUser
-} from '../../core/selectors/user.selector';
+import { selectorUsers, selectUser } from '../../core/selectors/user.selector';
 import Config from '../../config';
 
-export function Chat(props) {
-
+function Chat(props) {
     const dispatch = useDispatch();
     const usersList = useSelector(selectorUsers);
     const userSelected = useSelector(selectUser);
@@ -18,11 +14,13 @@ export function Chat(props) {
     useEffect(() => {
         let urlToFetch = Config.API_PATH + 'users';
         fetch(urlToFetch)
-        .then((response) => response.json())
-        .then((json) => { dispatch(userInit(json));
-        });
-        }, [dispatch]);
-    console.log("in chat:" + usersList);
+            .then((response) => response.json())
+            .then((json) => {
+                dispatch(userInit(json));
+            });
+    }, []);
+
+    console.log('In Chat: ' + userSelected);
 
     return (
         <div>
@@ -31,3 +29,5 @@ export function Chat(props) {
         </div>
     );
 }
+
+export default Chat;

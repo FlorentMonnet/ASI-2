@@ -1,18 +1,16 @@
-import {ChatListItem} from "./ChatListItem";
+import ChatListItem from './ChatListItem';
+import { Dropdown } from 'semantic-ui-react';
 
-export function ChatList(props) {
-    const {users} = props;
+function ChatList(props) {
+    const { users } = props;
+
+    const DropdownExampleSelection = () => (
+        <Dropdown placeholder="Select Friend" fluid selection options={users} />
+    );
 
     return (
-        <select className="ui dropdown">
-            <option value="">Select Friend</option>
-            {users.map((user) => (
-                <ChatListItem
-                    key={user.id}
-                    user={user}
-                />
-            ))}
-        </select>
-    )
-        ;
+        <DropdownExampleSelection></DropdownExampleSelection>
+    );
 }
+
+export default ChatList;

@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import microservice.authentication.dto.UserRegisterDTO;
+import microservice.authentication.service.AuthenticationQueueService;
 import microservice.authentication.service.AuthenticationService;
 
 @CrossOrigin
@@ -22,6 +25,9 @@ public class AuthenticationController {
 
 	@Autowired
 	AuthenticationService authService;
+	
+	@Autowired
+	AuthenticationQueueService authQueueService;
 	
 	// POST
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -38,5 +44,10 @@ public class AuthenticationController {
 	@PostMapping(value="/admin/auth/checkPassword")
 	public boolean checkPassword(@RequestBody List<UserRegisterDTO> dtoUserFoundAndUserLogging) {
 		return authService.checkPassword(dtoUserFoundAndUserLogging);
+	}
+	
+	@PostMapping(value="/sendMessage")
+	public boolean sendMessage(@RequestBody UserRegisterDTO userRegisterDTO) {
+		return authQueueService.sendMessage(userRegisterDTO);
 	}
 }
