@@ -2,7 +2,9 @@ package microservice.transaction.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,29 +14,31 @@ import microservice.transaction.entity.Transaction;
 import microservice.transaction.entity.TransactionOrder;
 import microservice.transaction.service.TransactionService;
 
+
 @RestController
 @RequestMapping(value="/api/transaction-microservice")
 public class TransactionController {
 
+	@Autowired
 	private final TransactionService transactionService;
+	
 
 	public TransactionController(TransactionService transactionService) {
 		this.transactionService = transactionService;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/buy")
-	private boolean getAllCards(@RequestBody TransactionOrder order) {
-		return transactionService.buyCard(order.getUser_id(), order.getCard_id());
-
+	private HttpServletResponse buyCard(@RequestBody TransactionOrder order, HttpServletResponse response) {
+		return transactionService.buyCard(order.getUser_id(), order.getCard_id(), response);
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/sell")
-	private boolean getCard(@RequestBody TransactionOrder order) {
-		return transactionService.sellCard(order.getUser_id(), order.getCard_id());
+	private HttpServletResponse sellCard(@RequestBody TransactionOrder order, HttpServletResponse response) {
+		return transactionService.sellCard(order.getUser_id(), order.getCard_id(), response);
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/transaction")
-	private List<Transaction> getCard() {
+	private List<Transaction> getAllCards() {
 		return transactionService.getAllTransactions();
 	}
 

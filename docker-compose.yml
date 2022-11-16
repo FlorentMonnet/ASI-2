@@ -149,6 +149,17 @@ services:
       - 61616:61616
     networks:
       - shared-network
+
+  app:
+    container_name: app-dev
+    image: app-dev
+    build:
+      context: ./test-react/mon-app
+      target: development
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 3000:3000
      
 networks:
   shared-network:
