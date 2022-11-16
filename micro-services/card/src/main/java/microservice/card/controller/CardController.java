@@ -34,14 +34,13 @@ public class CardController {
 	CardMapper cardMapper;
 	
 	@GetMapping("/card/{id_card}")
-	private CardDTO getCard(@PathVariable Integer id) {
+	private CardDTO getCard(@PathVariable Integer id_card) {
 		Optional<Card> card;
-		card= cardService.getCardById(id);
+		card= cardService.getCardById(id_card);
 		if(card.isPresent()) {
 			return cardMapper.toDTO(card.get());
 		}
-		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Card id:"+id+", not found",null);
-
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Card id:"+id_card+", not found",null);
 	}
 
 	
@@ -51,14 +50,14 @@ public class CardController {
 	}
 	
 	@PostMapping("/card")
-	public CardDTO addCard(@RequestBody CardDTO card) {
-		return cardMapper.toDTO(cardService.addCard(cardMapper.toModel(card)));
+	public String addCard(@RequestBody CardDTO card) {
+		return cardService.addCardToCreationQueue(cardMapper.toModel(card));
 	}
 	
 	@PatchMapping("/card/{id}")
-	public CardDTO updateCard(@RequestBody CardDTO card,@PathVariable Integer id) {
+	public String updateCard(@RequestBody CardDTO card,@PathVariable Integer id) {
 		card.setId(id);
-		return cardMapper.toDTO(cardService.updateCard(cardMapper.toModel(card)));
+		return cardService.addCardToUpdateQueue(cardMapper.toModel(card));
 	}
 	
 	@DeleteMapping("/card/{id}")

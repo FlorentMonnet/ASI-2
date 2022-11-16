@@ -42,9 +42,8 @@ public class UserController{
 	}
 	
 	@PostMapping("/user")
-	public UserDTO addUser(@RequestBody UserDTO user) {
-		System.out.println(user.toString());
-		return userMapper.toDTO(userService.addUser(userMapper.toModel(user)));
+	public String addUser(@RequestBody UserDTO user) {
+		return userService.addUserToCreationQueue(userMapper.toModel(user));
 	}
 	
 	@DeleteMapping("/user/{id}")
@@ -53,9 +52,9 @@ public class UserController{
 	}
 	
 	@PutMapping("/user/{id}")
-	public UserDTO updateUser(@RequestBody UserDTO user,@PathVariable Integer id) {
+	public String updateUser(@RequestBody UserDTO user,@PathVariable Integer id) {
 		user.setId_user(Integer.valueOf(id));
-		return userMapper.toDTO(userService.updateUser(userMapper.toModel(user)));
+		return userService.addUserToUpdateQueue(userMapper.toModel(user));
 	}
 
 }

@@ -13,12 +13,8 @@ import microservice.authentication.dto.UserRegisterDTO;
 
 @Service
 public class AuthenticationQueueService{
-	private ObjectMapper mapObject = new ObjectMapper();
 	@Autowired
     JmsTemplate jmsTemplate;
-	
-	@Autowired
-	ObjectMapper mapper;
 	
     public boolean sendMessage(UserRegisterDTO userRegisterDTO){
         jmsTemplate.convertAndSend("TEST_2", userRegisterDTO);
