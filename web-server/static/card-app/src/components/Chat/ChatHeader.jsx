@@ -1,6 +1,7 @@
 
-export function ChatHeader(props) {
+function ChatHeader(props) {
     const {user} = props;
+    console.log("In ChatHeader: " + user)
     return (
         <div>
             <h5 className="ui center aligned icon header">
@@ -8,7 +9,7 @@ export function ChatHeader(props) {
                 <div id="test" >
                     {user === null ? (
                            "Adversaire"
-                           ) : <div>{user.firstname} {user.lastname}</div>}
+                           ) : <div>{user.surName} {user.lastName}</div>}
                     <div>
                         <i className="circular user icon"></i>
                     </div>
@@ -17,3 +18,5 @@ export function ChatHeader(props) {
         </div>
     );
 }
+
+export default ChatHeader;
