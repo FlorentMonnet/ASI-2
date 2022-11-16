@@ -1,4 +1,4 @@
-package microservice.user.dto;
+package microservice.transaction.rest.user;
 
 public class UserDTO {
 	private Integer id_user;
@@ -41,12 +41,6 @@ public class UserDTO {
 	public Double getMoney() {
 		return money;
 	}
-	@Override
-	public String toString() {
-		return "UserDTO [id_user=" + id_user + ", isAdmin=" + isAdmin + ", money=" + money + ", surname=" + surname
-				+ ", name=" + name + ", mail=" + mail + "]";
-	}
-
 	public void setMoney(Double money) {
 		this.money = money;
 	}
@@ -69,7 +63,9 @@ public class UserDTO {
 		this.mail = mail;
 	}
 	
-	
-	
-
+	@Override
+	public String toString() {
+		return "UserDTO [id_user=" + id_user + ", isAdmin=" + isAdmin + ", money=" + money + ", surname=" + surname
+				+ ", name=" + name + ", mail=" + mail + "]";
+	}
 }
