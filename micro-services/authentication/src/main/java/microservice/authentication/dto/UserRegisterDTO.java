@@ -1,6 +1,9 @@
 package microservice.authentication.dto;
 
-public class UserRegisterDTO {
+import java.io.Serializable;
+
+public class UserRegisterDTO implements Serializable{
+	private static final long serialVersionUID = 8099261266061662076L;
 	private Integer id_user;
 	private Boolean isAdmin;
 	private Double money;
