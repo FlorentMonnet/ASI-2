@@ -65,7 +65,7 @@ function App() {
                 />
                 <Route
                     exact
-                    path="/play"
+                    path="/selectCard"
                     element={
                         <>
                             <Header
@@ -76,6 +76,22 @@ function App() {
                                 subTitle={Config.HEADER_CONFIG.play.subTitle}
                             />{' '}
                             <SelectCardForGame />
+                        </>
+                    }
+                />
+                <Route
+                    exact
+                    path="/play"
+                    element={
+                        <>
+                            <Header
+                                iconHeader={
+                                    Config.HEADER_CONFIG.play.iconHeader
+                                }
+                                title={Config.HEADER_CONFIG.play.title}
+                                subTitle={Config.HEADER_CONFIG.play.subTitle}
+                            />{' '}
+                            <GameZone />
                         </>
                     }
                 />

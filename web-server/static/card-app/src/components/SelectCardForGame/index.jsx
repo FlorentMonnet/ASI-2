@@ -32,7 +32,7 @@ function SelectCardForGame() {
 
     function goToGame() {
         if (cardListToPlay.length === 4) {
-            navigate('/');
+            navigate('/play');
         } else {
             alert('Select 4 card');
         }

@@ -19,7 +19,7 @@ function Home() {
         },
         {
             id: 3,
-            links: '/play',
+            links: '/selectCard',
             icon: 'gamepad',
             label: 'Play',
             classElem: 'bottom-line-btn',
