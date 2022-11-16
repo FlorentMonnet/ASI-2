@@ -76,6 +76,7 @@ function ChatList(props) {
     return (
         <div>
             <select id="dropdown" onChange={selectedUser} className="ui dropdown">
+                <option value="">Choose a user</option>
                 {users.map((user) => (
                     <ChatListItem
                         key={user.id}
