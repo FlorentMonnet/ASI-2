@@ -7,6 +7,7 @@ import Error from './components/Error';
 import CardList from './components/CardList';
 import Register from './components/Register';
 import Login from './components/Login';
+import {Chat} from "./components/Chat/Chat";
 
 import Config from './config';
 
@@ -70,7 +71,7 @@ function App() {
                                 title={Config.HEADER_CONFIG.play.title}
                                 subTitle={Config.HEADER_CONFIG.play.subTitle}
                             />{' '}
-                            <Home />
+                            <Chat/>
                         </>
                     }
                 />
