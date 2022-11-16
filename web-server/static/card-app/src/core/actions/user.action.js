@@ -14,7 +14,6 @@ export const userInit = (users) => {
 };
 
 export const connectUserAction = (user) => {
-    console.log(user);
     return {
         type: UserActions.CONNECT,
         payload: {
@@ -24,11 +23,13 @@ export const connectUserAction = (user) => {
 };
 
 export const setSelectedUser = (user) => {
-    console.log(user);
+    console.log("In Action: " + user)
+
     return {
         type: UserActions.SELECTED,
         payload: {
             user,
         },
     };
+
 };
