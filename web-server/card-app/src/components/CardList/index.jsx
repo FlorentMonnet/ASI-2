@@ -21,19 +21,20 @@ function CardList(props) {
 
     useEffect(() => {
         let urlToFetch =
-            mode === 'sell'
+            mode === Config.MODE.SELL
                 ? Config.API_PATH + 'cards'
                 : Config.API_PATH + 'cards';
         fetch(urlToFetch)
             .then((response) => response.json())
             .then((json) => {
-                mode === 'sell'
+                mode === Config.MODE.SELL
                     ? dispatch(userCardsToSell(json))
                     : dispatch(cardInit(json));
             });
     }, []);
 
-    let cardsList = mode === 'sell' ? cardsListToSell : cardsListToBuy;
+    let cardsList =
+        mode === Config.MODE.SELL ? cardsListToSell : cardsListToBuy;
 
     return (
         <div className="ui grid">

@@ -43,7 +43,7 @@ function App() {
                                 title={Config.HEADER_CONFIG.buy.title}
                                 subTitle={Config.HEADER_CONFIG.buy.subTitle}
                             />{' '}
-                            <CardList mode="buy" />
+                            <CardList mode={Config.MODE.BUY} />
                         </>
                     }
                 />
@@ -59,7 +59,7 @@ function App() {
                                 title={Config.HEADER_CONFIG.sell.title}
                                 subTitle={Config.HEADER_CONFIG.sell.subTitle}
                             />{' '}
-                            <CardList mode="sell" />
+                            <CardList mode={Config.MODE.SELL} />
                         </>
                     }
                 />

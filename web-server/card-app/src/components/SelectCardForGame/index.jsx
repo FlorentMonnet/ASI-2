@@ -49,7 +49,7 @@ function SelectCardForGame() {
                                     card={card}
                                     display="short"
                                     key={card.id}
-                                    mode="Game"
+                                    mode={Config.MODE.SELECT_CARD}
                                 />
                             </div>
                         );

@@ -18,6 +18,15 @@ const myConstClass = {
             subTitle: 'Buy card',
         },
     },
+    MODE: {
+        BUY: 'buy',
+        SELL: 'sell',
+        GAME: 'Game',
+        SELECT_CARD: 'selectCardGame',
+        GAME_ZONE: 'GameZone',
+        GAME_ADVERSE: 'GameAdverse',
+        HEADER: 'Header',
+    },
 };
 
 export default myConstClass;

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectorUserConnected } from '../../core/selectors/user.selector';
 import User from '../User/Index';
+import Config from '../../config';
 
 function Header(props) {
     const { iconHeader, title, subTitle } = props;
@@ -11,7 +12,7 @@ function Header(props) {
         <>
             <div className="ui clearing segment">
                 <h3 className="ui right floated header">
-                    {<User mode="Header" user={user} />}
+                    {<User mode={Config.MODE.HEADER} user={user} />}
                 </h3>
 
                 <Link className="ui left floated header" to="/">
