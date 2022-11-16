@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import microservice.transaction.entity.Transaction;
@@ -19,7 +20,9 @@ import microservice.transaction.rest.user.UserRestClient;
 
 @Service
 public class TransactionService {
+	@Autowired
 	private CardRestClient cardService = new CardRestClient();
+	@Autowired
 	private UserRestClient userService= new UserRestClient();
 	private final TransactionRepository storeRepository;
 
