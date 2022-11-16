@@ -1,4 +1,6 @@
-export const userConnected = (state) => state.userConnected;
+export const selectorUserConnected = (state) => state.userConnected;
+
+export const selectorAdverseUser = (state) => state.userConnected;
 
 export const selectUser = (state) => state.userSelected;
 
