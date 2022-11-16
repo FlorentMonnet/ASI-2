@@ -56,7 +56,7 @@ function SelectCardForGame() {
                     })}
                 </div>
             </div>
-            <div className="ui segment">
+            <div className="ui segment center aligned">
                 <button
                     className="ui inverted teal button"
                     onClick={() => goToGame()}

@@ -31,7 +31,7 @@ function CardList(props) {
                     ? dispatch(userCardsToSell(json))
                     : dispatch(cardInit(json));
             });
-    }, [dispatch, mode]);
+    }, []);
 
     let cardsList = mode === 'sell' ? cardsListToSell : cardsListToBuy;
 
