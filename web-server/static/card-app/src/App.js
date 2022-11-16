@@ -1,4 +1,6 @@
 import './App.css';
+import 'semantic-ui-css/semantic.min.css';
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Home from './components/Home';
@@ -7,6 +9,7 @@ import Error from './components/Error';
 import CardList from './components/CardList';
 import Register from './components/Register';
 import Login from './components/Login';
+import Chat from './components/Chat/Chat';
 
 import Config from './config';
 import GameZone from './components/GameZone';

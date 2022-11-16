@@ -14,6 +14,5 @@ public class Receiver {
     @JmsListener(destination = "${authentication-queue-receiver}")
     public void receiveMessage(UserRegisterDTO user) {
         UserRegisterDTO newPersonne = new UserRegisterDTO(user.getIsAdmin(), user.getMoney(), user.getSurname(), user.getName(), user.getPassword(), user.getMail());
-        sender.sendMessage(newPersonne);
     }
 }

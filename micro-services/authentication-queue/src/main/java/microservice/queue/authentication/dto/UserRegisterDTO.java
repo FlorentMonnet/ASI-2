@@ -1,6 +1,9 @@
 package microservice.queue.authentication.dto;
 
-public class UserRegisterDTO {
+import java.io.Serializable;
+
+public class UserRegisterDTO implements Serializable {
+	private static final long serialVersionUID = 1195508466145497218L;
 	private Integer id_user;
 	private Boolean isAdmin;
 	private Double money;
@@ -74,5 +77,11 @@ public class UserRegisterDTO {
 	public UserRegisterDTO setMail(String mail) {
 		this.mail = mail;
 		return this;
+	}
+
+	@Override
+	public String toString() {
+		return "UserRegisterDTO [id_user=" + id_user + ", isAdmin=" + isAdmin + ", money=" + money + ", surname="
+				+ surname + ", name=" + name + ", password=" + password + ", mail=" + mail + "]";
 	}
 }

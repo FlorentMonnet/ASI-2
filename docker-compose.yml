@@ -130,7 +130,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     networks:
       - shared-network
-      
+
   springboot-auth:
     container_name: springboot-auth
     build: 
@@ -145,7 +145,8 @@ services:
     image:
       rmohr/activemq:5.15.9
     ports:
-      - 8161:8161 
+      - 8161:8161
+      - 61616:61616
     networks:
       - shared-network
      

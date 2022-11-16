@@ -5,8 +5,10 @@ const initStateValue = {
     cards: [],
     cardsToSell: [],
     cardSelected: {},
+    users: [],
     userConnected: null,
     cardToPlay: [],
+    userSelected: null,
 };
 
 export const rootReducer = (state = initStateValue, action) => {
@@ -17,12 +19,22 @@ export const rootReducer = (state = initStateValue, action) => {
             cards: action.payload.cards,
         };
     }
+
     if (action.type === CardsActions.SELECT_CARD) {
         return {
             ...state,
             cardSelected: action.payload.cardSelected,
         };
     }
+
+    if (action.type === CardsActions.INIT_CARD_TO_SELL) {
+        // console.log(action.payload.cardsToSell);
+        return {
+            ...state,
+            cardsToSell: action.payload.cardsToSell,
+        };
+    }
+
     if (action.type === UserActions.CONNECT) {
         delete action.payload.user.pwd;
         return {
@@ -31,10 +43,19 @@ export const rootReducer = (state = initStateValue, action) => {
         };
     }
 
-    if (action.type === CardsActions.INIT_CARD_TO_SELL) {
+    if (action.type === UserActions.SELECTED) {
+        console.log('In Reducer: ' + action.payload.user);
         return {
             ...state,
-            cardsToSell: action.payload.cardsToSell,
+            userSelected: action.payload.user,
+        };
+    }
+
+    if (action.type === UserActions.INIT_USERS) {
+        // console.log('Store : { payload : ' + action.payload.users + ', type : ' + action.type + '}');
+        return {
+            ...state,
+            users: action.payload.users,
         };
     }
 
