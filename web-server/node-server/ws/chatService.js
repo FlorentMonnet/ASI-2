@@ -1,5 +1,7 @@
-const Config = require('../config');
-// import io from '../index'
+const {Config} = require('../config');
+const socketServerUtil = require('../socketServer');
+
+const socketServer = socketServerUtil.getServer();
 
 const connection = (socket) => {
     // const functionAAppeler = ({ cards }) => {
@@ -11,8 +13,10 @@ const connection = (socket) => {
     };
 
     // socket.on(ENUM.nomchannel, functionAAppeler)
-    // socket.on(Config.SOCKET_EVENT.CHAT_MESSAGE, receivedMessage)
-};
+    socket.on(Config.SOCKET_EVENT.CHAT_MESSAGE, receivedMessage)
+}
+
+socketServer.on(Config.SOCKET_EVENT.CONNECT, connection);
 
 // io.on("connection", (socket) => {
 //     console.log(socket.id); // ojIckSD2jqNzOqIrAGzL
