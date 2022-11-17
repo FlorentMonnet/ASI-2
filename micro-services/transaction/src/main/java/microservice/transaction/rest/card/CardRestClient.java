@@ -3,14 +3,18 @@ package microservice.transaction.rest.card;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import microservice.transaction.rest.user.UserDTO;
 
+@Component
 public class CardRestClient implements CardRest{
 	
-	private static final String URL_PUBLIC = "http://reverse-proxy:80/api/card-microservice/cards"; 
+	private static final String URL_PUBLIC = "http://reverse-proxy:80/api/card-microservice/card"; 
 
 	public CardRestClient() {
 	}
@@ -43,10 +47,11 @@ public class CardRestClient implements CardRest{
 	}
 	
 	@Override
-	public void updateCard(CardDTO dto) {
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.postForObject(URL_PUBLIC + "/update", dto, ResponseEntity.class);
-		
+	public CardDTO updateCard(CardDTO dto) {
+		System.out.println(dto.toString());
+		RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+		restTemplate.exchange(URL_PUBLIC + "/" + dto.getId(), HttpMethod.PATCH, new HttpEntity<CardDTO>(dto), CardDTO.class);
+		return dto;
 	}
 
 }
