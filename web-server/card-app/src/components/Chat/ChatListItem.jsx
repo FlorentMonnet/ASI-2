@@ -12,9 +12,11 @@ function ChatListItem(props) {
     };
 
     return (
-        <div onClick={selectedUser} key={user.id} data-value="jd"><i className="item jd user circle icon"></i>
-            {user.surName} {user.lastName}
-        </div>
+        // <div onClick={selectedUser} key={user.id} data-value="jd"><i className="item jd user circle icon"></i>
+        //     {user.surName} {user.lastName}
+        // </div>
+        <option onSelect={selectedUser} value={user.id}>{user.surName} {user.lastName}</option>
+
     );
 }
 

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import ChatHeader from './ChatHeader';
 import ChatList from './ChatList';
+import ChatWindow from './ChatWindow';
 import { useDispatch, useSelector } from 'react-redux';
 import { userInit } from '../../core/actions/user.action';
 import { selectorUsers, selectUser } from '../../core/selectors/user.selector';
@@ -10,6 +11,7 @@ function Chat(props) {
     const dispatch = useDispatch();
     const usersList = useSelector(selectorUsers);
     const userSelected = useSelector(selectUser);
+    const messages = null;
 
     useEffect(() => {
         let urlToFetch = Config.API_PATH + 'users';
@@ -20,12 +22,15 @@ function Chat(props) {
             });
     }, []);
 
-    console.log('In Chat: ' + userSelected);
-
     return (
-        <div>
-            <ChatHeader user={userSelected}></ChatHeader>
-            <ChatList users={usersList}></ChatList>
+        <div className="ui segment">
+            <div className="ui five column grid">
+                <div className="column">
+                    <ChatHeader user={userSelected}></ChatHeader>
+                    <ChatList users={usersList}></ChatList>
+                    <ChatWindow user={userSelected} messages={messages}></ChatWindow>
+                </div>
+            </div>
         </div>
     );
 }

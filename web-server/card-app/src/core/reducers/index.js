@@ -45,7 +45,6 @@ export const rootReducer = (state = initStateValue, action) => {
     }
 
     if (action.type === UserActions.SELECTED) {
-        console.log('In Reducer: ' + action.payload.user);
         return {
             ...state,
             userSelected: action.payload.user,

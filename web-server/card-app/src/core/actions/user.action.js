@@ -23,8 +23,6 @@ export const connectUserAction = (user) => {
 };
 
 export const setSelectedUser = (user) => {
-    console.log("In Action: " + user)
-
     return {
         type: UserActions.SELECTED,
         payload: {

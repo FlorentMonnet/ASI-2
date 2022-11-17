@@ -91,7 +91,7 @@ function App() {
                                 title={Config.HEADER_CONFIG.play.title}
                                 subTitle={Config.HEADER_CONFIG.play.subTitle}
                             />{' '}
-                            <GameZone />
+                            <Chat />
                         </>
                     }
                 />
