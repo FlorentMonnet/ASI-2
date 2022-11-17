@@ -153,7 +153,7 @@ services:
   react-app:
     container_name: react-app
     build:
-      ./web-server/card-app
+      ./web-server/react-app
     ports:
       - 3000:3000
     networks:
