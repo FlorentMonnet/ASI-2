@@ -3,6 +3,7 @@ const myConstClass = {
     SOCKET_PATH: 'http://localhost:3001',
     SOCKET_EVENT: {
         CONNECT: 'connect',
+        ADD_WAITING_LIST: 'addOnWaitingList',
     },
 };
 export default myConstClass;
