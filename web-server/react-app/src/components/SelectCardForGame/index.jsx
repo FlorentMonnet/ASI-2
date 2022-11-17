@@ -36,7 +36,8 @@ function SelectCardForGame() {
     function goToGame() {
         if (cardListToPlay.length === 4) {
             //navigate('/play');
-            gameService.addOnWaitingList(user.id);
+            console.log(user);
+            gameService.addOnWaitingList(JSON.stringify(user));
         } else {
             alert('Select 4 card');
         }

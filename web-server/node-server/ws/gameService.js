@@ -6,17 +6,18 @@ const socketServer = socketServerUtil.getServer();
 let userOnWaitingList = [];
 
 const connection = (socket) => {
-    const addOnWaitingList = ({ User }) => {
-        if (userOnWaitingList.length >= 1) {
+    const addOnWaitingList = (user) => {
+        console.log(user);
+        if (userOnWaitingList.length === 0) {
+            console.log('User is added to waiting list');
+            userOnWaitingList.push(user);
+        } else {
             console.log(userOnWaitingList.length);
             console.log(userOnWaitingList);
             let opponent = userOnWaitingList.shift();
             console.log('sdfs' + opponent);
             console.log(userOnWaitingList);
             socket.emit(Config.SOCKET_EVENT.OPPONENT_FOUND, opponent);
-        } else {
-            console.log('User is added');
-            userOnWaitingList.push(User);
         }
     };
 
