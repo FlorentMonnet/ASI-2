@@ -1,13 +1,13 @@
 import Config from '../../config';
 import { socket } from './index';
 
-socket.on('eventName', (myVar) => {
-    //code
+socket.on(Config.SOCKET_EVENT.OPPONENT_FOUND, (userIdFound) => {
+    alert('Opponent found ' + userIdFound);
 });
 
-const myService = {
-    functionName() {
-        socket.emit('oishs');
+const gameService = {
+    addOnWaitingList(user) {
+        socket.emit(Config.SOCKET_EVENT.ADD_WAITING_LIST, user);
     },
 };
-export default myService;
+export default gameService;

@@ -30,6 +30,8 @@ const myConstClass = {
     },
     SOCKET_EVENT: {
         CONNECT: 'connect',
+        ADD_WAITING_LIST: 'addOnWaitingList',
+        OPPONENT_FOUND: 'opponentFound',
     },
 };
 

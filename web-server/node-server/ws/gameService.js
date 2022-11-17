@@ -5,8 +5,10 @@ var userOnWaitingList = [];
 const connection = (socket) => {
     const addOnWaitingList = ({ User }) => {
         if (userOnWaitingList.length > 0) {
-            console.log(userOnWaitingList.shift());
+            let opponent = userOnWaitingList.shift();
+            console.log(opponent);
             console.log(userOnWaitingList);
+            socket.emit(Config.SOCKET_EVENT.OPPONENT_FOUND, opponent);
         } else {
             userOnWaitingList.push(User);
         }
