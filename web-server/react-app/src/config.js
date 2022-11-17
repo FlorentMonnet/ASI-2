@@ -28,6 +28,9 @@ const myConstClass = {
         GAME_ADVERSE: 'GameAdverse',
         HEADER: 'Header',
     },
+    SOCKET_EVENT: {
+        CONNECT: 'connect',
+    },
 };
 
 export default myConstClass;
