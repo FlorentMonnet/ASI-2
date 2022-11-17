@@ -7,9 +7,9 @@ const connection = (socket) => {
     //     blabla
     // }
     const receivedMessage = () => {
-        console.log("emitting message: " + msg);
+        console.log('emitting message: ' + msg);
         io.emit('chat message', msg);
-    }
+    };
 
     // socket.on(ENUM.nomchannel, functionAAppeler)
     socket.on(Config.SOCKET_EVENT.CHAT_MESSAGE, receivedMessage)

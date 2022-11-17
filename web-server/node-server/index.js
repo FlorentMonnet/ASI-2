@@ -1,12 +1,8 @@
 const app = require('express')();
 const http = require('http').createServer(app);
+const socketServerUtil = require('./socketServer');
 
-const io = require('socket.io')(http, {
-    cors: {
-        origin: '*',
-        methods: ['GET', 'POST'],
-    },
-});
+socketServerUtil.init(http);
 
 const port = process.env.PORT || 3001;
 
@@ -17,7 +13,3 @@ const userService = require('./ws/userService');
 http.listen(port, () => {
     console.log(`Socket.IO server running at http://localhost:${port}/`);
 });
-
-module.exports = {
-    io,
-};
