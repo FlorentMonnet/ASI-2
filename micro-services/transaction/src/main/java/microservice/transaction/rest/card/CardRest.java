@@ -10,5 +10,5 @@ public interface CardRest {
 	public Optional<CardDTO> getCardbById(Integer id_card);
 	public List<CardDTO> getCardsbByIdFamily(Integer id_family);
 	public void createCard(CardDTO dto);
-	public void updateCard(CardDTO dto);
+	public CardDTO updateCard(CardDTO dto);
 }

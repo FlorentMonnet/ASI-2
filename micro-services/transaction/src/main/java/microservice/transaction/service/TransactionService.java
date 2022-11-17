@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import microservice.transaction.entity.Transaction;
@@ -19,7 +20,9 @@ import microservice.transaction.rest.user.UserRestClient;
 
 @Service
 public class TransactionService {
+	@Autowired
 	private CardRestClient cardService = new CardRestClient();
+	@Autowired
 	private UserRestClient userService= new UserRestClient();
 	private final TransactionRepository storeRepository;
 
@@ -44,14 +47,14 @@ public class TransactionService {
 		}
 		UserDTO u = u_option.get();
 		CardDTO c = c_option.get();
+		System.out.println(u.toString());
 		if (u.getMoney() > c.getPrice()) {
-			
-			// Mise à jour de l'argent de l'acheteur
-			u.setMoney(u.getMoney() - c.getPrice());
-			userService.updateUser(u);
 			// Mise à jour de l'id_user de la card
 			c.setId_user(u.getId_user());
 			cardService.updateCard(c);
+			// Mise à jour de l'argent de l'acheteur
+			u.setMoney(u.getMoney() - c.getPrice());
+			userService.updateUser(u);
 			// Création d'un transaction de type BUY
 			Transaction sT = new Transaction(user_id, card_id, TransactionAction.BUY);
 			storeRepository.save(sT);
@@ -83,6 +86,8 @@ public class TransactionService {
 		}
 		UserDTO u = u_option.get();
 		CardDTO c = c_option.get();
+		
+
 
 		// Mise à null de l'id_user de la Card
 		c.setId_user(null);

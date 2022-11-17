@@ -79,4 +79,12 @@ public class CardDTO {
 	public void setId_user(Integer id_user) {
 		this.id_user = id_user;
 	}
+
+	@Override
+	public String toString() {
+		return "CardDTO [id=" + id + ", energy=" + energy + ", hp=" + hp + ", defense=" + defense + ", attack=" + attack
+				+ ", price=" + price + ", id_user=" + id_user + "]";
+	}
+	
+	
 }
