@@ -32,6 +32,7 @@ const myConstClass = {
         CONNECT: 'connect',
         ADD_WAITING_LIST: 'addOnWaitingList',
         OPPONENT_FOUND: 'opponentFound',
+        CHAT_MESSAGE: 'chatMessage',
     },
 };
 

@@ -1,4 +1,4 @@
-const Config = require('../config');
+const {Config} = require('../config');
 const io = require('../index');
 // import io from '../index'
 
@@ -12,8 +12,10 @@ const connection = (socket) => {
     }
 
     // socket.on(ENUM.nomchannel, functionAAppeler)
-    // socket.on(Config.SOCKET_EVENT.CHAT_MESSAGE, receivedMessage)
+    socket.on(Config.SOCKET_EVENT.CHAT_MESSAGE, receivedMessage)
 }
+
+io.on(Config.SOCKET_EVENT.CONNECT, connection);
 
 // io.on("connection", (socket) => {
 //     console.log(socket.id); // ojIckSD2jqNzOqIrAGzL

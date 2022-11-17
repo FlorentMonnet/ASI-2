@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import Config from '../../config';
-
+import chatService from '../../ws/chatService';
 function ChatWindow(props) {
 
     const { user } = props;
@@ -14,19 +14,11 @@ function ChatWindow(props) {
 
         if (input) {
             if (input.value) {
-                socket.emit('chat message', input.value);
+                chatService.emitMessage(input.value);
+                // socket.emit('chat message', input.value);
                 input.value = '';
             }
         }
-
-        socket.on('chat message', function (msg) {
-            var current_date = new Date();
-            var hh = String(current_date.getHours()).padStart(2, '0');
-            var mm = String(current_date.getMinutes() + 1).padStart(2, '0');
-            var ss = String(current_date.getSeconds() + 1).padStart(2, '0');
-            current_date = hh + ':' + mm + ':' + ss;
-            setMessages([...messages, [msg, current_date, socket.id]])
-        });
     }
 
     return (
