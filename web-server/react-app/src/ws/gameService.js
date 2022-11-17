@@ -1,4 +1,4 @@
-import Config from '../../config';
+import Config from '../config';
 import { socket } from './index';
 
 socket.on(Config.SOCKET_EVENT.OPPONENT_FOUND, (userIdFound) => {
