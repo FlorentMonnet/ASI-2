@@ -9,7 +9,7 @@ public class CardDTO {
 		private float attack;
 		private float price;
 		private Integer id_user;
-		
+		private Integer id_card_reference;
 		
 		public CardDTO() {
 			super();
@@ -80,4 +80,13 @@ public class CardDTO {
 		public void setId_user(Integer id_user) {
 			this.id_user = id_user;
 		}
+
+		public Integer getId_card_reference() {
+			return id_card_reference;
+		}
+
+		public void setId_card_reference(Integer id_card_reference) {
+			this.id_card_reference = id_card_reference;
+		}
 }
+		

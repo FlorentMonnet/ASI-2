@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.ForeignKey;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +28,9 @@ public class Card {
 		@Column(name="id_user")
 		private Integer user;
 		
+		@ManyToOne
+	    @JoinColumn(name="id_card_reference", nullable=false, foreignKey=@ForeignKey(name = "fk_card_card_reference_id"))
+		private CardReference cardReference;
 		public Card() {		
 		}
 		
@@ -83,10 +89,12 @@ public class Card {
 		public void setId_user(Integer id_user) {
 			this.user = id_user;
 		}
+		
+		public CardReference getCardReference() {
+			return cardReference;
+		}
 
-		@Override
-		public String toString() {
-			return "Card [id_card=" + id_card + ", energy=" + energy + ", hp=" + hp + ", defense=" + defense
-					+ ", attack=" + attack + ", price=" + price + ", id_user=" + user + "]";
-		}		
+		public void setCardReference(CardReference cardReference) {
+			this.cardReference = cardReference;
+		}	
 }
