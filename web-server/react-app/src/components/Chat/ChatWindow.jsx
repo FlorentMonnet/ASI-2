@@ -10,14 +10,7 @@ function ChatWindow(props) {
 
     const sendMessage = () => {
         var input = document.getElementById('message_input');
-        const io = require("socket.io-client");
 
-        const socket = io(Config.SOCKET_PATH, {
-            cors: {
-                origin: Config.SOCKET_PATH,
-                methods: ["GET", "POST"],
-            }
-        });
 
         if (input) {
             if (input.value) {
