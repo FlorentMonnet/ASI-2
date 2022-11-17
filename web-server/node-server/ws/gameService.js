@@ -1,4 +1,5 @@
-import Config from '../config';
+// import Config from '../config';
+const Config = require('../config');
 
 var userOnWaitingList = [];
 

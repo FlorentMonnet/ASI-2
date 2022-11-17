@@ -1,9 +1,13 @@
-const myConstClass = {
+const Config = {
     API_PATH: 'https://asi2-backend-market.herokuapp.com/',
     SOCKET_PATH: 'http://localhost:3001',
     SOCKET_EVENT: {
         CONNECT: 'connect',
         ADD_WAITING_LIST: 'addOnWaitingList',
+        CHAT_MESSAGE: 'chatMessage',
     },
 };
-export default myConstClass;
+
+module.exports = {
+    Config
+}
