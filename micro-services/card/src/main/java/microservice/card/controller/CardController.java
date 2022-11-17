@@ -61,7 +61,7 @@ public class CardController {
 	}
 	
 	@DeleteMapping("/card/{id}")
-	public void deleteUser(@PathVariable Integer id) {
+	public void deleteCard(@PathVariable Integer id) {
 		cardService.deleteCardModel(id);
 	}
 	

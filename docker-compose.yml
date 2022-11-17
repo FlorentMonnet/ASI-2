@@ -75,14 +75,6 @@ services:
     networks:
       - shared-network
 
-  #web-server:
-    #container_name: web-server
-    #build: ./web-server
-    #ports:
-    #  - 8080:80
-    #networks:
-    #  - shared-network
-
   springboot-user:
     container_name: springboot-user
     build: 
