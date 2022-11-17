@@ -12,14 +12,13 @@ const io = require("socket.io")(http, {
 
 const port = process.env.PORT || 3001;
 
-// app.get('/', (req, res) => {
-//     res.sendFile(__dirname + '/index.html');
-// });
+const gameService = require('./ws/gameService');
+const chatService = require('./ws/chatService');
+const userService = require('./ws/userService');
 
 io.on("connection", (socket) => {
     console.log(socket.id); // ojIckSD2jqNzOqIrAGzL
 });
-
 
 io.on('connection', (socket) => {
     socket.on('chat message', msg => {
