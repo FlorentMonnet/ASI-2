@@ -1,20 +1,28 @@
-
 function ChatHeader(props) {
-    const {user} = props;
-    console.log("In ChatHeader: " + user)
+    const { user } = props;
     return (
-        <div>
-            <h5 className="ui center aligned icon header">
-
-                <div id="test" >
-                    {user === null ? (
-                           "Adversaire"
-                           ) : <div>{user.surName} {user.lastName}</div>}
-                    <div>
-                        <i className="circular user icon"></i>
+        <div className="ui segment">
+            <div className="ui top attached label">
+                <div className="ui two column grid">
+                    <div className="column">Chat</div>
+                    <div className="column">
+                        <div className="ui two column grid">
+                            {user === null ? (
+                                <div className="column">
+                                'Adversaire'
+                                </div>
+                            ) : (
+                                <div className="column">
+                                    {user.surName} {user.lastName}
+                                </div>
+                            )}
+                            <div className="column">
+                                <i className="user circle icon"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </h5>
+            </div>
         </div>
     );
 }
