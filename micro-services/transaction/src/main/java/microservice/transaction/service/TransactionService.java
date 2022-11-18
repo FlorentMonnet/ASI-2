@@ -21,26 +21,26 @@ import microservice.transaction.service.queue.TransactionSenderQueueService;
 
 @Service
 public class TransactionService {
+	
 	@Autowired
-	private CardRestClient cardService = new CardRestClient();
+	private CardRestClient cardRestClient;
+	
 	@Autowired
-	private UserRestClient userService= new UserRestClient();
+	private UserRestClient userRestClient;
+	
 	@Autowired
-	private final TransactionRepository storeRepository;
+	private TransactionRepository storeRepository;
 	
 	@Autowired
 	private TransactionSenderQueueService transactionSenderQueueService;
 
 
-	public TransactionService(CardRestClient cardService,  UserRestClient userService,TransactionRepository storeRepository) {
-		this.cardService = cardService;
-		this.userService = userService;
-		this.storeRepository = storeRepository;
+	public TransactionService() {
 	}
 
 	public HttpServletResponse buyCard(Integer user_id, Integer card_id, HttpServletResponse response) {
-		Optional<UserDTO> u_option = userService.getUserById(user_id);
-		Optional<CardDTO> c_option = cardService.getCardbById(card_id);
+		Optional<UserDTO> u_option = userRestClient.getUserById(user_id);
+		Optional<CardDTO> c_option = cardRestClient.getCardbById(card_id);
 		if (!u_option.isPresent() || !c_option.isPresent()) {
 			try {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND, "User or Card not found");
@@ -53,16 +53,16 @@ public class TransactionService {
 		}
 		UserDTO u = u_option.get();
 		CardDTO c = c_option.get();
-		Transaction transaction = new Transaction(user_id, card_id, TransactionAction.BUY,new Datetime(),false,false);
+		Transaction transaction = new Transaction(user_id, card_id, TransactionAction.BUY,false,false);
 		this.addTransactionToCreationQueue(transaction);
 		System.out.println(u.toString());
 		if (u.getMoney() > c.getPrice()) {
 			// Mise à jour de l'id_user de la card
 			c.setId_user(u.getId_user());
-			cardService.updateCard(c);
+			cardRestClient.updateCard(c);
 			// Mise à jour de l'argent de l'acheteur
 			u.setMoney(u.getMoney() - c.getPrice());
-			userService.updateUser(u);
+			userRestClient.updateUser(u);
 			return null;
 		} else {
 			try {
@@ -78,8 +78,8 @@ public class TransactionService {
 	}
 
 	public HttpServletResponse sellCard(Integer user_id, Integer card_id, HttpServletResponse response) {
-		Optional<UserDTO> u_option = userService.getUserById(user_id);
-		Optional<CardDTO> c_option = cardService.getCardbById(card_id);
+		Optional<UserDTO> u_option = userRestClient.getUserById(user_id);
+		Optional<CardDTO> c_option = cardRestClient.getCardbById(card_id);
 		if (!u_option.isPresent() || !c_option.isPresent()) {
 			try {
 				response.sendError(HttpServletResponse.SC_NOT_FOUND, "User or Card not found");
@@ -96,14 +96,14 @@ public class TransactionService {
 
 		// Mise à null de l'id_user de la Card
 		c.setId_user(null);
-		cardService.updateCard(c);
+		cardRestClient.updateCard(c);
 		
 		// Mise à jour de l'argent de l'utilisateur
 		u.setMoney(u.getMoney() + c.getPrice());
-		userService.updateUser(u);
+		userRestClient.updateUser(u);
 		
 		// Création d'un transaction de type SELL
-		Transaction sT = new Transaction(user_id, card_id, TransactionAction.SELL);
+		Transaction sT = new Transaction(user_id, card_id, TransactionAction.SELL,false,false);
 		storeRepository.save(sT);
 		
 		return null;

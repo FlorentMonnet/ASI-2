@@ -25,10 +25,9 @@ public class Transaction {
 		this.timeSt=new Timestamp(System.currentTimeMillis());
 	}
 
-	public Transaction(Integer id, Integer userId, Integer cardId, TransactionAction action,
+	public Transaction(Integer userId, Integer cardId, TransactionAction action,
 			boolean isUserOk, boolean isCardOk) {
 		super();
-		this.id = id;
 		this.userId = userId;
 		this.cardId = cardId;
 		this.action = action;

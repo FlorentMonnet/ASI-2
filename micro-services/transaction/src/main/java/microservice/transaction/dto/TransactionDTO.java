@@ -60,7 +60,7 @@ public class TransactionDTO {
 		this.timeSt = timeSt;
 	}
 
-	public boolean getIsUserOk() {
+	public boolean isUserOk() {
 		return isUserOk;
 	}
 
@@ -68,7 +68,7 @@ public class TransactionDTO {
 		this.isUserOk = isUserOk;
 	}
 
-	public boolean getIsCardOk() {
+	public boolean isCardOk() {
 		return isCardOk;
 	}
 
