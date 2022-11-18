@@ -13,13 +13,13 @@ public class CardReceiverQueueService {
 	CardService cardService;
 	
 	@JmsListener(destination = "createCard", containerFactory = "connectionFactory")
-	public void receiveCreationUser(Card card) {
+	public void receiveCreationCard(Card card) {
 	  System.out.println("<Received in creation queue <" + card.toString() + ">");
 	  cardService.addCard(card);
 	}
 
 	@JmsListener(destination = "updateCard", containerFactory = "connectionFactory")
-	public void receiveUpdateUser(Card card) {
+	public void receiveUpdateCard(Card card) {
 	  System.out.println("<Received in update queue <" + card.toString() + ">");
 	  cardService.updateCard(card);
 	}

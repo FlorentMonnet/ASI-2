@@ -53,9 +53,4 @@ public class CardService {
 	public List<Card> getAllCardToSell(){
 		return cardRepository.findByUser(null);
 	}
-
-
-
-
-
 }
