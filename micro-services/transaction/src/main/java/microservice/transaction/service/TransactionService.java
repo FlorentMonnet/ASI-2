@@ -17,6 +17,7 @@ import microservice.transaction.rest.card.CardDTO;
 import microservice.transaction.rest.card.CardRestClient;
 import microservice.transaction.rest.user.UserDTO;
 import microservice.transaction.rest.user.UserRestClient;
+import microservice.transaction.service.queue.TransactionSenderQueueService;
 
 @Service
 public class TransactionService {
@@ -24,7 +25,12 @@ public class TransactionService {
 	private CardRestClient cardService = new CardRestClient();
 	@Autowired
 	private UserRestClient userService= new UserRestClient();
+	@Autowired
 	private final TransactionRepository storeRepository;
+	
+	@Autowired
+	private TransactionSenderQueueService transactionSenderQueueService;
+
 
 	public TransactionService(CardRestClient cardService,  UserRestClient userService,TransactionRepository storeRepository) {
 		this.cardService = cardService;
@@ -47,6 +53,8 @@ public class TransactionService {
 		}
 		UserDTO u = u_option.get();
 		CardDTO c = c_option.get();
+		Transaction transaction = new Transaction(user_id, card_id, TransactionAction.BUY,new Datetime(),false,false);
+		this.addTransactionToCreationQueue(transaction);
 		System.out.println(u.toString());
 		if (u.getMoney() > c.getPrice()) {
 			// Mise à jour de l'id_user de la card
@@ -55,9 +63,6 @@ public class TransactionService {
 			// Mise à jour de l'argent de l'acheteur
 			u.setMoney(u.getMoney() - c.getPrice());
 			userService.updateUser(u);
-			// Création d'un transaction de type BUY
-			Transaction sT = new Transaction(user_id, card_id, TransactionAction.BUY);
-			storeRepository.save(sT);
 			return null;
 		} else {
 			try {
@@ -109,5 +114,13 @@ public class TransactionService {
 		this.storeRepository.findAll().forEach(sTList::add);
 		return sTList;
 
+	}
+	
+	public void addTransactionToCreationQueue(Transaction transaction) {
+		transactionSenderQueueService.addTransactionToCreationQueue(transaction);
+	}
+	
+	public void addTransactionToUpdateQueue(Transaction transaction) {
+		transactionSenderQueueService.addTransactionToUpdateQueue(transaction);
 	}
 }

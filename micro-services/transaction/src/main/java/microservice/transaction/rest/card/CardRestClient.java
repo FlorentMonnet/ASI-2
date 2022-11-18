@@ -47,11 +47,10 @@ public class CardRestClient implements CardRest{
 	}
 	
 	@Override
-	public CardDTO updateCard(CardDTO dto) {
+	public void updateCard(CardDTO dto) {
 		System.out.println(dto.toString());
 		RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
 		restTemplate.exchange(URL_PUBLIC + "/" + dto.getId(), HttpMethod.PATCH, new HttpEntity<CardDTO>(dto), CardDTO.class);
-		return dto;
 	}
 
 }

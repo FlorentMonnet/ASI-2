@@ -18,17 +18,22 @@ public class Transaction {
 	private Integer cardId;
 	private TransactionAction action;
     private Timestamp timeSt;
+    private boolean isUserOk;
+    private boolean isCardOk;
 	
 	public Transaction() {
 		this.timeSt=new Timestamp(System.currentTimeMillis());
 	}
 
-	public Transaction( Integer userId, Integer cardId, TransactionAction action) {
+	public Transaction(Integer id, Integer userId, Integer cardId, TransactionAction action,
+			boolean isUserOk, boolean isCardOk) {
 		super();
+		this.id = id;
 		this.userId = userId;
 		this.cardId = cardId;
 		this.action = action;
-		this.timeSt=new Timestamp(System.currentTimeMillis());
+		this.isUserOk = isUserOk;
+		this.isCardOk = isCardOk;
 	}
 
 	public Integer getId() {
@@ -69,5 +74,21 @@ public class Transaction {
 
 	public void setTimeSt(Timestamp sqlTimestamp) {
 		this.timeSt = sqlTimestamp;
+	}
+
+	public boolean isUserOk() {
+		return isUserOk;
+	}
+
+	public void setUserOk(boolean isUserOk) {
+		this.isUserOk = isUserOk;
+	}
+
+	public boolean isCardOk() {
+		return isCardOk;
+	}
+
+	public void setCardOk(boolean isCardOk) {
+		this.isCardOk = isCardOk;
 	}
 }

@@ -7,11 +7,14 @@ public class TransactionMapper {
 
 	public static Transaction fromTransactionDTOToTransaction(TransactionDTO transactionDTO) {
 		Transaction transaction=new Transaction();
+		
 		transaction.setAction(transactionDTO.getAction());
 		transaction.setCardId(transactionDTO.getCardId());
 		transaction.setId(transactionDTO.getId());
 		transaction.setTimeSt(transactionDTO.getTimeSt());
 		transaction.setUserId(transactionDTO.getUserId());
+		transaction.setCardOk(transactionDTO());
+		
 		return transaction;
 	}
 	
