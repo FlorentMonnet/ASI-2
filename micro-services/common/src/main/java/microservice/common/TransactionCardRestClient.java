@@ -1,4 +1,4 @@
-package microservice.card.rest.transaction;
+package microservice.common;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;

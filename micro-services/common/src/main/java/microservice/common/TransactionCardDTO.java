@@ -1,5 +1,5 @@
-package microservice.card.rest.transaction;
-import microservice.card.dto.CardDTO;
+package microservice.common;
+
 
 public class TransactionCardDTO {
 	

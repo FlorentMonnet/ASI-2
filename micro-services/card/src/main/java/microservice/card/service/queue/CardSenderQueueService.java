@@ -5,7 +5,8 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import microservice.card.entity.Card;
-import microservice.card.rest.transaction.TransactionCardDTO;
+import microservice.common.TransactionCardDTO;
+
 
 
 @Service

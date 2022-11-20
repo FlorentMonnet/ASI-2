@@ -10,9 +10,10 @@ import org.springframework.stereotype.Service;
 import microservice.card.entity.Card;
 import microservice.card.mapper.CardMapper;
 import microservice.card.repository.CardRepository;
-import microservice.card.rest.transaction.TransactionCardDTO;
-import microservice.card.rest.transaction.TransactionCardRestClient;
+
 import microservice.card.service.queue.CardSenderQueueService;
+import microservice.common.TransactionCardDTO;
+import microservice.common.TransactionCardRestClient;
 
 @Service
 public class CardService {

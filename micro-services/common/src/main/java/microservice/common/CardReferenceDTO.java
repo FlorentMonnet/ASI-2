@@ -1,4 +1,4 @@
-package microservice.card.dto;
+package microservice.common;
 
 public class CardReferenceDTO {
 	private Integer id_card_reference;

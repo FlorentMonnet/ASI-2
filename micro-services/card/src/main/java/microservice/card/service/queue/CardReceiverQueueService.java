@@ -5,8 +5,9 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 
 import microservice.card.entity.Card;
-import microservice.card.rest.transaction.TransactionCardDTO;
+
 import microservice.card.service.CardService;
+import microservice.common.TransactionCardDTO;
 @Service
 public class CardReceiverQueueService {
 	

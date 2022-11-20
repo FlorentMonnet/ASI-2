@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import microservice.card.dto.CardReferenceDTO;
+
 import microservice.card.entity.CardReference;
 import microservice.card.mapper.CardReferenceMapper;
 import microservice.card.service.CardReferenceService;
+import microservice.common.CardReferenceDTO;
 
 @RestController
 @RequestMapping("/api/card-microservice")
