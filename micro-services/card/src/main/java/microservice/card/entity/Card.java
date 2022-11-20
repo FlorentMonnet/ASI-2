@@ -89,7 +89,7 @@ public class Card {
 		public void setId_user(Integer id_user) {
 			this.user = id_user;
 		}
-		
+
 		public CardReference getCardReference() {
 			return cardReference;
 		}
@@ -98,13 +98,11 @@ public class Card {
 			this.cardReference = cardReference;
 		}
 
-		public void setCardReference(CardReference cardReference) {
-			this.cardReference = cardReference;
-		}	
-				@Override
+		@Override
 		public String toString() {
 			return "Card [id_card=" + id_card + ", energy=" + energy + ", hp=" + hp + ", defense=" + defense
 					+ ", attack=" + attack + ", price=" + price + ", user=" + user + ", cardReference=" + cardReference
 					+ "]";
 		}
+		
 }

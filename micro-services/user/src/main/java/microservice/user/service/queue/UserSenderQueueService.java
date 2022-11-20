@@ -5,6 +5,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import microservice.user.entity.User;
+import microservice.user.rest.transaction.TransactionUserDTO;
 
 @Service
 public class UserSenderQueueService {
@@ -18,6 +19,11 @@ public class UserSenderQueueService {
     
     public boolean addUserToUpdateQueue(User user){
         jmsTemplate.convertAndSend("updateUser", user);
+        return true;
+    }
+    
+    public boolean addTransactionUserToPayQueue(TransactionUserDTO transactionUserDTO){
+        jmsTemplate.convertAndSend("updateUserToPay", transactionUserDTO);
         return true;
     }
 }

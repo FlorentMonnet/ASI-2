@@ -1,44 +1,35 @@
-package microservice.card.entity;
+package microservice.transaction.rest.card;
 
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "card_reference")
-public class CardReference {
-	@Id
-	@GeneratedValue
-	private Integer id_card_reference;
-	@Column(name="name_card_reference")
+public class CardReferenceDTO {
+	private Integer id;
 	private String name;
-	@Column(name="description_card_reference")
 	private String description;
-	@Column(name="family_card_reference")
 	private String family;
-	@Column(name="affinity_card_reference")
 	private String affinity;
-	@Column(name="img_url_card_reference")
 	private String imgUrl;
-	@Column(name="small_img_url_card_reference")
 	private String smallImgUrl;
 	
-	public CardReference() {
+	public CardReferenceDTO() {
 		super();
 	}
-	
-	public CardReference(String name, String description, String family, String affinity, String imgUrl,
+
+	public CardReferenceDTO(Integer id, String name, String description, String family, String affinity, String imgUrl,
 			String smallImgUrl) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.family = family;
 		this.affinity = affinity;
 		this.imgUrl = imgUrl;
 		this.smallImgUrl = smallImgUrl;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;
@@ -76,19 +67,10 @@ public class CardReference {
 	public void setSmallImgUrl(String smallImgUrl) {
 		this.smallImgUrl = smallImgUrl;
 	}
-	
-	public Integer getId() {
-		return id_card_reference;
-	}
 
-	public void setId(Integer id) {
-		this.id_card_reference = id;
-	}
-	
 	@Override
 	public String toString() {
-		return "CardReference [id=" + id_card_reference + ", name=" + name + ", description=" + description + ", family=" + family
+		return "CardReferenceDTO [id=" + id + ", name=" + name + ", description=" + description + ", family=" + family
 				+ ", affinity=" + affinity + ", imgUrl=" + imgUrl + ", smallImgUrl=" + smallImgUrl + "]";
 	}
-
 }

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 
 @Entity
-public class Transaction {
+public class Transaction{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -89,5 +89,11 @@ public class Transaction {
 
 	public void setCardOk(boolean isCardOk) {
 		this.isCardOk = isCardOk;
+	}
+
+	@Override
+	public String toString() {
+		return "Transaction [id=" + id + ", userId=" + userId + ", cardId=" + cardId + ", action=" + action
+				+ ", timeSt=" + timeSt + ", isUserOk=" + isUserOk + ", isCardOk=" + isCardOk + "]";
 	}
 }

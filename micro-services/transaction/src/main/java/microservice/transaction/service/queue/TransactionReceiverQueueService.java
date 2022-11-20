@@ -12,16 +12,28 @@ public class TransactionReceiverQueueService {
 	@Autowired
 	TransactionService transactionService;
 	
-	@JmsListener(destination = "createTransaction", containerFactory = "connectionFactory")
-	public void receiveCreationUser(Transaction transaction) {
-	  System.out.println("<Received in creation queue <" + transaction.toString() + ">");
-	  //transactionService.buyCard(transaction);
+	@JmsListener(destination = "buy", containerFactory = "connectionFactory")
+	public void receiveBuy(Transaction transaction) {
+	  System.out.println("<Received in buy queue <" + transaction.toString() + ">");
+	  transactionService.addTransaction(transaction);
 	}
 
 	@JmsListener(destination = "updateTransaction", containerFactory = "connectionFactory")
-	public void receiveUpdateUser(Transaction transaction) {
-	  System.out.println("<Received in update queue <" + transaction.toString() + ">");
-	  //transactionService.updateCard(card);
+	public void updateTransaction(Transaction transaction) {
+	  System.out.println("<Received in updateTransaction queue <" + transaction.toString() + ">");
+	  transactionService.updateTransaction(transaction);
+	}
+	
+	@JmsListener(destination = "updateIsCardOk", containerFactory = "connectionFactory")
+	public void receiveUpdateIsCardOk(Integer idTransaction) {
+	  System.out.println("<Received in UpdateIsCardOk queue <" + idTransaction + ">");
+	  transactionService.updateIsCardOk(idTransaction);
+	}
+	
+	@JmsListener(destination = "updateIsUserOk", containerFactory = "connectionFactory")
+	public void receiveUpdateIsUserOk(Integer idTransaction) {
+	  System.out.println("<Received in updateIsUserOk queue <" + idTransaction + ">");
+	  transactionService.updateIsUserOk(idTransaction);
 	}
 
 }

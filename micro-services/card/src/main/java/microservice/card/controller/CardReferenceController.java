@@ -31,8 +31,7 @@ public class CardReferenceController {
 	
 	@GetMapping("/card-reference/{id_card_reference}")
 	private CardReferenceDTO getCardReference(@PathVariable Integer id_card_reference) {
-		Optional<CardReference> cardReference;
-		cardReference = cardReferenceService.getCardReferenceById(id_card_reference);
+		Optional<CardReference> cardReference = cardReferenceService.getCardReferenceById(id_card_reference);
 		if(cardReference.isPresent()) {
 			return cardReferenceMapper.toDTO(cardReference.get());
 		}
