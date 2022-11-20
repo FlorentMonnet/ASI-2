@@ -1,7 +1,7 @@
 package microservice.user.dto;
 
 public class UserDTO {
-	private Integer id_user;
+	private Integer id;
 	private Boolean isAdmin;
 	private Double money;
 	private String surname;
@@ -23,12 +23,12 @@ public class UserDTO {
 	
 	
 
-	public Integer getId_user() {
-		return id_user;
+	public Integer getId() {
+		return id;
 	}
 
-	public UserDTO setId_user(Integer id_user) {
-		this.id_user = id_user;
+	public UserDTO setId(Integer id) {
+		this.id = id;
 		return this;
 	}
 
@@ -43,7 +43,7 @@ public class UserDTO {
 	}
 	@Override
 	public String toString() {
-		return "UserDTO [id_user=" + id_user + ", isAdmin=" + isAdmin + ", money=" + money + ", surname=" + surname
+		return "UserDTO [id=" + id + ", isAdmin=" + isAdmin + ", money=" + money + ", surname=" + surname
 				+ ", name=" + name + ", mail=" + mail + "]";
 	}
 

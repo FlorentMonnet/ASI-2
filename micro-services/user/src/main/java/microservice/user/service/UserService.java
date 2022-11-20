@@ -2,13 +2,18 @@ package microservice.user.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import microservice.user.dto.UserLoginDTO;
+import microservice.user.dto.UserRegisterDTO;
 import microservice.user.entity.User;
 import microservice.user.mapper.UserMapper;
+import microservice.user.mapper.UserRegisterMapper;
 import microservice.user.repository.UserRepository;
+import microservice.user.rest.auth.AuthRestClient;
 import microservice.user.rest.transaction.TransactionUserDTO;
 import microservice.user.rest.transaction.TransactionUserRestClient;
 import microservice.user.service.queue.UserSenderQueueService;
@@ -22,6 +27,8 @@ public class UserService {
 	@Autowired
 	UserMapper userMapper;
 	
+	@Autowired
+	UserRegisterMapper userRegisterMapper;
 	
 	@Autowired
 	UserSenderQueueService userSenderQueueService;
@@ -29,8 +36,31 @@ public class UserService {
 	@Autowired
 	TransactionUserRestClient transactionUserRestClient;
 	
+	@Autowired
+	AuthRestClient authRestClient;
+	
 	public User getUserById(Integer idUser) {
 		return userRepository.findById(idUser).orElseThrow(() -> new RuntimeException());
+	}
+	
+	public Integer login(UserLoginDTO userLoginDTO) {
+		Optional<User> optionalUser = this.userRepository.findByMail(userLoginDTO.getMail());
+		Integer id = 0;
+		if(optionalUser.isPresent())
+		{
+			User user = optionalUser.get();
+			UserRegisterDTO userRegisterFound = userRegisterMapper.toDTO(user);
+			UserRegisterDTO userRegisterLogging = userRegisterMapper.toDTO(userLoginDTO);
+			List<UserRegisterDTO> usersRegister = new ArrayList();
+			usersRegister.add(userRegisterFound);
+			usersRegister.add(userRegisterLogging);
+			
+			if(authRestClient.checkPassword(usersRegister))
+			{
+				id = user.getId_user();
+			}
+		}
+		return id;
 	}
 	
 	public List<User> getUsers() {
@@ -42,6 +72,11 @@ public class UserService {
 	
 	public String addUserToCreationQueue(User user) {
 		boolean result = userSenderQueueService.addUserToCreationQueue(user);
+		return result ? "Creation de l'utilisateur en cours" : "";
+	}
+	
+	public String addUserToRegisterQueue(UserRegisterDTO userRegisterDTO) {
+		boolean result = userSenderQueueService.addUserToRegisterQueue(userRegisterDTO);
 		return result ? "Creation de l'utilisateur en cours" : "";
 	}
 	
@@ -62,6 +97,20 @@ public class UserService {
 	
 	
 	public User addUser(User user) {
+		userRepository.save(user);
+		return user;
+	}
+	
+	public User register(UserRegisterDTO userRegisterDTO) {
+		String password = authRestClient.encryptPassword(userRegisterDTO);
+		User user = new User(
+					userRegisterDTO.getName(), 
+					userRegisterDTO.getSurname(), 
+					userRegisterDTO.getMoney(),
+					password, 
+					userRegisterDTO.getIsAdmin(), 
+					userRegisterDTO.getMail()
+				);
 		userRepository.save(user);
 		return user;
 	}

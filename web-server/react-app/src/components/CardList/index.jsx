@@ -22,8 +22,8 @@ function CardList(props) {
     useEffect(() => {
         let urlToFetch =
             mode === Config.MODE.SELL
-                ? Config.API_PATH + 'cards'
-                : Config.API_PATH + 'cards';
+                ? Config.API_CARD_PATH + 'cards'
+                : Config.API_CARD_PATH + 'cards';
         fetch(urlToFetch)
             .then((response) => response.json())
             .then((json) => {

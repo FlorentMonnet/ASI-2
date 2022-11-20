@@ -3,6 +3,8 @@ package microservice.user.service.queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
+
+import microservice.user.dto.UserRegisterDTO;
 import microservice.user.entity.User;
 import microservice.user.rest.transaction.TransactionUserDTO;
 import microservice.user.service.UserService;
@@ -16,6 +18,12 @@ public class UserReceiverQueueService {
 	public void receiveCreationUser(User user) {
 	  System.out.println("<Received in creation queue <" + user.toString() + ">");
 	  userService.addUser(user);
+	}
+	
+	@JmsListener(destination = "registerUser", containerFactory = "connectionFactory")
+	public void receiveCreationUser(UserRegisterDTO userRegisterDTO) {
+	  System.out.println("<Received in register queue <" + userRegisterDTO.toString() + ">");
+	  userService.register(userRegisterDTO);
 	}
 
 	@JmsListener(destination = "updateUser", containerFactory = "connectionFactory")
