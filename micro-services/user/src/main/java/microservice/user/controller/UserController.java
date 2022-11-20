@@ -59,9 +59,14 @@ public class UserController{
 		return userService.addUserToUpdateQueue(userMapper.toModel(user));
 	}
 	
-	@PatchMapping("/pay-user/{id}")
+	@PatchMapping("/buy-user/{id}")
 	public void updateUserToPay(@RequestBody TransactionUserDTO transactionCardDTO,@PathVariable Integer id) {
 		userService.addTransactionUserToPayQueue(transactionCardDTO);
+	}
+	
+	@PatchMapping("/sell-user/{id}")
+	public void updateUserToSell(@RequestBody TransactionUserDTO transactionCardDTO,@PathVariable Integer id) {
+		userService.addTransactionUserToSellQueue(transactionCardDTO);
 	}
 
 }

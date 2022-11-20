@@ -39,15 +39,26 @@ public class TransactionController {
 		return transactionService.sellCard(order.getUser_id(), order.getCard_id(), response);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/card-ok")
-	private void updateIsCardOk(@RequestBody TransactionCardDTO transactionCardDTO) {
-		transactionService.addIdTransactionToUpdateIsCardOk(transactionCardDTO.getId());
+	@RequestMapping(method = RequestMethod.POST, value = "/buy-card-ok")
+	private void updateIsCardOkToBuy(@RequestBody TransactionCardDTO transactionCardDTO) {
+		transactionService.addIdTransactionToUpdateIsCardOkToBuy(transactionCardDTO.getId());
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/user-ok")
-	private void updateIsUserOk(@RequestBody TransactionUserDTO transactionUserDTO) {
-		transactionService.addIdTransactionToUpdateIsUserOk(transactionUserDTO.getId());
+	@RequestMapping(method = RequestMethod.POST, value = "/sell-card-ok")
+	private void updateIsCardOkToSell(@RequestBody TransactionCardDTO transactionCardDTO) {
+		transactionService.addIdTransactionToUpdateIsCardOkToSell(transactionCardDTO.getId());
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/buy-user-ok")
+	private void updateIsUserOkToBuy(@RequestBody TransactionUserDTO transactionUserDTO) {
+		transactionService.addIdTransactionToUpdateIsUserOkToBuy(transactionUserDTO.getId());
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/sell-user-ok")
+	private void updateIsUserOkToSell(@RequestBody TransactionUserDTO transactionUserDTO) {
+		transactionService.addIdTransactionToUpdateIsUserOkToSell(transactionUserDTO.getId());
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/transaction")
 	private List<Transaction> getAllCards() {
 		return transactionService.getAllTransactions();

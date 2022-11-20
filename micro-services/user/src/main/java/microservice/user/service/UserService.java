@@ -55,6 +55,11 @@ public class UserService {
 		return result ? "Mise à jour de de l'utilisateur en cours" : "";
 	}
 	
+	public String addTransactionUserToSellQueue(TransactionUserDTO transactionUserDTO) {
+		boolean result = userSenderQueueService.addTransactionUserToSellQueue(transactionUserDTO);
+		return result ? "Mise à jour de de l'utilisateur en cours" : "";
+	}
+	
 	
 	public User addUser(User user) {
 		userRepository.save(user);
@@ -72,6 +77,11 @@ public class UserService {
 	
 	public void updateUserToPay(TransactionUserDTO transactionUserDTO) {
 		userRepository.save(userMapper.toModel(transactionUserDTO.getUser()));
-		transactionUserRestClient.updateUserToPay(transactionUserDTO);
+		transactionUserRestClient.updateUserToBuy(transactionUserDTO);
+	}
+	
+	public void updateUserToSell(TransactionUserDTO transactionUserDTO) {
+		userRepository.save(userMapper.toModel(transactionUserDTO.getUser()));
+		transactionUserRestClient.updateUserToSell(transactionUserDTO);
 	}
 }

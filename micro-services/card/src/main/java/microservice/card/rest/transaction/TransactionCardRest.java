@@ -1,6 +1,7 @@
 package microservice.card.rest.transaction;
 
 public interface TransactionCardRest {
-	public void updateCardToPay(TransactionCardDTO transactionCardDTO);
+	public void updateCardToBuy(TransactionCardDTO transactionCardDTO);
+	public void updateCardToSell(TransactionCardDTO transactionCardDTO);
 }
 

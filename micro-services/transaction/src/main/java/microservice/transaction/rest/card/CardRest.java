@@ -10,5 +10,7 @@ public interface CardRest {
 	public Optional<CardDTO> getCardbById(Integer id_card);
 	public List<CardDTO> getCardsbByIdFamily(Integer id_family);
 	public void createCard(CardDTO dto);
-	public void updateCardToPay(TransactionCardDTO dto);
+	public void updateCardToBuy(TransactionCardDTO dto);
+	public void updateCardToSell(TransactionCardDTO dto);
+	
 }

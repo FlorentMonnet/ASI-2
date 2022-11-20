@@ -1,6 +1,7 @@
 package microservice.user.rest.transaction;
 
 public interface TransactionUserRest {
-	public void updateUserToPay(TransactionUserDTO transactionUserDTO);
+	public void updateUserToBuy(TransactionUserDTO transactionUserDTO);
+	public void updateUserToSell(TransactionUserDTO transactionUserDTO);
 }
 
