@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,11 +19,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import microservice.user.dto.UserDTO;
+import microservice.user.dto.UserLoginDTO;
+import microservice.user.dto.UserRegisterDTO;
 import microservice.user.entity.User;
 import microservice.user.mapper.UserMapper;
 import microservice.user.rest.transaction.TransactionUserDTO;
 import microservice.user.service.UserService;
 
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/api/user-microservice")
 public class UserController{
@@ -44,8 +48,17 @@ public class UserController{
 	}
 	
 	@PostMapping("/user")
-	public String addUser(@RequestBody UserDTO user) {
+	public String register(@RequestBody UserDTO user) {
 		return userService.addUserToCreationQueue(userMapper.toModel(user));
+	}
+	@PostMapping("/register")
+	public String register(@RequestBody UserRegisterDTO userRegisterDTO) {
+		return userService.addUserToRegisterQueue(userRegisterDTO);
+	}
+	
+	@PostMapping("/auth")
+	public Integer login(@RequestBody UserLoginDTO userLoginDTO) {
+		return userService.login(userLoginDTO);
 	}
 	
 	@DeleteMapping("/user/{id}")
@@ -55,7 +68,7 @@ public class UserController{
 	
 	@PatchMapping("/user/{id}")
 	public String updateUser(@RequestBody UserDTO user,@PathVariable Integer id) {
-		user.setId_user(Integer.valueOf(id));
+		user.setId(Integer.valueOf(id));
 		return userService.addUserToUpdateQueue(userMapper.toModel(user));
 	}
 	

@@ -17,9 +17,9 @@ function User(props) {
                 <>
                     <i className="user circle outline icon"></i>
                     <div className="content">
-                        <span id="userNameId">{user.login}</span>
+                        <span id="userNameId">{user.name}</span>
                         <div className="sub header">
-                            <span>{user.account}</span>$
+                            <span>{user.money}</span>$
                         </div>
                     </div>
                 </>

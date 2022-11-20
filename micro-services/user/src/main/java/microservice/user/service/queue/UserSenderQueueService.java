@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
+import microservice.user.dto.UserRegisterDTO;
 import microservice.user.entity.User;
 import microservice.user.rest.transaction.TransactionUserDTO;
 
@@ -14,6 +15,11 @@ public class UserSenderQueueService {
 	
     public boolean addUserToCreationQueue(User user){
         jmsTemplate.convertAndSend("createUser", user);
+        return true;
+    }
+    
+    public boolean addUserToRegisterQueue(UserRegisterDTO userRegisterDTO){
+        jmsTemplate.convertAndSend("registerUser", userRegisterDTO);
         return true;
     }
     

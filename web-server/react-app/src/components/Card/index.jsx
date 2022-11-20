@@ -34,14 +34,14 @@ function Card(props) {
                 }}
             >
                 <td>
-                    <img className="ui avatar image" src={card.imgUrl} />{' '}
+                    <img className="ui avatar image" src={card.cardReference.imgUrl} />{' '}
                     <span>{card.name}</span>
                 </td>
-                <td>{card.description}</td>
-                <td>{card.family}</td>
+                <td>{card.cardReference.description}</td>
+                <td>{card.cardReference.family}</td>
                 <td>{card.hp}</td>
                 <td>{card.energy}</td>
-                <td>{card.defence}</td>
+                <td>{card.defense}</td>
                 <td>{card.attack}</td>
                 <td>{card.price}$</td>
                 <td>
@@ -192,7 +192,7 @@ function Card(props) {
                             <img
                                 id="cardImgId"
                                 className="ui centered image"
-                                src={card.smallImgUrl}
+                                src={card.cardReference.smallImgUrl}
                                 alt="img"
                             />
                         </div>
@@ -205,8 +205,8 @@ function Card(props) {
     function makeTransaction() {
         let urlToFetch =
             mode === Config.MODE.SELL
-                ? Config.API_PATH + 'store/sell'
-                : Config.API_PATH + 'store/buy';
+                ? Config.API_TRANSACTION_PATH + 'sell'
+                : Config.API_TRANSACTION_PATH + 'buy';
 
         let transaction = {
             user_id: user.id,

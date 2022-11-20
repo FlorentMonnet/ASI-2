@@ -14,11 +14,11 @@ function Login() {
 
     function connectUser() {
         const login = {
-            username: email,
+            mail: email,
             password: password,
         };
 
-        fetch(Config.API_PATH + 'auth', {
+        fetch(Config.API_USER_PATH + 'auth', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
@@ -35,10 +35,11 @@ function Login() {
                 }
             })
             .then((json) => {
-                if (json !== undefined) {
-                    fetch(Config.API_PATH + 'user/' + json)
+                if (json !== undefined || json !== 0) {
+                    fetch(Config.API_USER_PATH + 'user/' + json)
                         .then((response) => response.json())
                         .then((json) => {
+                            console.log(json)
                             dispatch(connectUserAction(json));
                             navigate('/');
                         });

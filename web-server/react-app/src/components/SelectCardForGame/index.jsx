@@ -23,7 +23,7 @@ function SelectCardForGame() {
     useEffect(() => {
         dispatch(resetCardForGame());
 
-        fetch(Config.API_PATH + 'cards')
+        fetch(Config.API_CARD_PATH + 'cards')
             .then((response) => response.json())
             .then((json) => {
                 dispatch(userCardsToSell(json));
