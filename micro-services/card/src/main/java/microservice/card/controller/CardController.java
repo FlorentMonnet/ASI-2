@@ -65,9 +65,14 @@ public class CardController {
 		cardService.deleteCardModel(id);
 	}
 	
-	@GetMapping("/cardsToSell")
-	private List<CardDTO> getCardsToSell() {
-		return cardMapper.toDTOList(cardService.getAllCardToSell());
+	@GetMapping("/cardsToBuy")
+	private List<CardDTO> getCardsToBuy() {
+		return cardMapper.toDTOList(cardService.getAllCardToBuy());
+	}
+	
+	@GetMapping("/cardsToSell/{id_user}")
+	private List<CardDTO> getCardsToSell(Integer id_user) {
+		return cardMapper.toDTOList(cardService.getAllCardToSell(id_user));
 	}
 	
 	@PatchMapping("/buy-card/{id}")
