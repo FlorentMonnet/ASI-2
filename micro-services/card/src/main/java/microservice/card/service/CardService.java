@@ -73,7 +73,6 @@ public class CardService {
 	}
 	
 	public Optional<Card> getCardById(Integer id) {
-		System.out.println("GET CARD BY ID"+id);
 		return cardRepository.findById(id);
 	}
 	
@@ -81,7 +80,11 @@ public class CardService {
 		cardRepository.deleteById(id);
 	}
 	
-	public List<Card> getAllCardToSell(){
+	public List<Card> getAllCardToBuy(){
 		return cardRepository.findByUser(null);
+	}
+	
+	public List<Card> getAllCardToSell(Integer id_user){
+		return cardRepository.findByUser(id_user);
 	}
 }
