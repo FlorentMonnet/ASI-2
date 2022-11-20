@@ -6,14 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import microservice.card.dto.CardDTO;
 import microservice.card.entity.Card;
-import microservice.card.service.CardReferenceService;
+import microservice.card.dto.CardDTO;
 
 @Component
 public class CardMapper {
 		@Autowired
-		CardReferenceService cardReferenceService;
+		CardReferenceMapper cardReferenceMapper;
 		
 		public Card toModel(CardDTO cardDTO) {
 			Card card = new Card();
@@ -25,7 +24,8 @@ public class CardMapper {
 			card.setAttack(cardDTO.getAttack());
 			card.setPrice(cardDTO.getPrice());
 			card.setId_user(cardDTO.getId_user());
-			card.setCardReference(cardReferenceService.getCardReferenceById(cardDTO.getId_card_reference()).get());
+			card.setCardReference(cardReferenceMapper.toModel(cardDTO.getCardReference()));
+			
 			return card;
 		}
 		
@@ -39,7 +39,8 @@ public class CardMapper {
 			cardDTO.setAttack(card.getAttack());
 			cardDTO.setPrice(card.getPrice());
 			cardDTO.setId_user(card.getId_user());
-			cardDTO.setId_card_reference(card.getCardReference().getId());
+			cardDTO.setCardReference(cardReferenceMapper.toDTO(card.getCardReference()));
+			
 			return cardDTO;
 			
 		}

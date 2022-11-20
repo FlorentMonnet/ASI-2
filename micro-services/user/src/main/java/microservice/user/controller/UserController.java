@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import microservice.user.dto.UserDTO;
 import microservice.user.entity.User;
 import microservice.user.mapper.UserMapper;
+import microservice.user.rest.transaction.TransactionUserDTO;
 import microservice.user.service.UserService;
 
 @RestController
@@ -56,6 +57,11 @@ public class UserController{
 	public String updateUser(@RequestBody UserDTO user,@PathVariable Integer id) {
 		user.setId_user(Integer.valueOf(id));
 		return userService.addUserToUpdateQueue(userMapper.toModel(user));
+	}
+	
+	@PatchMapping("/pay-user/{id}")
+	public void updateUserToPay(@RequestBody TransactionUserDTO transactionCardDTO,@PathVariable Integer id) {
+		userService.addTransactionUserToPayQueue(transactionCardDTO);
 	}
 
 }

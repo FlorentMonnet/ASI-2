@@ -10,19 +10,25 @@ public class TransactionDTO {
 	private Integer cardId;
 	private TransactionAction action;
     private Timestamp timeSt;
+    private boolean isUserOk;
+    private boolean isCardOk;
     
     public TransactionDTO() {
     	
     }
     
-	public TransactionDTO(Integer id, Integer userId, Integer cardId, TransactionAction action, Timestamp timeSt) {
+	public TransactionDTO(Integer id, Integer userId, Integer cardId, TransactionAction action, Timestamp timeSt,
+			boolean isUserOk, boolean isCardOk) {
 		super();
 		this.id = id;
 		this.userId = userId;
 		this.cardId = cardId;
 		this.action = action;
 		this.timeSt = timeSt;
+		this.isUserOk = isUserOk;
+		this.isCardOk = isCardOk;
 	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -52,6 +58,22 @@ public class TransactionDTO {
 	}
 	public void setTimeSt(Timestamp timeSt) {
 		this.timeSt = timeSt;
+	}
+
+	public boolean isUserOk() {
+		return isUserOk;
+	}
+
+	public void setUserOk(boolean isUserOk) {
+		this.isUserOk = isUserOk;
+	}
+
+	public boolean isCardOk() {
+		return isCardOk;
+	}
+
+	public void setCardOk(boolean isCardOk) {
+		this.isCardOk = isCardOk;
 	}
     
     

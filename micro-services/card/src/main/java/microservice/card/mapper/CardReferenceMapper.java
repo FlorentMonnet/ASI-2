@@ -3,17 +3,13 @@ package microservice.card.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import microservice.card.dto.CardReferenceDTO;
 import microservice.card.entity.CardReference;
+import microservice.card.dto.CardReferenceDTO;
 
 @Component
 public class CardReferenceMapper {
-	
-	@Autowired
-	CardMapper cardMapper;
 	
 	public CardReference toModel(CardReferenceDTO cardReferenceDTO) {
 		CardReference cardReference = new CardReference();
@@ -25,7 +21,6 @@ public class CardReferenceMapper {
 		cardReference.setImgUrl(cardReferenceDTO.getImgUrl());
 		cardReference.setSmallImgUrl(cardReferenceDTO.getSmallImgUrl());
 		cardReference.setName(cardReferenceDTO.getName());
-		cardReference.setCards(cardMapper.toModelList(cardReferenceDTO.getCards()));
 		
 		return cardReference;
 		
@@ -41,7 +36,6 @@ public class CardReferenceMapper {
 		cardReferenceDTO.setImgUrl(cardReference.getImgUrl());
 		cardReferenceDTO.setSmallImgUrl(cardReference.getSmallImgUrl());
 		cardReferenceDTO.setName(cardReference.getName());
-		cardReferenceDTO.setCards(cardMapper.toDTOList(cardReference.getCards()));
 		
 		return cardReferenceDTO;
 	}

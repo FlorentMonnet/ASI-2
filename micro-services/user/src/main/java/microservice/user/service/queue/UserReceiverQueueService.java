@@ -3,8 +3,8 @@ package microservice.user.service.queue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
-
 import microservice.user.entity.User;
+import microservice.user.rest.transaction.TransactionUserDTO;
 import microservice.user.service.UserService;
 @Service
 public class UserReceiverQueueService {
@@ -22,6 +22,12 @@ public class UserReceiverQueueService {
 	public void receiveUpdateUser(User user) {
 	  System.out.println("<Received in update queue <" + user.toString() + ">");
 	  userService.updateUser(user);
+	}
+	
+	@JmsListener(destination = "updateUserToPay", containerFactory = "connectionFactory")
+	public void receiveCardToPay(TransactionUserDTO transactionUserDTO) {
+	  System.out.println("<Received in pay queue <" + transactionUserDTO.toString() + ">");
+	  userService.updateUserToPay(transactionUserDTO);
 	}
 
 }

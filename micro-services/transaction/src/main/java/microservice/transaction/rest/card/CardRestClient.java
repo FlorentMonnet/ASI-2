@@ -10,48 +10,52 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import microservice.transaction.dto.TransactionCardDTO;
+
 
 @Component
 public class CardRestClient implements CardRest{
 	
-	private static final String URL_PUBLIC = "http://reverse-proxy:80/api/card-microservice/card"; 
-
+	private static final String URL_CARD_MICROSERVICE = "http://reverse-proxy:80/api/card-microservice"; 
+	private static final String URL_CARD = URL_CARD_MICROSERVICE + "/card/"; 
+	private static final String URL_PAY_CARRD = URL_CARD_MICROSERVICE + "/pay-card/"; 
+	private RestTemplate restTemplate;
+	
 	public CardRestClient() {
+		restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
 	}
 
 	@Override
 	public List<CardDTO> getAllCards() {
-		RestTemplate restTemplate = new RestTemplate();
-		CardDTO[] response = restTemplate.getForEntity(URL_PUBLIC, CardDTO[].class).getBody();
+		System.out.println("[CardRestClient] [getAllCards]");
+		CardDTO[] response = restTemplate.getForEntity(URL_CARD , CardDTO[].class).getBody();
 		return List.of(response);
 	}
 
 	@Override
 	public Optional<CardDTO> getCardbById(Integer id_card) {
-		RestTemplate restTemplate = new RestTemplate();
-		Optional<CardDTO> res = Optional.of(restTemplate.getForObject(URL_PUBLIC + "/" + id_card, CardDTO.class));
+		System.out.println("[CardRestClient] [getCardbById] id_card:" +id_card);
+		Optional<CardDTO> res = Optional.of(restTemplate.getForObject(URL_CARD + id_card, CardDTO.class));
 		return res;
 	}
 
 	@Override
 	public List<CardDTO> getCardsbByIdFamily(Integer id_family) {
-		RestTemplate restTemplate = new RestTemplate();
-		CardDTO[] res = restTemplate.getForEntity(URL_PUBLIC + "/family/" + id_family, CardDTO[].class).getBody();
+		System.out.println("[CardRestClient] [getCardsbByIdFamily] id_family:" +id_family);
+		CardDTO[] res = restTemplate.getForEntity(URL_CARD + "/family/" + id_family, CardDTO[].class).getBody();
 		return List.of(res);
 	}
 
 	@Override
-	public void createCard(CardDTO dto) {
-		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.postForObject(URL_PUBLIC, dto, ResponseEntity.class);
+	public void createCard(CardDTO cardDTO) {
+		System.out.println("[CardRestClient] [createCard] :" +cardDTO.toString());
+		restTemplate.postForObject(URL_CARD, cardDTO, ResponseEntity.class);
 	}
 	
 	@Override
-	public CardDTO updateCard(CardDTO dto) {
-		System.out.println(dto.toString());
-		RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
-		restTemplate.exchange(URL_PUBLIC + "/" + dto.getId(), HttpMethod.PATCH, new HttpEntity<CardDTO>(dto), CardDTO.class);
-		return dto;
+	public void updateCardToPay(TransactionCardDTO transactionCardDTO) {
+		System.out.println("[CardRestClient] [updateCardToPay] " +transactionCardDTO.toString());
+		restTemplate.exchange(URL_PAY_CARRD + transactionCardDTO.getId(), HttpMethod.PATCH, new HttpEntity<TransactionCardDTO>(transactionCardDTO), String.class);
 	}
 
 }

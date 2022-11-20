@@ -2,8 +2,11 @@ package microservice.transaction.rest.user;
 
 import java.util.Optional;
 
+import microservice.transaction.dto.TransactionUserDTO;
+
 public interface UserRest {
 	public Optional<UserDTO> getUserById(Integer id_user);
-	public UserDTO updateUser(UserDTO dto);
+	public void updateUser(UserDTO userDTO);
+	public void updateUserToPay(TransactionUserDTO transactionUserDTO);
 }
 

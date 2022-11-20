@@ -11,8 +11,8 @@ public class TransactionSenderQueueService {
 	@Autowired
     JmsTemplate jmsTemplate;
 	
-    public boolean addTransactionToCreationQueue(Transaction transaction){
-        jmsTemplate.convertAndSend("createTransaction", transaction);
+    public boolean addTransactionToBuyQueue(Transaction transaction){
+        jmsTemplate.convertAndSend("buy", transaction);
         return true;
     }
     
@@ -20,6 +20,17 @@ public class TransactionSenderQueueService {
         jmsTemplate.convertAndSend("updateTransaction", transaction);
         return true;
     }
+    
+    public boolean addIdTransactionToIsCardOkQueue(Integer idTransaction){
+        jmsTemplate.convertAndSend("updateIsCardOk", idTransaction);
+        return true;
+    }
+    
+    public boolean addIdTransactionToIsUserOkQueue(Integer idTransaction){
+        jmsTemplate.convertAndSend("updateIsUserOk", idTransaction);
+        return true;
+    }
+    
 }
 
 

@@ -1,40 +1,35 @@
 package microservice.card.dto;
 
-import java.util.List;
-import java.util.Set;
-
 public class CardReferenceDTO {
-	private Integer id;
+	private Integer id_card_reference;
 	private String name;
 	private String description;
 	private String family;
 	private String affinity;
 	private String imgUrl;
 	private String smallImgUrl;
-	private List<CardDTO> cards;
 	
 	public CardReferenceDTO() {
 		super();
 	}
 
-	public CardReferenceDTO(Integer id, String name, String description, String family, String affinity, String imgUrl,
-			String smallImgUrl, List<CardDTO> cards) {
+	public CardReferenceDTO(Integer id_card_reference, String name, String description, String family, String affinity, String imgUrl,
+			String smallImgUrl) {
 		super();
-		this.id = id;
+		this.id_card_reference = id_card_reference;
 		this.name = name;
 		this.description = description;
 		this.family = family;
 		this.affinity = affinity;
 		this.imgUrl = imgUrl;
 		this.smallImgUrl = smallImgUrl;
-		this.cards = cards;
 	}
 
 	public Integer getId() {
-		return id;
+		return id_card_reference;
 	}
 	public void setId(Integer id) {
-		this.id = id;
+		this.id_card_reference = id;
 	}
 	public String getName() {
 		return name;
@@ -73,11 +68,9 @@ public class CardReferenceDTO {
 		this.smallImgUrl = smallImgUrl;
 	}
 
-	public List<CardDTO> getCards() {
-		return cards;
-	}
-
-	public void setCards(List<CardDTO> cards) {
-		this.cards = cards;
+	@Override
+	public String toString() {
+		return "CardReferenceDTO [id=" + id_card_reference + ", name=" + name + ", description=" + description + ", family=" + family
+				+ ", affinity=" + affinity + ", imgUrl=" + imgUrl + ", smallImgUrl=" + smallImgUrl + "]";
 	}
 }
