@@ -24,10 +24,16 @@ public class UserReceiverQueueService {
 	  userService.updateUser(user);
 	}
 	
-	@JmsListener(destination = "updateUserToPay", containerFactory = "connectionFactory")
-	public void receiveCardToPay(TransactionUserDTO transactionUserDTO) {
+	@JmsListener(destination = "updateUserToBuy", containerFactory = "connectionFactory")
+	public void receiveUserToBuy(TransactionUserDTO transactionUserDTO) {
 	  System.out.println("<Received in pay queue <" + transactionUserDTO.toString() + ">");
 	  userService.updateUserToPay(transactionUserDTO);
+	}
+	
+	@JmsListener(destination = "updateUserToSell", containerFactory = "connectionFactory")
+	public void receiveUserToSell(TransactionUserDTO transactionUserDTO) {
+	  System.out.println("<Received in sell queue <" + transactionUserDTO.toString() + ">");
+	  userService.updateUserToSell(transactionUserDTO);
 	}
 
 }

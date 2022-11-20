@@ -25,9 +25,15 @@ public class CardReceiverQueueService {
 	  cardService.updateCard(card);
 	}
 	
-	@JmsListener(destination = "updateCardToPay", containerFactory = "connectionFactory")
-	public void receiveCardToPay(TransactionCardDTO transactionCardDTO) {
-	  System.out.println("<Received in pay queue <" + transactionCardDTO.toString() + ">");
+	@JmsListener(destination = "updateCardToBuy", containerFactory = "connectionFactory")
+	public void receiveCardToBuy(TransactionCardDTO transactionCardDTO) {
+	  System.out.println("<Received in buy queue <" + transactionCardDTO.toString() + ">");
 	  cardService.updateCardToPay(transactionCardDTO);
+	}
+	
+	@JmsListener(destination = "updateCardToSell", containerFactory = "connectionFactory")
+	public void receiveCardToSell(TransactionCardDTO transactionCardDTO) {
+	  System.out.println("<Received in sell queue <" + transactionCardDTO.toString() + ">");
+	  cardService.updateCardToSell(transactionCardDTO);
 	}
 }

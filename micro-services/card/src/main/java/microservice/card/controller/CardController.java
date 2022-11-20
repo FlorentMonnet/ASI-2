@@ -66,8 +66,13 @@ public class CardController {
 		return cardMapper.toDTOList(cardService.getAllCardToSell());
 	}
 	
-	@PatchMapping("/pay-card/{id}")
+	@PatchMapping("/buy-card/{id}")
 	public void updateCardToPay(@RequestBody TransactionCardDTO transactionCardDTO,@PathVariable Integer id) {
-		cardService.addTransactionCardToPayQueue(transactionCardDTO);
+		cardService.addTransactionCardToBuyQueue(transactionCardDTO);
+	}
+	
+	@PatchMapping("/sell-card/{id}")
+	public void updateCardToSell(@RequestBody TransactionCardDTO transactionCardDTO,@PathVariable Integer id) {
+		cardService.addTransactionCardToSellQueue(transactionCardDTO);
 	}
 }

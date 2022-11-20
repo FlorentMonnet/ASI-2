@@ -23,7 +23,12 @@ public class UserSenderQueueService {
     }
     
     public boolean addTransactionUserToPayQueue(TransactionUserDTO transactionUserDTO){
-        jmsTemplate.convertAndSend("updateUserToPay", transactionUserDTO);
+        jmsTemplate.convertAndSend("updateUserToBuy", transactionUserDTO);
+        return true;
+    }
+    
+    public boolean addTransactionUserToSellQueue(TransactionUserDTO transactionUserDTO){
+        jmsTemplate.convertAndSend("updateUserToSell", transactionUserDTO);
         return true;
     }
 }
