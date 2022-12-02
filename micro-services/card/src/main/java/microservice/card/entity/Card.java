@@ -97,6 +97,10 @@ public class Card {
 		public void setCardReference(CardReference cardReference) {
 			this.cardReference = cardReference;
 		}
+		
+		public float computePrice() {
+			return this.hp * 20 + this.defense*20 + this.energy*20 + this.attack*20;
+		}
 
 		@Override
 		public String toString() {
