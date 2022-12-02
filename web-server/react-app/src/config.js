@@ -1,6 +1,9 @@
+const API_PATH = 'http://localhost:80/api/';
 const myConstClass = {
     IMAGE_PATH: '/public/ressources',
-    API_PATH: 'https://asi2-backend-market.herokuapp.com/',
+    API_USER_PATH: API_PATH + "user-microservice/",
+    API_CARD_PATH: API_PATH + "card-microservice/",
+    API_TRANSACTION_PATH: API_PATH + "transaction-microservice/",
     SOCKET_PATH: 'http://localhost:3001',
     HEADER_CONFIG: {
         play: {

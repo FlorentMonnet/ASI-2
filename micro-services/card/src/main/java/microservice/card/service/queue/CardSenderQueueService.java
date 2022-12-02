@@ -5,6 +5,8 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
 import microservice.card.entity.Card;
+import microservice.card.rest.transaction.TransactionCardDTO;
+
 
 @Service
 public class CardSenderQueueService {
@@ -18,6 +20,16 @@ public class CardSenderQueueService {
     
     public boolean addCardToUpdateQueue(Card card){
         jmsTemplate.convertAndSend("updateCard", card);
+        return true;
+    }
+    
+    public boolean addTransactionCardToBuyQueue(TransactionCardDTO transactionCardDTO){
+        jmsTemplate.convertAndSend("updateCardToBuy", transactionCardDTO);
+        return true;
+    }
+    
+    public boolean addTransactionCardToSellQueue(TransactionCardDTO transactionCardDTO){
+        jmsTemplate.convertAndSend("updateCardToSell", transactionCardDTO);
         return true;
     }
 }

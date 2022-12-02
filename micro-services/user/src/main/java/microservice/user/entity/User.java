@@ -84,6 +84,16 @@ public class User {
 		return this;
 	}
 
+	public User(String name, String surname, Double money, String password, Boolean isAdmin, String mail) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.money = money;
+		this.password = password;
+		this.isAdmin = isAdmin;
+		this.mail = mail;
+	}
+
 	@Override
 	public String toString() {
 		return "User [id_user=" + id_user + ", name=" + name + ", surname=" + surname + ", money=" + money

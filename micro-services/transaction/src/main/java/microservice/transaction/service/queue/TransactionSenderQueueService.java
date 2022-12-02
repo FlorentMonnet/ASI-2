@@ -11,8 +11,13 @@ public class TransactionSenderQueueService {
 	@Autowired
     JmsTemplate jmsTemplate;
 	
-    public boolean addTransactionToCreationQueue(Transaction transaction){
-        jmsTemplate.convertAndSend("createTransaction", transaction);
+    public boolean addTransactionToBuyQueue(Transaction transaction){
+        jmsTemplate.convertAndSend("buy", transaction);
+        return true;
+    }
+    
+    public boolean addTransactionToSellQueue(Transaction transaction){
+        jmsTemplate.convertAndSend("sell", transaction);
         return true;
     }
     
@@ -20,6 +25,27 @@ public class TransactionSenderQueueService {
         jmsTemplate.convertAndSend("updateTransaction", transaction);
         return true;
     }
+    
+    public boolean addIdTransactionToIsCardOkToBuyQueue(Integer idTransaction){
+        jmsTemplate.convertAndSend("updateIsCardOkToBuy", idTransaction);
+        return true;
+    }
+    
+    public boolean addIdTransactionToIsUserOkToBuyQueue(Integer idTransaction){
+        jmsTemplate.convertAndSend("updateIsUserOkToBuy", idTransaction);
+        return true;
+    }
+    
+    public boolean addIdTransactionToIsCardOkToSellQueue(Integer idTransaction){
+        jmsTemplate.convertAndSend("updateIsCardOkToSell", idTransaction);
+        return true;
+    }
+    
+    public boolean addIdTransactionToIsUserOkToSellQueue(Integer idTransaction){
+        jmsTemplate.convertAndSend("updateIsUserOkToSell", idTransaction);
+        return true;
+    }
+    
 }
 
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import microservice.user.dto.UserDTO;
 import microservice.user.entity.User;
+
 @Component
 public class UserMapper {
 	
@@ -19,7 +20,7 @@ public class UserMapper {
 		toReturn.setName(userDTO.getName());
 		toReturn.setSurname(userDTO.getSurname());
 		toReturn.setMail(userDTO.getMail());
-		toReturn.setId_user(userDTO.getId_user());
+		toReturn.setId_user(userDTO.getId());
 		
 		return toReturn;
 		
@@ -33,7 +34,7 @@ public class UserMapper {
 		toReturn.setName(user.getName());
 		toReturn.setSurname(user.getSurname());
 		toReturn.setMail(user.getMail());
-		toReturn.setId_user(user.getId_user());
+		toReturn.setId(user.getId_user());
 		
 		return toReturn;
 	}

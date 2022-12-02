@@ -9,7 +9,7 @@ public class CardDTO {
 		private float attack;
 		private float price;
 		private Integer id_user;
-		
+		private CardReferenceDTO cardReference;
 		
 		public CardDTO() {
 			super();
@@ -80,4 +80,20 @@ public class CardDTO {
 		public void setId_user(Integer id_user) {
 			this.id_user = id_user;
 		}
+
+		public CardReferenceDTO getCardReference() {
+			return cardReference;
+		}
+
+		public void setCardReference(CardReferenceDTO cardReference) {
+			this.cardReference = cardReference;
+		}
+
+		@Override
+		public String toString() {
+			return "CardDTO [id=" + id + ", energy=" + energy + ", hp=" + hp + ", defense=" + defense + ", attack="
+					+ attack + ", price=" + price + ", id_user=" + id_user + ", cardReference=" + cardReference + "]";
+		}
+		
 }
+		

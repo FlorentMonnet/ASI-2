@@ -8,15 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import microservice.card.entity.Card;
+import microservice.card.mapper.CardMapper;
 import microservice.card.repository.CardRepository;
+import microservice.card.rest.transaction.TransactionCardDTO;
+import microservice.card.rest.transaction.TransactionCardRestClient;
 import microservice.card.service.queue.CardSenderQueueService;
 
 @Service
 public class CardService {
 	@Autowired
 	CardRepository cardRepository;
+	
 	@Autowired
 	CardSenderQueueService cardSenderQueueService;
+	
+	@Autowired
+	CardMapper cardMapper;
+	
+	@Autowired
+	TransactionCardRestClient transactionCardRestClient;
+	
 	public List<Card> getCards() {
 		List<Card> cards = new ArrayList<>();
 		cardRepository.findAll().forEach(cards::add);
@@ -33,6 +44,16 @@ public class CardService {
 		return result ? "Mise à jour de la carte en cours" : "";
 	}
 	
+	public String addTransactionCardToBuyQueue(TransactionCardDTO transactionCardDTO) {
+		boolean result = cardSenderQueueService.addTransactionCardToBuyQueue(transactionCardDTO);
+		return result ? "Mise à jour de la carte en cours" : "";
+	}
+	
+	public String addTransactionCardToSellQueue(TransactionCardDTO transactionCardDTO) {
+		boolean result = cardSenderQueueService.addTransactionCardToSellQueue(transactionCardDTO);
+		return result ? "Mise à jour de la carte en cours" : "";
+	}
+	
 	public Card addCard(Card card) {
 		return cardRepository.save(card);
 	}
@@ -41,8 +62,17 @@ public class CardService {
 		return cardRepository.save(card);
 	}
 	
+	public void updateCardToPay(TransactionCardDTO transactionCardDTO) {
+		cardRepository.save(cardMapper.toModel(transactionCardDTO.getCard()));
+		transactionCardRestClient.updateCardToBuy(transactionCardDTO);
+	}
+	
+	public void updateCardToSell(TransactionCardDTO transactionCardDTO) {
+		cardRepository.save(cardMapper.toModel(transactionCardDTO.getCard()));
+		transactionCardRestClient.updateCardToSell(transactionCardDTO);
+	}
+	
 	public Optional<Card> getCardById(Integer id) {
-		System.out.println("GET CARD BY ID"+id);
 		return cardRepository.findById(id);
 	}
 	
@@ -50,12 +80,11 @@ public class CardService {
 		cardRepository.deleteById(id);
 	}
 	
-	public List<Card> getAllCardToSell(){
+	public List<Card> getAllCardToBuy(){
 		return cardRepository.findByUser(null);
 	}
-
-
-
-
-
+	
+	public List<Card> getAllCardToSell(Integer id_user){
+		return cardRepository.findByUser(id_user);
+	}
 }

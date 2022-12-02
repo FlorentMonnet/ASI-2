@@ -1,28 +1,29 @@
 package microservice.card.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import microservice.card.dto.CardDTO;
 import microservice.card.entity.Card;
 import microservice.card.mapper.CardMapper;
+import microservice.card.rest.transaction.TransactionCardDTO;
 import microservice.card.service.CardService;
 
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/api/card-microservice")
 public class CardController {
@@ -35,8 +36,7 @@ public class CardController {
 	
 	@GetMapping("/card/{id_card}")
 	private CardDTO getCard(@PathVariable Integer id_card) {
-		Optional<Card> card;
-		card= cardService.getCardById(id_card);
+		Optional<Card> card = cardService.getCardById(id_card);
 		if(card.isPresent()) {
 			return cardMapper.toDTO(card.get());
 		}
@@ -61,14 +61,27 @@ public class CardController {
 	}
 	
 	@DeleteMapping("/card/{id}")
-	public void deleteUser(@PathVariable Integer id) {
+	public void deleteCard(@PathVariable Integer id) {
 		cardService.deleteCardModel(id);
 	}
 	
-	@GetMapping("/cardsToSell")
-	private List<CardDTO> getCardsToSell() {
-		return cardMapper.toDTOList(cardService.getAllCardToSell());
+	@GetMapping("/cardsToBuy")
+	private List<CardDTO> getCardsToBuy() {
+		return cardMapper.toDTOList(cardService.getAllCardToBuy());
 	}
-
-
+	
+	@GetMapping("/cardsToSell/{id_user}")
+	private List<CardDTO> getCardsToSell(Integer id_user) {
+		return cardMapper.toDTOList(cardService.getAllCardToSell(id_user));
+	}
+	
+	@PatchMapping("/buy-card/{id}")
+	public void updateCardToPay(@RequestBody TransactionCardDTO transactionCardDTO,@PathVariable Integer id) {
+		cardService.addTransactionCardToBuyQueue(transactionCardDTO);
+	}
+	
+	@PatchMapping("/sell-card/{id}")
+	public void updateCardToSell(@RequestBody TransactionCardDTO transactionCardDTO,@PathVariable Integer id) {
+		cardService.addTransactionCardToSellQueue(transactionCardDTO);
+	}
 }

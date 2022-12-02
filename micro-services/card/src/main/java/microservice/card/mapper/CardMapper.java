@@ -3,41 +3,45 @@ package microservice.card.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import microservice.card.dto.CardDTO;
 import microservice.card.entity.Card;
+import microservice.card.dto.CardDTO;
 
 @Component
 public class CardMapper {
+		@Autowired
+		CardReferenceMapper cardReferenceMapper;
 		
 		public Card toModel(CardDTO cardDTO) {
-			Card toReturn = new Card();
+			Card card = new Card();
 			
-			toReturn.setId_card(cardDTO.getId());
-			toReturn.setEnergy(cardDTO.getEnergy());
-			toReturn.setHp(cardDTO.getHp());
-			toReturn.setDefense(cardDTO.getDefense());
-			toReturn.setAttack(cardDTO.getAttack());
-			toReturn.setPrice(cardDTO.getPrice());
-			toReturn.setId_user(cardDTO.getId_user());
+			card.setId_card(cardDTO.getId());
+			card.setEnergy(cardDTO.getEnergy());
+			card.setHp(cardDTO.getHp());
+			card.setDefense(cardDTO.getDefense());
+			card.setAttack(cardDTO.getAttack());
+			card.setPrice(cardDTO.getPrice());
+			card.setId_user(cardDTO.getId_user());
+			card.setCardReference(cardReferenceMapper.toModel(cardDTO.getCardReference()));
 			
-			return toReturn;
-			
+			return card;
 		}
 		
 		public CardDTO toDTO(Card card) {
-			CardDTO toReturn = new CardDTO();
+			CardDTO cardDTO = new CardDTO();
 			
-			toReturn.setId(card.getId_card());
-			toReturn.setEnergy(card.getEnergy());
-			toReturn.setHp(card.getHp());
-			toReturn.setDefense(card.getDefense());
-			toReturn.setAttack(card.getAttack());
-			toReturn.setPrice(card.getPrice());
-			toReturn.setId_user(card.getId_user());
+			cardDTO.setId(card.getId_card());
+			cardDTO.setEnergy(card.getEnergy());
+			cardDTO.setHp(card.getHp());
+			cardDTO.setDefense(card.getDefense());
+			cardDTO.setAttack(card.getAttack());
+			cardDTO.setPrice(card.getPrice());
+			cardDTO.setId_user(card.getId_user());
+			cardDTO.setCardReference(cardReferenceMapper.toDTO(card.getCardReference()));
 			
-			return toReturn;
+			return cardDTO;
 			
 		}
 		

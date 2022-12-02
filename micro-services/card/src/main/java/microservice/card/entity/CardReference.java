@@ -1,14 +1,10 @@
 package microservice.card.entity;
 
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,7 +12,7 @@ import javax.persistence.Table;
 public class CardReference {
 	@Id
 	@GeneratedValue
-	private Integer id;
+	private Integer id_card_reference;
 	@Column(name="name_card_reference")
 	private String name;
 	@Column(name="description_card_reference")
@@ -30,10 +26,6 @@ public class CardReference {
 	@Column(name="small_img_url_card_reference")
 	private String smallImgUrl;
 	
-	@OneToMany(cascade = CascadeType.ALL,
-			mappedBy = "id_card")
-	private Set<Card> cardList = new HashSet<>();
-
 	public CardReference() {
 		super();
 	}
@@ -86,11 +78,17 @@ public class CardReference {
 	}
 	
 	public Integer getId() {
-		return id;
+		return id_card_reference;
 	}
 
 	public void setId(Integer id) {
-		this.id = id;
+		this.id_card_reference = id;
+	}
+	
+	@Override
+	public String toString() {
+		return "CardReference [id=" + id_card_reference + ", name=" + name + ", description=" + description + ", family=" + family
+				+ ", affinity=" + affinity + ", imgUrl=" + imgUrl + ", smallImgUrl=" + smallImgUrl + "]";
 	}
 
 }
