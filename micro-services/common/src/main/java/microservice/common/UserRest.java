@@ -1,8 +1,8 @@
-package microservice.transaction.rest.user;
+package microservice.common;
 
 import java.util.Optional;
 
-import microservice.transaction.dto.TransactionUserDTO;
+
 
 public interface UserRest {
 	public Optional<UserDTO> getUserById(Integer id_user);

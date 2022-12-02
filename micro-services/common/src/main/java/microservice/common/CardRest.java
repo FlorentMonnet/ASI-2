@@ -1,9 +1,8 @@
-package microservice.transaction.rest.card;
+package microservice.common;
 
 import java.util.List;
 import java.util.Optional;
 
-import microservice.transaction.dto.TransactionCardDTO;
 
 public interface CardRest {
 	public List<CardDTO> getAllCards();

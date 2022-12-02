@@ -1,8 +1,8 @@
-package microservice.transaction.dto;
+package microservice.common;
 
 import java.sql.Timestamp;
 
-import microservice.transaction.entity.TransactionAction;
+
 
 public class TransactionDTO {
 	private Integer id;

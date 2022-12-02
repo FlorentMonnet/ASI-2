@@ -1,4 +1,4 @@
-package microservice.transaction.rest.card;
+package microservice.common;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import microservice.transaction.dto.TransactionCardDTO;
 
 
 @Component

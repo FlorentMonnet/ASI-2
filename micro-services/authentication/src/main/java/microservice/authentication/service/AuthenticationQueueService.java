@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import microservice.authentication.dto.UserRegisterDTO;
+import microservice.common.UserRegisterDTO;
 
 @Service
 public class AuthenticationQueueService{

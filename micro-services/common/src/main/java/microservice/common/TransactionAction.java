@@ -1,4 +1,4 @@
-package microservice.transaction.entity;
+package microservice.common;
 
 public enum TransactionAction {
 	BUY,SELL

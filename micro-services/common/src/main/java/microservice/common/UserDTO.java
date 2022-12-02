@@ -1,4 +1,4 @@
-package microservice.user.dto;
+package microservice.common;
 
 public class UserDTO {
 	private Integer id_user;

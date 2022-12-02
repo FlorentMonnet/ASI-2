@@ -1,4 +1,4 @@
-package microservice.authentication.dto;
+package microservice.common;
 
 import java.io.Serializable;
 

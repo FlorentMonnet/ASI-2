@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 
+import microservice.common.TransactionUserDTO;
 import microservice.user.entity.User;
-import microservice.user.rest.transaction.TransactionUserDTO;
 
 @Service
 public class UserSenderQueueService {

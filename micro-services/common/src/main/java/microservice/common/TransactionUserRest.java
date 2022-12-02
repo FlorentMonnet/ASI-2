@@ -1,4 +1,5 @@
-package microservice.user.rest.transaction;
+package microservice.common;
+
 
 public interface TransactionUserRest {
 	public void updateUserToPay(TransactionUserDTO transactionUserDTO);

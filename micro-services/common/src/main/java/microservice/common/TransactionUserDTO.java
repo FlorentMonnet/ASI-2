@@ -1,6 +1,6 @@
-package microservice.user.rest.transaction;
+package microservice.common;
 
-import microservice.user.dto.UserDTO;
+
 
 public class TransactionUserDTO {
 	private Integer id_transaction_user;
@@ -9,7 +9,7 @@ public class TransactionUserDTO {
 	public TransactionUserDTO() {
 		super();
 	}
-	
+
 	public TransactionUserDTO(Integer id_transaction_card, UserDTO user) {
 		super();
 		this.id_transaction_user = id_transaction_card;
@@ -42,4 +42,3 @@ public class TransactionUserDTO {
 		return "TransactionCardDTO [id_transaction_user=" + id_transaction_user + ", user=" + user + "]";
 	}
 }
-

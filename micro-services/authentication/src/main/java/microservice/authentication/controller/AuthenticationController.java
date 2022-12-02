@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
-import microservice.authentication.dto.UserRegisterDTO;
 import microservice.authentication.service.AuthenticationQueueService;
 import microservice.authentication.service.AuthenticationService;
+import microservice.common.UserRegisterDTO;
 
 @CrossOrigin
 @RestController

@@ -1,4 +1,4 @@
-package microservice.transaction.rest.user;
+package microservice.common;
 import java.util.Optional;
 
 import org.springframework.http.HttpEntity;
@@ -8,7 +8,6 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import microservice.transaction.dto.TransactionUserDTO;
 
 @Component
 public class UserRestClient implements UserRest{

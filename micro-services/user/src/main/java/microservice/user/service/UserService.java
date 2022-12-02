@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import microservice.common.TransactionUserDTO;
+import microservice.common.TransactionUserRestClient;
 import microservice.user.entity.User;
 import microservice.user.mapper.UserMapper;
 import microservice.user.repository.UserRepository;
-import microservice.user.rest.transaction.TransactionUserDTO;
-import microservice.user.rest.transaction.TransactionUserRestClient;
 import microservice.user.service.queue.UserSenderQueueService;
 
 @Service

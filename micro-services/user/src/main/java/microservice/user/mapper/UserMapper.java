@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import microservice.user.dto.UserDTO;
+import microservice.common.UserDTO;
 import microservice.user.entity.User;
 @Component
 public class UserMapper {
