@@ -15,10 +15,10 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>authentication</module>
+    <module>./authentication</module>
     <module>./card</module>
     <module>./common</module>
-    <module>transaction</module>
+    <module>./transaction</module>
     <module>./user</module>
   </modules>
 </project>
