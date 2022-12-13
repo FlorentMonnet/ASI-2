@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Config from '../../config';
 import { useDispatch } from 'react-redux';
 import { connectUserAction } from '../../core/actions/user.action';
+import GameService from '../../ws/gameService';
+import { socket } from '../../ws';
 
 function Login() {
     const [email, setEmail] = useState([]);
@@ -39,13 +41,16 @@ function Login() {
                     fetch(Config.API_USER_PATH + 'user/' + json)
                         .then((response) => response.json())
                         .then((json) => {
-                            console.log(json)
+                            console.log(json);
                             dispatch(connectUserAction(json));
                             navigate('/');
                         });
                 }
             });
     }
+
+    //Call
+    var gameService = new GameService(socket, navigate);
 
     return (
         <div

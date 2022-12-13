@@ -11,3 +11,6 @@ export const selectorAdverseUserCards = (state) => state.cardToPlay;
 export const selectorSelectedCard = (state) => state.cardSelected;
 
 export const selectorSelectedCardInGame = (state) => state.cardSelectedInGame;
+
+export const selectorSelectedCardOpponentInGame = (state) =>
+    state.cardOpponentSelectedInGame;

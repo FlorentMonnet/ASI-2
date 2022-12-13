@@ -6,6 +6,8 @@ const Config = {
         ADD_WAITING_LIST: 'addOnWaitingList',
         OPPONENT_FOUND: 'opponentFound',
         CHAT_MESSAGE: 'chatMessage',
+
+        ROOM_JOINED: 'roomJoined',
     },
 };
 

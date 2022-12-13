@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import {
     selectorAdverseUserCards,
     selectorSelectedCardInGame,
+    selectorSelectedCardOpponentInGame,
     selectorUserCardsToPlay,
 } from '../../core/selectors/card.selector';
 import {
@@ -14,6 +15,7 @@ import User from '../User/Index';
 import Config from '../../config';
 import Card from '../Card';
 import Chat from '../Chat/Chat';
+import GameService from '../../ws/gameService';
 
 function GameZone() {
     const user = useSelector(selectorUserConnected);
@@ -23,6 +25,27 @@ function GameZone() {
     const adverseCards = useSelector(selectorAdverseUserCards);
 
     const cardSelectedInGame = useSelector(selectorSelectedCardInGame);
+    const cardOpponentSelectedInGame = useSelector(
+        selectorSelectedCardOpponentInGame
+    );
+
+    var gameService = GameService.getInstance();
+
+    function attack() {
+        alert('Attack to do!');
+        if (
+            cardSelectedInGame !== null &&
+            cardOpponentSelectedInGame !== null
+        ) {
+            let attack = {
+                card: cardSelectedInGame,
+                attackedard: cardOpponentSelectedInGame,
+            };
+            gameService.attack();
+        } else {
+            alert('Select a card');
+        }
+    }
 
     return (
         <div className="ui segment">
@@ -48,7 +71,17 @@ function GameZone() {
                                 />
                             </div>
                             <div className="four wide column">
-                                <div id="fullCardA1"></div>
+                                <div id="fullCardA1">
+                                    {cardOpponentSelectedInGame !== null ? (
+                                        <Card
+                                            card={cardOpponentSelectedInGame}
+                                            display="card"
+                                            mode={Config.MODE.GAME}
+                                        />
+                                    ) : (
+                                        ''
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -61,7 +94,10 @@ function GameZone() {
                                 </h4>
                             </div>
                             <div className="four wide column">
-                                <button className="huge ui primary button">
+                                <button
+                                    className="huge ui primary button"
+                                    onClick={() => attack()}
+                                >
                                     Attack
                                 </button>
                             </div>

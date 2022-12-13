@@ -4,6 +4,7 @@ import {
     addCardForGame,
     selectCard,
     selectCardInGame,
+    selectOpponentCardInGame,
 } from '../../core/actions/cards.action';
 import { useSelector } from 'react-redux';
 import { selectorUserConnected } from '../../core/selectors/user.selector';
@@ -22,6 +23,11 @@ function Card(props) {
 
     const [color, setColor] = useState([]);
 
+    //DEBUG:
+    console.log('Youhour card : ');
+    console.log(card);
+    console.log('------------------------');
+
     useEffect(() => {
         setColor('#FFFFFF');
     }, []);
@@ -34,7 +40,10 @@ function Card(props) {
                 }}
             >
                 <td>
-                    <img className="ui avatar image" src={card.cardReference.imgUrl} />{' '}
+                    <img
+                        className="ui avatar image"
+                        src={card.cardReference.imgUrl}
+                    />{' '}
                     <span>{card.name}</span>
                 </td>
                 <td>{card.cardReference.description}</td>
@@ -258,6 +267,8 @@ function Card(props) {
             }
         } else if (mode === Config.MODE.GAME) {
             dispatch(selectCardInGame(card));
+        } else if (mode === Config.MODE.GAME_ADVERSE) {
+            dispatch(selectOpponentCardInGame(card));
         }
     }
 

@@ -11,7 +11,7 @@ import {
     selectorUserCardsToPlay,
 } from '../../core/selectors/card.selector';
 import Card from '../Card';
-import gameService from '../../ws/gameService';
+import GameService from '../../ws/gameService';
 import { selectorUserConnected } from '../../core/selectors/user.selector';
 
 function SelectCardForGame() {
@@ -22,6 +22,8 @@ function SelectCardForGame() {
     const cardList = useSelector(selectorUserCards);
     const cardListToPlay = useSelector(selectorUserCardsToPlay);
     const user = useSelector(selectorUserConnected);
+
+    var gameService = GameService.getInstance();
 
     useEffect(() => {
         dispatch(resetCardForGame());
@@ -36,8 +38,8 @@ function SelectCardForGame() {
     function goToGame() {
         if (cardListToPlay.length === 4) {
             //navigate('/play');
-            console.log(user);
             gameService.addOnWaitingList(JSON.stringify(user));
+            navigate('/loading-game');
         } else {
             alert('Select 4 card');
         }

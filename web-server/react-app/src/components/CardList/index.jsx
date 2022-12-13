@@ -4,7 +4,7 @@ import { cardInit, userCardsToSell } from '../../core/actions/cards.action';
 import {
     selectorCardsToBuy,
     selectorCardsToSell,
-    selectorSelectedCard
+    selectorSelectedCard,
 } from '../../core/selectors/card.selector';
 
 import Card from '../Card';

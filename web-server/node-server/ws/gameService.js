@@ -1,23 +1,36 @@
 const { Config } = require('../config');
 const socketServerUtil = require('../socketServer');
+const utils = require('../utils');
 
 const socketServer = socketServerUtil.getServer();
 
 let userOnWaitingList = [];
+let roomsCreated = [];
 
 const connection = (socket) => {
     const addOnWaitingList = (user) => {
         console.log(user);
         if (userOnWaitingList.length === 0) {
             console.log('User is added to waiting list');
+            user = JSON.parse(user);
             userOnWaitingList.push(user);
+
+            //Création de la room
+            let roomName = utils.getRoomName();
+            roomsCreated[user.id] = roomName;
+            socket.join(roomName);
+            console.log('Creating room ' + roomName);
         } else {
-            console.log(userOnWaitingList.length);
-            console.log(userOnWaitingList);
+            console.log('Opponent mode : ');
             let opponent = userOnWaitingList.shift();
-            console.log('sdfs' + opponent);
-            console.log(userOnWaitingList);
-            socket.emit(Config.SOCKET_EVENT.OPPONENT_FOUND, opponent);
+            // Join opponent room
+            let opponentRoom = roomsCreated[opponent.id];
+            console.log('Joined room ' + opponentRoom);
+            socket.join(opponentRoom);
+            socket
+                .to(opponentRoom)
+                .emit(Config.SOCKET_EVENT.OPPONENT_FOUND, opponent);
+            socket.emit(Config.SOCKET_EVENT.ROOM_JOINED, opponentRoom);
         }
     };
 

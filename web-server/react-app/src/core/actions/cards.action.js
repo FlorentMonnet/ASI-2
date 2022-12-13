@@ -5,6 +5,7 @@ export const CardsActions = {
     ADD_CARD_FOR_GAME: '@@card/ADD_CARD_FOR_GAME',
     RESET_CARD_FOR_GAME: '@@card/RESET_CARD_FOR_GAME',
     SELECT_CARD_IN_GAME: '@@card/SELECT_CARD_IN_GAME',
+    SELECT_CARD_OPPONENT_IN_GAME: '@@card/SELECT_CARD_OPPONENT_IN_GAME',
 };
 
 export const cardInit = (cards) => {
@@ -52,6 +53,15 @@ export const resetCardForGame = () => {
 export const selectCardInGame = (card) => {
     return {
         type: CardsActions.SELECT_CARD_IN_GAME,
+        payload: {
+            card,
+        },
+    };
+};
+
+export const selectOpponentCardInGame = (card) => {
+    return {
+        type: CardsActions.SELECT_CARD_OPPONENT_IN_GAME,
         payload: {
             card,
         },

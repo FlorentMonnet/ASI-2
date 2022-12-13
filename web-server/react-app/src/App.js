@@ -1,7 +1,12 @@
 import './App.css';
 import 'semantic-ui-css/semantic.min.css';
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {
+    BrowserRouter as Router,
+    Route,
+    Routes,
+    useNavigate,
+} from 'react-router-dom';
 
 import Home from './components/Home';
 import Header from './components/Header';
@@ -14,6 +19,7 @@ import Chat from './components/Chat/Chat';
 import Config from './config';
 import GameZone from './components/GameZone';
 import SelectCardForGame from './components/SelectCardForGame';
+import Loading from './components/Loading';
 
 function App() {
     return (
@@ -92,6 +98,22 @@ function App() {
                                 subTitle={Config.HEADER_CONFIG.play.subTitle}
                             />{' '}
                             <GameZone />
+                        </>
+                    }
+                />
+                <Route
+                    exact
+                    path="/loading-game"
+                    element={
+                        <>
+                            <Header
+                                iconHeader={
+                                    Config.HEADER_CONFIG.play.iconHeader
+                                }
+                                title={Config.HEADER_CONFIG.play.title}
+                                subTitle={Config.HEADER_CONFIG.play.subTitle}
+                            />{' '}
+                            <Loading />
                         </>
                     }
                 />
