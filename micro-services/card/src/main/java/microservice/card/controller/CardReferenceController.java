@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import microservice.card.dto.CardDTO;
 import microservice.card.dto.CardReferenceDTO;
 import microservice.card.entity.CardReference;
+import microservice.card.mapper.CardMapper;
 import microservice.card.mapper.CardReferenceMapper;
 import microservice.card.service.CardReferenceService;
 
@@ -61,5 +63,10 @@ public class CardReferenceController {
 	@DeleteMapping("/card-reference/{id}")
 	public void deleteCardReference(@PathVariable Integer id) {
 		cardReferenceService.deleteCardReference(id);
+	}
+	
+	@GetMapping("/card-reference/random-card-references")
+	public List<CardReferenceDTO> getRandomCards() {
+		return cardReferenceMapper.toDTOList(cardReferenceService.getRandomCardReferences());
 	}
 }
