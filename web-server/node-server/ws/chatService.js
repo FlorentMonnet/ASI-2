@@ -1,5 +1,5 @@
-const {Config} = require('../config');
-const socketServerUtil = require('../socketServer');
+const { Config } = require('../config');
+const socketServerUtil = require('../model/socketServer');
 
 const socketServer = socketServerUtil.getServer();
 
@@ -13,8 +13,8 @@ const connection = (socket) => {
     };
 
     // socket.on(ENUM.nomchannel, functionAAppeler)
-    socket.on(Config.SOCKET_EVENT.CHAT_MESSAGE, receivedMessage)
-}
+    socket.on(Config.SOCKET_EVENT.CHAT_MESSAGE, receivedMessage);
+};
 
 socketServer.on(Config.SOCKET_EVENT.CONNECT, connection);
 

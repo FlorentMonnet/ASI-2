@@ -6,8 +6,10 @@ const Config = {
         ADD_WAITING_LIST: 'addOnWaitingList',
         OPPONENT_FOUND: 'opponentFound',
         CHAT_MESSAGE: 'chatMessage',
-
+        GAME_ATTACK: 'gameAttack',
         ROOM_JOINED: 'roomJoined',
+        UPDATE_GAME: 'updateGame',
+        END_GAME: 'endGame',
     },
 };
 

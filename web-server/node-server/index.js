@@ -1,6 +1,6 @@
 const app = require('express')();
 const http = require('http').createServer(app);
-const socketServerUtil = require('./socketServer');
+const socketServerUtil = require('./model/socketServer');
 
 socketServerUtil.init(http);
 

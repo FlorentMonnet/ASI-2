@@ -1,4 +1,5 @@
 import { CardsActions } from '../actions/cards.action';
+import { GameActions } from '../actions/game.action';
 import { UserActions } from '../actions/user.action';
 
 const initStateValue = {
@@ -8,9 +9,13 @@ const initStateValue = {
     users: [],
     userConnected: null,
     cardToPlay: [],
+    opponentCardToPlay: [],
     userSelected: null,
+    opponentInGame: null,
     cardSelectedInGame: null,
     cardOpponentSelectedInGame: null,
+    turnGameUserId: null,
+    userPointInGame: 0,
 };
 
 export const rootReducer = (state = initStateValue, action) => {
@@ -87,6 +92,40 @@ export const rootReducer = (state = initStateValue, action) => {
         return {
             ...state,
             cardOpponentSelectedInGame: action.payload.card,
+        };
+    }
+
+    if (action.type === UserActions.ADD_OPPONENT) {
+        return {
+            ...state,
+            opponentInGame: action.payload.opponent,
+        };
+    }
+
+    if (action.type === GameActions.UPDATE_GAME) {
+        return {
+            ...state,
+            userConnected: action.payload.user,
+            opponentInGame: action.payload.adverseUser,
+            cardToPlay: action.payload.cards,
+            opponentCardToPlay: action.payload.adverseCards,
+            userPointInGame: action.payload.currentPoint,
+            turnGameUserId: action.payload.turnGameUserId,
+            cardOpponentSelectedInGame: null,
+            cardSelectedInGame: null,
+        };
+    }
+
+    if (action.type === GameActions.END_GAME) {
+        return {
+            ...state,
+            opponentInGame: null,
+            cardToPlay: null,
+            opponentCardToPlay: null,
+            userPointInGame: null,
+            turnGameUserId: null,
+            cardOpponentSelectedInGame: null,
+            cardSelectedInGame: null,
         };
     }
 

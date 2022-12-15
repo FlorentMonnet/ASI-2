@@ -37,6 +37,9 @@ const myConstClass = {
         OPPONENT_FOUND: 'opponentFound',
         CHAT_MESSAGE: 'chatMessage',
         ROOM_JOINED: 'roomJoined',
+        GAME_ATTACK: 'gameAttack',
+        UPDATE_GAME: 'updateGame',
+        END_GAME: 'endGame',
     },
 };
 

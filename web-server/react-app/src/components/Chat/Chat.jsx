@@ -28,7 +28,10 @@ function Chat(props) {
                 <div className="column">
                     <ChatHeader user={userSelected}></ChatHeader>
                     <ChatList users={usersList}></ChatList>
-                    <ChatWindow user={userSelected} messages={messages}></ChatWindow>
+                    <ChatWindow
+                        user={userSelected}
+                        messages={messages}
+                    ></ChatWindow>
                 </div>
             </div>
         </div>

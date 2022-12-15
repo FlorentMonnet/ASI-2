@@ -1,7 +1,9 @@
 export const UserActions = {
     INIT_USERS: '@@user/INIT_USERS',
     CONNECT: '@@user/CONNECT',
-    SELECTED: '@@user/SELECTED'
+    SELECTED: '@@user/SELECTED',
+    ADD_OPPONENT: '@@user/ADD_OPPONENT',
+    UPDATE_GAME: '@@user/UPDATE_GAME',
 };
 
 export const userInit = (users) => {
@@ -29,5 +31,13 @@ export const setSelectedUser = (user) => {
             user,
         },
     };
+};
 
+export const setOpponentInGame = (opponent) => {
+    return {
+        type: UserActions.ADD_OPPONENT,
+        payload: {
+            opponent,
+        },
+    };
 };

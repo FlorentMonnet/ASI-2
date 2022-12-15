@@ -119,6 +119,8 @@ function App() {
                 />
                 <Route exact path="/register" element={<Register />} />
                 <Route exact path="/login" element={<Login />} />
+                <Route exact path="/win" element={<Register />} />
+                <Route exact path="/loose" element={<Login />} />
                 <Route
                     path="*"
                     element={
