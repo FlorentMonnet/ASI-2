@@ -46,7 +46,7 @@ public class CardReceiverQueueService {
 	  cardService.updateCardToSell(transactionCardDTO);
 	}
 	
-	@JmsListener(destination = "addInitUserCards", containerFactory = "connectionFactory")
+	@JmsListener(destination = "initUserCards", containerFactory = "connectionFactory")
 	public void receiveCardToSell(Integer id_user) {
 	  System.out.println("<Received in initUserCards queue <" + id_user.toString() + ">");
 	  cardService.initUserCards(id_user);

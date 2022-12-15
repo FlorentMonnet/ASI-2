@@ -2,6 +2,7 @@ package microservice.card.service;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -76,14 +77,6 @@ public class CardService {
 		return cardRepository.save(card);
 	}
 	
-	public void addCardFromReferences(Map<Integer,CardReference> mapCardReference) {
-		for (Map.Entry<Integer, CardReference> entry : mapCardReference.entrySet()) {
-			Card randomCard = getRandomCardFromReference(entry);
-			System.out.println(randomCard);
-			cardRepository.save(randomCard);
-	    }
-	}
-	
 	public Card updateCard(Card card) {
 		return cardRepository.save(card);
 	}
@@ -113,7 +106,7 @@ public class CardService {
 	public List<Card> getAllCardToSell(Integer id_user){
 		return cardRepository.findByUser(id_user);
 	}	
-	public Card getRandomCardFromReference(Map.Entry<Integer, CardReference> entry)
+	public Card getRandomCardFromReference(Integer id_user, CardReference cardReference)
 	{
 		Card cardToAdd = new Card();
 		cardToAdd.setAttack(rand.nextFloat()*100);
@@ -121,20 +114,17 @@ public class CardService {
 		cardToAdd.setEnergy(100);
 		cardToAdd.setHp(rand.nextFloat()*100);
 		cardToAdd.setPrice(cardToAdd.computePrice());
-		cardToAdd.setId_user(entry.getKey());
-		cardToAdd.setId_card(entry.getValue().getId());
+		cardToAdd.setId_user(id_user);
+		cardToAdd.setCardReference(cardReference);
 		return cardToAdd;
 	}
 	
 	public void initUserCards(Integer id_user) {
-		System.out.println("initUserCards - CardService");
 		List<CardReference> randomCardReferences = cardReferenceService.getRandomCardReferences();
-		Map<Integer,CardReference> mapCardRefence = Map.of();
 		for(CardReference randomCardReference : randomCardReferences)
 		{
-			mapCardRefence.put(id_user, randomCardReference);
+			Card randomCard = getRandomCardFromReference(id_user,randomCardReference);
+			addCardToCreationQueue(randomCard);
 		}
-		addCardFromReferences(mapCardRefence);
-		
 	}
 }

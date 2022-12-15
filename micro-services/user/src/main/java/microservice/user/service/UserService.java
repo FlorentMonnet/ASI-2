@@ -14,6 +14,7 @@ import microservice.user.mapper.UserMapper;
 import microservice.user.mapper.UserRegisterMapper;
 import microservice.user.repository.UserRepository;
 import microservice.user.rest.auth.AuthRestClient;
+import microservice.user.rest.card.UserRestClient;
 import microservice.user.rest.transaction.TransactionUserDTO;
 import microservice.user.rest.transaction.TransactionUserRestClient;
 import microservice.user.service.queue.UserSenderQueueService;
@@ -38,6 +39,9 @@ public class UserService {
 	
 	@Autowired
 	AuthRestClient authRestClient;
+	
+	@Autowired
+	UserRestClient userRestClient;
 	
 	public User getUserById(Integer idUser) {
 		return userRepository.findById(idUser).orElseThrow(() -> new RuntimeException());
@@ -112,6 +116,7 @@ public class UserService {
 					userRegisterDTO.getMail()
 				);
 		userRepository.save(user);
+		userRestClient.initUserCards(user.getId_user());
 		return user;
 	}
 	

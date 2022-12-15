@@ -58,8 +58,8 @@ public class CardReferenceService {
 	public List<CardReference> getRandomCardReferences() {
 		List<CardReference> cardRefList = getCardReferences();
 		List<CardReference> cardsRefToReturn = new ArrayList<>();
-		if( cardRefList.size()>0) {
-			while (cardsRefToReturn.size() < 4) {
+		if(cardRefList.size()>0) {
+			while (cardsRefToReturn.size() < 5) {
 				Random rand=new Random();
 				int rindex=rand.nextInt(cardRefList.size()-1);
 				cardsRefToReturn.add(cardRefList.get(rindex));
