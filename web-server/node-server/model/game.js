@@ -21,8 +21,6 @@ class Game {
     }
 
     attackUser(attack, callback, callbackEndGame) {
-        console.log(this.indexAttaquant);
-        console.log(this.users);
         console.log(
             "Attaque de l'utilisateur " +
                 this.getTurnUser().name +
@@ -54,7 +52,12 @@ class Game {
                 this.changeTurn();
             }
 
-            if (this.cardsUsers[this.getDefenseUser().id].length === 0) {
+            console.log(this.cardsUsers[this.getDefenseUser().id]);
+            const cardsDefenseurRestante = this.cardsUsers[
+                this.getDefenseUser().id
+            ].filter((c) => c !== null);
+            if (cardsDefenseurRestante.length === 0) {
+                console.log('Partie terminé');
                 //finish game
                 const end = {
                     users: this.users,
@@ -106,7 +109,7 @@ class Game {
             users: this.users,
             cardsUsers: this.cardsUsers,
             currentAttanquantEnergyPoint: this.currentAttanquantEnergyPoint,
-            currentUserTurn: this.indexAttaquant,
+            currentUserTurn: this.getTurnUser().id,
         };
         callback(init);
     }

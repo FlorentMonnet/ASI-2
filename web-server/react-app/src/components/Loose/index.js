@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function Win() {
+function Loose() {
     const navigate = useNavigate();
 
     return (
@@ -13,7 +13,7 @@ function Win() {
                 className="column"
                 style={{ maxWidth: '450px', marginTop: '6em' }}
             >
-                <h1 className="ui green header">You win !!</h1>
+                <h1 className="ui red header">You loose !</h1>
                 <button
                     className="ui secondary basic button"
                     onClick={() => navigate('/')}
@@ -25,4 +25,4 @@ function Win() {
     );
 }
 
-export default Win;
+export default Loose;

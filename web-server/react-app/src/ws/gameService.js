@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import Config from '../config';
-import { updateGame } from '../core/actions/game.action';
+import { endGame, updateGame } from '../core/actions/game.action';
 import {
     setOpponentInGame,
     setUserPointInStartGame,
@@ -76,7 +76,8 @@ class GameService {
 
             // For navigate to play
             socket.on(Config.SOCKET_EVENT.END_GAME, (end) => {
-                dispatch();
+                dispatch(endGame());
+                end = JSON.parse(end);
                 if (end.winnerUserId === this.userConnected.id) {
                     this.navigate('/win');
                 } else {

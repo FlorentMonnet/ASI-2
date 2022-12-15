@@ -20,6 +20,8 @@ import Config from './config';
 import GameZone from './components/GameZone';
 import SelectCardForGame from './components/SelectCardForGame';
 import Loading from './components/Loading';
+import Win from './components/Win/Index';
+import Loose from './components/Loose';
 
 function App() {
     return (
@@ -119,8 +121,8 @@ function App() {
                 />
                 <Route exact path="/register" element={<Register />} />
                 <Route exact path="/login" element={<Login />} />
-                <Route exact path="/win" element={<Register />} />
-                <Route exact path="/loose" element={<Login />} />
+                <Route exact path="/win" element={<Win />} />
+                <Route exact path="/loose" element={<Loose />} />
                 <Route
                     path="*"
                     element={

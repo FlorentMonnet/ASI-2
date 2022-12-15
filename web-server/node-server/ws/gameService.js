@@ -70,22 +70,18 @@ const connection = (socket) => {
             : end.users[1].id;
 
         var roomName = roomsCreated[roomIndex];
+
         // Suppression des valeurs
         roomsCreated.splice(roomIndex, 1);
         userCards.splice(end.users[0].id, 1);
         userCards.splice(end.users[1].id, 1);
         delete gamesCreated[roomName];
+        console.log('Element supprimer');
 
         socket
             .to(roomName)
-            .emit(
-                Config.SOCKET_EVENT.END_GAME,
-                JSON.stringify(end.wwinnerUserId)
-            );
-        socket.emit(
-            Config.SOCKET_EVENT.END_GAME,
-            JSON.stringify(end.wwinnerUserId)
-        );
+            .emit(Config.SOCKET_EVENT.END_GAME, JSON.stringify(end));
+        socket.emit(Config.SOCKET_EVENT.END_GAME, JSON.stringify(end));
     };
 
     const attack = (attackParam) => {
@@ -96,8 +92,6 @@ const connection = (socket) => {
         var game = gamesCreated[roomName];
 
         game.attackUser(attackParam, updateGame, endGame);
-
-        //Check if is user turn
     };
 
     socket.on(Config.SOCKET_EVENT.ADD_WAITING_LIST, addOnWaitingList);
