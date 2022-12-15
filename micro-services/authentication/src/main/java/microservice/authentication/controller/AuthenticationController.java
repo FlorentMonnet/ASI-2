@@ -17,7 +17,7 @@ import microservice.authentication.service.AuthenticationQueueService;
 import microservice.authentication.service.AuthenticationService;
 import microservice.common.UserRegisterDTO;
 
-@CrossOrigin
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/api/auth-microservice")
 public class AuthenticationController {
@@ -31,23 +31,18 @@ public class AuthenticationController {
 	
 	// POST
 	@ResponseStatus(code = HttpStatus.CREATED)
-	@PostMapping(value="/admin/auth/createToken")
+	@PostMapping(value="/createToken")
 	public String createToken(@RequestBody UserRegisterDTO dto) {
 		return authService.createToken(dto);
 	}
 	
-	@PostMapping(value="/admin/auth/encryptPassword")
+	@PostMapping(value="/encryptPassword")
 	public String encryptPassword(@RequestBody UserRegisterDTO dto) {
 		return authService.encryptPassword(dto);
 	}
 	
-	@PostMapping(value="/admin/auth/checkPassword")
+	@PostMapping(value="/checkPassword")
 	public boolean checkPassword(@RequestBody List<UserRegisterDTO> dtoUserFoundAndUserLogging) {
 		return authService.checkPassword(dtoUserFoundAndUserLogging);
-	}
-	
-	@PostMapping(value="/sendMessage")
-	public boolean sendMessage(@RequestBody UserRegisterDTO userRegisterDTO) {
-		return authQueueService.sendMessage(userRegisterDTO);
 	}
 }

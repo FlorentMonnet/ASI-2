@@ -16,7 +16,9 @@ public class CardRestClient implements CardRest{
 	
 	private static final String URL_CARD_MICROSERVICE = "http://reverse-proxy:80/api/card-microservice"; 
 	private static final String URL_CARD = URL_CARD_MICROSERVICE + "/card/"; 
-	private static final String URL_PAY_CARRD = URL_CARD_MICROSERVICE + "/pay-card/"; 
+	private static final String URL_BUY_CARRD = URL_CARD_MICROSERVICE + "/buy-card/"; 
+	private static final String URL_SELL_CARRD = URL_CARD_MICROSERVICE + "/sell-card/"; 
+	
 	private RestTemplate restTemplate;
 	
 	public CardRestClient() {
@@ -51,9 +53,15 @@ public class CardRestClient implements CardRest{
 	}
 	
 	@Override
-	public void updateCardToPay(TransactionCardDTO transactionCardDTO) {
-		System.out.println("[CardRestClient] [updateCardToPay] " +transactionCardDTO.toString());
-		restTemplate.exchange(URL_PAY_CARRD + transactionCardDTO.getId(), HttpMethod.PATCH, new HttpEntity<TransactionCardDTO>(transactionCardDTO), String.class);
+	public void updateCardToBuy(TransactionCardDTO transactionCardDTO) {
+		System.out.println("[CardRestClient] [updateCardToBuy] " +transactionCardDTO.toString());
+		restTemplate.exchange(URL_BUY_CARRD + transactionCardDTO.getId(), HttpMethod.PATCH, new HttpEntity<TransactionCardDTO>(transactionCardDTO), String.class);
+	}
+	
+	@Override
+	public void updateCardToSell(TransactionCardDTO transactionCardDTO) {
+		System.out.println("[CardRestClient] [updateCardToSell] " +transactionCardDTO.toString());
+		restTemplate.exchange(URL_SELL_CARRD + transactionCardDTO.getId(), HttpMethod.PATCH, new HttpEntity<TransactionCardDTO>(transactionCardDTO), String.class);
 	}
 
 }

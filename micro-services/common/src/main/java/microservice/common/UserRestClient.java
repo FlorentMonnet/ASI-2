@@ -14,7 +14,8 @@ public class UserRestClient implements UserRest{
 	
 	private static final String URL_USER_MICROSERVICE = "http://reverse-proxy:80/api/user-microservice"; 
 	private static final String URL_USER = URL_USER_MICROSERVICE + "/user/"; 
-	private static final String URL_PAY_USER = URL_USER_MICROSERVICE + "/pay-user/"; 
+	private static final String URL_BUY_USER = URL_USER_MICROSERVICE + "/buy-user/";
+	private static final String URL_SELL_USER = URL_USER_MICROSERVICE + "/sell-user/"; 
 
 	public UserRestClient() {
 		
@@ -32,15 +33,21 @@ public class UserRestClient implements UserRest{
 	public void updateUser(UserDTO userDTO) {
 		System.out.println("[UserRestClient] [updateUser] " +userDTO.toString());
 		RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
-		restTemplate.exchange(URL_USER + userDTO.getId_user(), HttpMethod.PATCH, new HttpEntity<UserDTO>(userDTO), String.class);
+		restTemplate.exchange(URL_USER + userDTO.getId(), HttpMethod.PATCH, new HttpEntity<UserDTO>(userDTO), String.class);
 	}
 	
 	@Override
-	public void updateUserToPay(TransactionUserDTO transactionUserDTO) {
+	public void updateUserToBuy(TransactionUserDTO transactionUserDTO) {
 		System.out.println("[UserRestClient] [updateUserToPay] " + transactionUserDTO.toString());
 		RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
-		restTemplate.exchange(URL_PAY_USER + transactionUserDTO.getId(), HttpMethod.PATCH, new HttpEntity<TransactionUserDTO>(transactionUserDTO), String.class);
+		restTemplate.exchange(URL_BUY_USER + transactionUserDTO.getId(), HttpMethod.PATCH, new HttpEntity<TransactionUserDTO>(transactionUserDTO), String.class);
 	}
-
+	
+	@Override
+	public void updateUserToSell(TransactionUserDTO transactionUserDTO) {
+		System.out.println("[UserRestClient] [updateUserToSell] " + transactionUserDTO.toString());
+		RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+		restTemplate.exchange(URL_SELL_USER + transactionUserDTO.getId(), HttpMethod.PATCH, new HttpEntity<TransactionUserDTO>(transactionUserDTO), String.class);
+	}
 
 }

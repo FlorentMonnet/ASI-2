@@ -15,7 +15,13 @@ public class TransactionReceiverQueueService {
 	@JmsListener(destination = "buy", containerFactory = "connectionFactory")
 	public void receiveBuy(Transaction transaction) {
 	  System.out.println("<Received in buy queue <" + transaction.toString() + ">");
-	  transactionService.addTransaction(transaction);
+	  transactionService.buyTransaction(transaction);
+	}
+	
+	@JmsListener(destination = "sell", containerFactory = "connectionFactory")
+	public void receiveSell(Transaction transaction) {
+	  System.out.println("<Received in sell queue <" + transaction.toString() + ">");
+	  transactionService.sellTransaction(transaction);
 	}
 
 	@JmsListener(destination = "updateTransaction", containerFactory = "connectionFactory")
@@ -24,16 +30,28 @@ public class TransactionReceiverQueueService {
 	  transactionService.updateTransaction(transaction);
 	}
 	
-	@JmsListener(destination = "updateIsCardOk", containerFactory = "connectionFactory")
-	public void receiveUpdateIsCardOk(Integer idTransaction) {
+	@JmsListener(destination = "updateIsCardOkToBuy", containerFactory = "connectionFactory")
+	public void receiveUpdateIsCardOkToBuy(Integer idTransaction) {
 	  System.out.println("<Received in UpdateIsCardOk queue <" + idTransaction + ">");
-	  transactionService.updateIsCardOk(idTransaction);
+	  transactionService.updateIsCardOkToBuy(idTransaction);
 	}
 	
-	@JmsListener(destination = "updateIsUserOk", containerFactory = "connectionFactory")
-	public void receiveUpdateIsUserOk(Integer idTransaction) {
+	@JmsListener(destination = "updateIsUserOkToBuy", containerFactory = "connectionFactory")
+	public void receiveUpdateIsUserOToBuy(Integer idTransaction) {
 	  System.out.println("<Received in updateIsUserOk queue <" + idTransaction + ">");
-	  transactionService.updateIsUserOk(idTransaction);
+	  transactionService.updateIsUserOkToBuy(idTransaction);
+	}
+	
+	@JmsListener(destination = "updateIsCardOkToSell", containerFactory = "connectionFactory")
+	public void receiveUpdateIsCardOkToSell(Integer idTransaction) {
+	  System.out.println("<Received in UpdateIsCardOk queue <" + idTransaction + ">");
+	  transactionService.updateIsCardOkToSell(idTransaction);
+	}
+	
+	@JmsListener(destination = "updateIsUserOkToSell", containerFactory = "connectionFactory")
+	public void receiveUpdateIsUserOkToSell(Integer idTransaction) {
+	  System.out.println("<Received in updateIsUserOk queue <" + idTransaction + ">");
+	  transactionService.updateIsUserOkToSell(idTransaction);
 	}
 
 }

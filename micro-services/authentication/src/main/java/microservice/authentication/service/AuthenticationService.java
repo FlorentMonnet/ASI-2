@@ -26,7 +26,7 @@ public class AuthenticationService {
 	}
 	
 	public boolean checkPassword(List<UserRegisterDTO> dtoUserFoundAndUserLogging) {
-		if (dtoUserFoundAndUserLogging.size() != 2) { // TODO
+		if (dtoUserFoundAndUserLogging.size() != 2) {
 			return false;
 		}
 		if(!bCryptPasswordEncoder.matches(dtoUserFoundAndUserLogging.get(1).getPassword(), dtoUserFoundAndUserLogging.get(0).getPassword())) {

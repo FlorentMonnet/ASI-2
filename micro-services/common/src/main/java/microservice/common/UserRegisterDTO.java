@@ -1,5 +1,6 @@
 package microservice.common;
 
+
 import java.io.Serializable;
 
 public class UserRegisterDTO implements Serializable{

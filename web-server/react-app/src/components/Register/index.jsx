@@ -24,16 +24,14 @@ function Register() {
             email !== ''
         ) {
             const user = {
-                login: login,
-                pwd: password,
-                account: 0,
-                lastName: name,
-                surName: surname,
-                email: email,
-                cardList: [],
+                password: password,
+                money: 0,
+                name: name,
+                surname: surname,
+                mail: email
             };
 
-            fetch(Config.API_PATH + 'user', {
+            fetch(Config.API_USER_PATH + 'register', {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',

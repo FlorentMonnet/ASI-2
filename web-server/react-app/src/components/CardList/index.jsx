@@ -4,7 +4,7 @@ import { cardInit, userCardsToSell } from '../../core/actions/cards.action';
 import {
     selectorCardsToBuy,
     selectorCardsToSell,
-    selectorSelectedCard,
+    selectorSelectedCard
 } from '../../core/selectors/card.selector';
 
 import Card from '../Card';
@@ -18,12 +18,11 @@ function CardList(props) {
     const cardsListToBuy = useSelector(selectorCardsToBuy);
     const cardsListToSell = useSelector(selectorCardsToSell);
     const selectedCard = useSelector(selectorSelectedCard);
-
     useEffect(() => {
         let urlToFetch =
             mode === Config.MODE.SELL
-                ? Config.API_PATH + 'cards'
-                : Config.API_PATH + 'cards';
+                ? Config.API_CARD_PATH + 'cardsToBuy'
+                : Config.API_CARD_PATH + 'cards';
         fetch(urlToFetch)
             .then((response) => response.json())
             .then((json) => {

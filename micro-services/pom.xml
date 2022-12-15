@@ -5,6 +5,7 @@
 	<groupId>microservice</groupId>
 	<artifactId>root</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<name>root</name>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>

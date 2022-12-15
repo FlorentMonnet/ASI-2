@@ -26,7 +26,7 @@ public class CardService {
 	@Autowired
 	CardMapper cardMapper;
 	
-	@Autowired
+
 	TransactionCardRestClient transactionCardRestClient;
 	
 	public List<Card> getCards() {
@@ -45,8 +45,13 @@ public class CardService {
 		return result ? "Mise à jour de la carte en cours" : "";
 	}
 	
-	public String addTransactionCardToPayQueue(TransactionCardDTO transactionCardDTO) {
-		boolean result = cardSenderQueueService.addTransactionCardToPayQueue(transactionCardDTO);
+	public String addTransactionCardToBuyQueue(TransactionCardDTO transactionCardDTO) {
+		boolean result = cardSenderQueueService.addTransactionCardToBuyQueue(transactionCardDTO);
+		return result ? "Mise à jour de la carte en cours" : "";
+	}
+	
+	public String addTransactionCardToSellQueue(TransactionCardDTO transactionCardDTO) {
+		boolean result = cardSenderQueueService.addTransactionCardToSellQueue(transactionCardDTO);
 		return result ? "Mise à jour de la carte en cours" : "";
 	}
 	
@@ -60,11 +65,15 @@ public class CardService {
 	
 	public void updateCardToPay(TransactionCardDTO transactionCardDTO) {
 		cardRepository.save(cardMapper.toModel(transactionCardDTO.getCard()));
-		transactionCardRestClient.updateCardToPay(transactionCardDTO);
+		transactionCardRestClient.updateCardToBuy(transactionCardDTO);
+	}
+	
+	public void updateCardToSell(TransactionCardDTO transactionCardDTO) {
+		cardRepository.save(cardMapper.toModel(transactionCardDTO.getCard()));
+		transactionCardRestClient.updateCardToSell(transactionCardDTO);
 	}
 	
 	public Optional<Card> getCardById(Integer id) {
-		System.out.println("GET CARD BY ID"+id);
 		return cardRepository.findById(id);
 	}
 	
@@ -72,7 +81,11 @@ public class CardService {
 		cardRepository.deleteById(id);
 	}
 	
-	public List<Card> getAllCardToSell(){
+	public List<Card> getAllCardToBuy(){
 		return cardRepository.findByUser(null);
+	}
+	
+	public List<Card> getAllCardToSell(Integer id_user){
+		return cardRepository.findByUser(id_user);
 	}
 }

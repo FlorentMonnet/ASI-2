@@ -25,10 +25,10 @@ import microservice.transaction.service.queue.TransactionSenderQueueService;
 @Service
 public class TransactionService {
 	
-	@Autowired
+	
 	private CardRestClient cardRestClient;
 	
-	@Autowired
+
 	private UserRestClient userRestClient;
 	
 	@Autowired
@@ -71,6 +71,10 @@ public class TransactionService {
 				return response;
 			}
 		}
+		
+		// Création d'un transaction de type SELL
+		Transaction transaction = new Transaction(user_id, card_id, TransactionAction.SELL,false,false);
+		this.addTransactionToSellQueue(transaction);/*
 		UserDTO userDTO = optionalUserDTO.get();
 		CardDTO cardDTO = optionalCardDTO.get();
 		
@@ -86,7 +90,7 @@ public class TransactionService {
 		
 		// Création d'un transaction de type SELL
 		Transaction sT = new Transaction(user_id, card_id, TransactionAction.SELL,false,false);
-		storeRepository.save(sT);
+		storeRepository.save(sT);*/
 		
 		return null;
 	}
@@ -107,19 +111,32 @@ public class TransactionService {
 		transactionSenderQueueService.addTransactionToBuyQueue(transaction);
 	}
 	
+	public void addTransactionToSellQueue(Transaction transaction) {
+		transactionSenderQueueService.addTransactionToSellQueue(transaction);
+	}
+	
 	public void addTransactionToUpdateQueue(Transaction transaction) {
 		transactionSenderQueueService.addTransactionToUpdateQueue(transaction);
 	}
 	
-	public void addIdTransactionToUpdateIsCardOk(Integer idTransaction) {
-		transactionSenderQueueService.addIdTransactionToIsCardOkQueue(idTransaction);
+	public void addIdTransactionToUpdateIsCardOkToBuy(Integer idTransaction) {
+		transactionSenderQueueService.addIdTransactionToIsCardOkToBuyQueue(idTransaction);
 	}
 	
-	public void addIdTransactionToUpdateIsUserOk(Integer idTransaction) {
-		transactionSenderQueueService.addIdTransactionToIsUserOkQueue(idTransaction);
+	public void addIdTransactionToUpdateIsUserOkToBuy(Integer idTransaction) {
+		transactionSenderQueueService.addIdTransactionToIsUserOkToBuyQueue(idTransaction);
+	}
+	
+	public void addIdTransactionToUpdateIsCardOkToSell(Integer idTransaction) {
+		transactionSenderQueueService.addIdTransactionToIsCardOkToSellQueue(idTransaction);
+	}
+	
+	public void addIdTransactionToUpdateIsUserOkToSell(Integer idTransaction) {
+		transactionSenderQueueService.addIdTransactionToIsUserOkToSellQueue(idTransaction);
 	}
 
-	public void addTransaction(Transaction transaction) {
+
+	public void buyTransaction(Transaction transaction) {
 		transaction = storeRepository.save(transaction);
 		Optional<UserDTO> optionalUserDTO = userRestClient.getUserById(transaction.getUserId());
 		Optional<CardDTO> optionalCardDTO = cardRestClient.getCardbById(transaction.getCardId());
@@ -131,16 +148,49 @@ public class TransactionService {
 				System.out.println("[TransactionService] [buyCard]"+transaction.toString());
 				userDTO.setMoney(userDTO.getMoney() - cardDTO.getPrice());
 				TransactionUserDTO transactionUserDTO = new TransactionUserDTO(transaction.getId(),userDTO);
-				userRestClient.updateUserToPay(transactionUserDTO);
+				userRestClient.updateUserToBuy(transactionUserDTO);
 		}
 
+	}
+	
+	public void sellTransaction(Transaction transaction) {
+		transaction = storeRepository.save(transaction);
+		Optional<UserDTO> optionalUserDTO = userRestClient.getUserById(transaction.getUserId());
+		Optional<CardDTO> optionalCardDTO = cardRestClient.getCardbById(transaction.getCardId());
+		UserDTO userDTO = optionalUserDTO.get();
+		CardDTO cardDTO = optionalCardDTO.get();
+		System.out.println("[TransactionService] [buyCard]"+transaction.toString());
+		// Mise à jour de l'argent de l'utilisateur
+		userDTO.setMoney(userDTO.getMoney() + cardDTO.getPrice());
+		TransactionUserDTO transactionUserDTO = new TransactionUserDTO(transaction.getId(),userDTO);
+		userRestClient.updateUserToSell(transactionUserDTO);
 	}
 
 	public void updateTransaction(Transaction transaction) {
 		storeRepository.save(transaction);
 	}
 	
-	public void updateIsCardOk(Integer idTransaction) {
+	public void updateIsUserOkToBuy(Integer idTransaction) {
+		System.out.println("updateIsUserOk");
+		Optional<Transaction> optionalTransaction = getTransactionById(idTransaction);
+		if(optionalTransaction.isPresent())
+		{
+			Transaction transaction = optionalTransaction.get();
+			Optional<UserDTO> optionalUserDTO = userRestClient.getUserById(transaction.getUserId());
+			Optional<CardDTO> optionalCardDTO = cardRestClient.getCardbById(transaction.getCardId());
+			UserDTO userDTO = optionalUserDTO.get();
+			CardDTO cardDTO = optionalCardDTO.get();
+			transaction.setUserOk(true);
+			transaction.setTimeSt(new Timestamp(System.currentTimeMillis()));
+			storeRepository.save(transaction);
+			cardDTO.setId_user(userDTO.getId());
+			TransactionCardDTO transactionCardDTO = new TransactionCardDTO(transaction.getId(),cardDTO);
+			cardRestClient.updateCardToBuy(transactionCardDTO);
+		}
+		
+	}
+	
+	public void updateIsCardOkToBuy(Integer idTransaction) {
 		Optional<Transaction> optionalTransaction = getTransactionById(idTransaction);
 		
 		if(optionalTransaction.isPresent())
@@ -155,24 +205,38 @@ public class TransactionService {
 		
 	}
 	
-	public void updateIsUserOk(Integer idTransaction) {
+	public void updateIsUserOkToSell(Integer idTransaction) {
 		System.out.println("updateIsUserOk");
 		Optional<Transaction> optionalTransaction = getTransactionById(idTransaction);
 		if(optionalTransaction.isPresent())
 		{
 			Transaction transaction = optionalTransaction.get();
-			System.out.println("optionalTransaction");
-			Optional<UserDTO> optionalUserDTO = userRestClient.getUserById(transaction.getUserId());
-			Optional<CardDTO> optionalCardDTO = cardRestClient.getCardbById(transaction.getCardId());
-			UserDTO userDTO = optionalUserDTO.get();
-			CardDTO cardDTO = optionalCardDTO.get();
+			CardDTO cardDTO = cardRestClient.getCardbById(transaction.getCardId()).get();
 			transaction.setUserOk(true);
 			transaction.setTimeSt(new Timestamp(System.currentTimeMillis()));
 			storeRepository.save(transaction);
-			cardDTO.setId_user(userDTO.getId_user());
-			TransactionCardDTO transactionCardDTO = new TransactionCardDTO(transaction.getId(), cardDTO);
-			cardRestClient.updateCardToPay(transactionCardDTO);
+			
+			cardDTO.setId_user(null);
+			System.out.println(cardDTO);
+			TransactionCardDTO transactionCardDTO = new TransactionCardDTO(transaction.getId(),cardDTO);
+			cardRestClient.updateCardToSell(transactionCardDTO);
 		}
 		
 	}
+	public void updateIsCardOkToSell(Integer idTransaction) {
+
+		Optional<Transaction> optionalTransaction = getTransactionById(idTransaction);
+		
+		if(optionalTransaction.isPresent())
+		{
+			Transaction transaction = optionalTransaction.get();
+			
+			transaction.setCardOk(true);
+			transaction.setTimeSt(new Timestamp(System.currentTimeMillis()));
+			storeRepository.save(transaction);
+			// TODO :send notif to inform user that transaction is finished
+		}
+	}
+	
+	
 }

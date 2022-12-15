@@ -24,8 +24,13 @@ public class CardSenderQueueService {
         return true;
     }
     
-    public boolean addTransactionCardToPayQueue(TransactionCardDTO transactionCardDTO){
-        jmsTemplate.convertAndSend("updateCardToPay", transactionCardDTO);
+    public boolean addTransactionCardToBuyQueue(TransactionCardDTO transactionCardDTO){
+        jmsTemplate.convertAndSend("updateCardToBuy", transactionCardDTO);
+        return true;
+    }
+    
+    public boolean addTransactionCardToSellQueue(TransactionCardDTO transactionCardDTO){
+        jmsTemplate.convertAndSend("updateCardToSell", transactionCardDTO);
         return true;
     }
 }

@@ -78,7 +78,8 @@ services:
   springboot-user:
     container_name: springboot-user
     build: 
-     ./micro-services/user
+     context: ./micro-services
+     dockerfile: ./user/Dockerfile
     ports:
       - 8081:8081
     depends_on:
@@ -94,7 +95,8 @@ services:
   springboot-card:
     container_name: springboot-card
     build: 
-      ./micro-services/card
+      context: ./micro-services
+      dockerfile: ./card/Dockerfile
     ports:
       - 8082:8082
     depends_on:
@@ -110,7 +112,8 @@ services:
   springboot-transaction:
     container_name: springboot-transaction
     build: 
-      ./micro-services/transaction
+      context: ./micro-services
+      dockerfile: ./transaction/Dockerfile
     ports:
       - 8083:8083
     depends_on:
@@ -126,7 +129,8 @@ services:
   springboot-auth:
     container_name: springboot-auth
     build: 
-      ./micro-services/authentication
+      context: ./micro-services
+      dockerfile: ./authentication/Dockerfile
     ports:
       - 8084:8084
     networks:
