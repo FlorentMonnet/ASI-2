@@ -23,11 +23,6 @@ function Card(props) {
 
     const [color, setColor] = useState([]);
 
-    //DEBUG:
-    console.log('Youhour card : ');
-    console.log(card);
-    console.log('------------------------');
-
     useEffect(() => {
         setColor('#FFFFFF');
     }, []);
@@ -44,7 +39,7 @@ function Card(props) {
                         className="ui avatar image"
                         src={card.cardReference.imgUrl}
                     />{' '}
-                    <span>{card.name}</span>
+                    <span>{card.cardReference.name}</span>
                 </td>
                 <td>{card.cardReference.description}</td>
                 <td>{card.cardReference.family}</td>
@@ -80,7 +75,7 @@ function Card(props) {
                                         <span id="cardHPId">{card.hp}</span>
                                     </div>
                                     <div className="column">
-                                        <h5>{card.name}</h5>
+                                        <h5>{card.cardReference.name}</h5>
                                     </div>
                                     <div className="column">
                                         <span id="energyId">{card.energy}</span>{' '}
@@ -102,12 +97,12 @@ function Card(props) {
                                 </div>
                                 <div className="ui fluid image">
                                     <a className="ui left corner label">
-                                        {card.name}
+                                        {card.cardReference.name}
                                     </a>
                                     <img
                                         id="cardImgId"
                                         className="ui centered image"
-                                        src={card.imgUrl}
+                                        src={card.cardReference.imgUrl}
                                         alt="img"
                                     />
                                 </div>
@@ -122,7 +117,7 @@ function Card(props) {
                                         className="overflowHiden"
                                         readOnly="True"
                                         rows="5"
-                                        value={card.description}
+                                        value={card.cardReference.description}
                                     ></textarea>
                                 </div>
                             </div>
@@ -147,7 +142,7 @@ function Card(props) {
                             </span>
                             <i className="protect icon"></i>
                             <span id="cardDefenceId">
-                                Defense {card.defence}
+                                Defense {card.defense}
                             </span>
                         </div>
                         <button
@@ -183,7 +178,7 @@ function Card(props) {
                                     </a>
                                 </div>
                                 <div className="column">
-                                    <h5>{card.name}</h5>
+                                    <h5>{card.cardReference.name}</h5>
                                 </div>
                                 <div
                                     className="column"
@@ -226,6 +221,7 @@ function Card(props) {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
+                Accept: 'application/json; charset=UTF-8',
             },
             body: JSON.stringify(transaction),
         })

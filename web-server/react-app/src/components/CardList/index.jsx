@@ -23,7 +23,12 @@ function CardList(props) {
             mode === Config.MODE.SELL
                 ? Config.API_CARD_PATH + 'cardsToBuy'
                 : Config.API_CARD_PATH + 'cards';
-        fetch(urlToFetch)
+        fetch(urlToFetch, {
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                Accept: 'application/json; charset=UTF-8',
+            },
+        })
             .then((response) => response.json())
             .then((json) => {
                 mode === Config.MODE.SELL

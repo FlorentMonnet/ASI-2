@@ -3,8 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import Config from '../../config';
 import { useDispatch } from 'react-redux';
 import { connectUserAction } from '../../core/actions/user.action';
-import GameService from '../../ws/gameService';
-import { socket } from '../../ws';
 
 function Login() {
     const [email, setEmail] = useState([]);
@@ -24,6 +22,7 @@ function Login() {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
+                Accept: 'application/json; charset=UTF-8',
             },
             body: JSON.stringify(login),
         })
@@ -31,14 +30,19 @@ function Login() {
                 if (response.status === 200) {
                     return response.json();
                 } else {
-                    alert(
+                    throw new Error(
                         "Une erreur est survenue lors de la connexion de l'utlisateur"
                     );
                 }
             })
             .then((json) => {
                 if (json !== undefined || json !== 0) {
-                    fetch(Config.API_USER_PATH + 'user/' + json)
+                    fetch(Config.API_USER_PATH + 'user/' + json, {
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                            Accept: 'application/json; charset=UTF-8',
+                        },
+                    })
                         .then((response) => response.json())
                         .then((json) => {
                             console.log(json);
@@ -46,11 +50,11 @@ function Login() {
                             navigate('/');
                         });
                 }
+            })
+            .catch((e) => {
+                alert(e);
             });
     }
-
-    //Call
-    var gameService = new GameService(socket, navigate);
 
     return (
         <div

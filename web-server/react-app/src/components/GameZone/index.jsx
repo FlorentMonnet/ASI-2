@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
     selectorAdverseUserCards,
@@ -9,6 +9,8 @@ import {
 import {
     selectorUserConnected,
     selectorAdverseUser,
+    selectorTurnUserId,
+    selectorUserPointInGame,
 } from '../../core/selectors/user.selector';
 import CardListGame from '../CardListGame';
 import User from '../User/Index';
@@ -24,28 +26,38 @@ function GameZone() {
     const cards = useSelector(selectorUserCardsToPlay);
     const adverseCards = useSelector(selectorAdverseUserCards);
 
+    const turnUserId = useSelector(selectorTurnUserId);
+
     const cardSelectedInGame = useSelector(selectorSelectedCardInGame);
     const cardOpponentSelectedInGame = useSelector(
         selectorSelectedCardOpponentInGame
     );
 
-    var gameService = GameService.getInstance();
+    const currentPoint = useSelector(selectorUserPointInGame);
 
     function attack() {
-        alert('Attack to do!');
         if (
             cardSelectedInGame !== null &&
             cardOpponentSelectedInGame !== null
         ) {
+            const gameService = GameService.getInstance();
             let attack = {
+                user: user,
+                opponent: adverseUser,
+                userPoint: currentPoint,
                 card: cardSelectedInGame,
-                attackedard: cardOpponentSelectedInGame,
+                attackedCard: cardOpponentSelectedInGame,
             };
-            gameService.attack();
+            gameService.attack(attack);
         } else {
-            alert('Select a card');
+            alert('Select cards');
         }
     }
+
+    console.log('turnUserId === user.id');
+    console.log(turnUserId + ' === ' + user.id);
+
+    console.log(turnUserId === user.id);
 
     return (
         <div className="ui segment">
@@ -59,10 +71,19 @@ function GameZone() {
                     <div className="row">
                         <div className="ui grid">
                             <div className="two wide column">
-                                <User
-                                    mode={Config.MODE.GAME_ZONE}
-                                    user={adverseUser}
-                                />
+                                {adverseUser !== null ? (
+                                    <User
+                                        mode={Config.MODE.GAME_ZONE}
+                                        user={adverseUser}
+                                        point={
+                                            turnUserId === adverseUser.id
+                                                ? currentPoint
+                                                : 0
+                                        }
+                                    />
+                                ) : (
+                                    ''
+                                )}
                             </div>
                             <div className="ten wide column">
                                 <CardListGame
@@ -95,7 +116,11 @@ function GameZone() {
                             </div>
                             <div className="four wide column">
                                 <button
-                                    className="huge ui primary button"
+                                    className={
+                                        turnUserId === user.id
+                                            ? 'huge ui primary button'
+                                            : 'huge ui primary button disabled'
+                                    }
                                     onClick={() => attack()}
                                 >
                                     Attack
@@ -110,6 +135,11 @@ function GameZone() {
                                 <User
                                     mode={Config.MODE.GAME_ZONE}
                                     user={user}
+                                    point={
+                                        turnUserId === user.id
+                                            ? currentPoint
+                                            : 0
+                                    }
                                 />
                             </div>
                             <div className="ten wide column">

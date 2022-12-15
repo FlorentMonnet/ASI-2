@@ -14,4 +14,11 @@ module.exports = {
         let roomName = 'roo-' + h + '-' + m + '-' + s;
         return roomName;
     },
+    initListCard: (cards) => {
+        let tabCards = [];
+        cards.map((card) => {
+            tabCards[card.id] = card;
+        });
+        return tabCards;
+    },
 };

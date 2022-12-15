@@ -6,7 +6,7 @@ export const selectorUserCards = (state) => state.cardsToSell;
 
 export const selectorUserCardsToPlay = (state) => state.cardToPlay;
 
-export const selectorAdverseUserCards = (state) => state.cardToPlay;
+export const selectorAdverseUserCards = (state) => state.opponentCardToPlay;
 
 export const selectorSelectedCard = (state) => state.cardSelected;
 
