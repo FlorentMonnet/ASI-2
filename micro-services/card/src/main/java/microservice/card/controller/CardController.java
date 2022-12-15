@@ -73,7 +73,7 @@ public class CardController {
 	}
 	
 	@GetMapping("/cardsToSell/{id_user}")
-	private List<CardDTO> getCardsToSell(Integer id_user) {
+	private List<CardDTO> getCardsToSell(@PathVariable Integer id_user) {
 		return cardMapper.toDTOList(cardService.getAllCardToSell(id_user));
 	}
 	
