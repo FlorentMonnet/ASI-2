@@ -30,13 +30,16 @@ function SelectCardForGame() {
     useEffect(() => {
         dispatch(resetCardForGame());
 
-        fetch(Config.API_CARD_PATH + 'cards', {
+        fetch(Config.API_CARD_PATH + 'cardsToSell/' + user.id, {
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
                 Accept: 'application/json; charset=UTF-8',
             },
         })
-            .then((response) => response.json())
+            .then((response) => {
+                console.log('youhou');
+                return response.json();
+            })
             .then((json) => {
                 dispatch(userCardsToSell(json));
             });

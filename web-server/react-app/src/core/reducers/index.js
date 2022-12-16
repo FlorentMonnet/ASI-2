@@ -129,5 +129,12 @@ export const rootReducer = (state = initStateValue, action) => {
         };
     }
 
+    if (action.type === CardsActions.NULL_SELECTED_CARD) {
+        return {
+            ...state,
+            cardSelected: null,
+        };
+    }
+
     return state;
 };

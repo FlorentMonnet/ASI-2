@@ -5,12 +5,17 @@ import {
     selectCard,
     selectCardInGame,
     selectOpponentCardInGame,
+    setSelectedCardToNull,
+    userCardsToSell,
 } from '../../core/actions/cards.action';
 import { useSelector } from 'react-redux';
 import { selectorUserConnected } from '../../core/selectors/user.selector';
 import Config from '../../config';
 import { connectUserAction } from '../../core/actions/user.action';
-import { selectorUserCardsToPlay } from '../../core/selectors/card.selector';
+import {
+    selectorCardsToSell,
+    selectorUserCardsToPlay,
+} from '../../core/selectors/card.selector';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -225,15 +230,30 @@ function Card(props) {
             },
             body: JSON.stringify(transaction),
         })
-            .then((response) => response.json())
+            //json) backend doesn't send reponses yet
+            //.then((response) => response.json())
             .then((json) => {
                 console.log(json);
-                if (json) {
+                if (true) {
+                    //Normally check return result
+
                     // for refresh user
-                    fetch(Config.API_PATH + 'user/' + user.id)
+                    fetch(Config.API_USER_PATH + 'user/' + user.id)
                         .then((response) => response.json())
                         .then((json) => {
                             dispatch(connectUserAction(json));
+                        });
+
+                    let urlToFetch =
+                        mode === Config.MODE.SELL
+                            ? Config.API_CARD_PATH + 'cardsToSell/' + user.id
+                            : Config.API_CARD_PATH + 'cardsToBuy';
+                    // for refresh cards
+                    fetch(urlToFetch)
+                        .then((response) => response.json())
+                        .then((json) => {
+                            dispatch(userCardsToSell(json));
+                            dispatch(setSelectedCardToNull());
                         });
                 }
             });

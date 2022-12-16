@@ -40,18 +40,9 @@ class Game {
             //Suppresion de la carte si elle est détruite
             if (defenseCard.hp <= 0) {
                 console.log('La carte à été détruite !');
-                this.cardsUsers[this.getDefenseUser().id].splice(
-                    defenseCard.id,
-                    1
-                );
+                this.cardsUsers[this.getDefenseUser().id][defenseCard.id] =
+                    null;
             }
-
-            // Change turn verification
-            if (this.currentAttanquantEnergyPoint <= 0) {
-                console.log('Change turn');
-                this.changeTurn();
-            }
-
             console.log(this.cardsUsers[this.getDefenseUser().id]);
             const cardsDefenseurRestante = this.cardsUsers[
                 this.getDefenseUser().id
@@ -66,6 +57,12 @@ class Game {
 
                 callbackEndGame(end);
             } else {
+                // Change turn verification
+                if (this.currentAttanquantEnergyPoint <= 0) {
+                    console.log('Change turn');
+                    this.changeTurn();
+                }
+
                 //update affichage
                 const update = {
                     users: this.users,
@@ -78,9 +75,29 @@ class Game {
                 callback(update);
             }
         } else {
+            console.log('==========================================');
+            if (defenseCard) {
+                console.error(this.getTurnUser().id);
+                console.error(this.cardsUsers[this.getTurnUser().id]);
+                console.error(attack.card.id);
+                console.error(
+                    this.cardsUsers[this.getTurnUser().id][attack.card.id]
+                );
+            } else {
+                console.error(this.getDefenseUser().id);
+                console.error(this.cardsUsers[this.getDefenseUser().id]);
+                console.error(attack.attackedCard.id);
+                console.error(
+                    this.cardsUsers[this.getDefenseUser().id][
+                        attack.attackedCard.id
+                    ]
+                );
+            }
+
             console.error(defenseCard);
             console.error(attackCard);
             console.error('Les cartes ne sont pas reconnue');
+            console.log('==========================================');
         }
     }
 
