@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import microservice.user.dto.UserDTO;
 import microservice.user.dto.UserLoginDTO;
 import microservice.user.dto.UserRegisterDTO;
+import microservice.user.entity.User;
 import microservice.user.mapper.UserMapper;
 import microservice.user.rest.transaction.TransactionUserDTO;
 import microservice.user.service.UserService;
@@ -38,7 +39,11 @@ public class UserController{
 
 	@GetMapping("/user/{id_user}")
 	public UserDTO getUserById(@PathVariable Integer id_user) {
-		return userMapper.toDTO(userService.getUserById(id_user));
+		User user = userService.getUserById(id_user);
+		System.out.println(" [UserController][getUserById]"+user);
+		UserDTO userDTO = userMapper.toDTO(user);
+		System.out.println(" [UserController][getUserById]"+userDTO);
+		return userDTO;
 	}
 	
 	@PostMapping("/user")

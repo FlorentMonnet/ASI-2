@@ -34,7 +34,7 @@ public class UserRestClient implements UserRest{
 	public void updateUser(UserDTO userDTO) {
 		System.out.println("[UserRestClient] [updateUser] " +userDTO.toString());
 		RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
-		restTemplate.exchange(URL_USER + userDTO.getId_user(), HttpMethod.PATCH, new HttpEntity<UserDTO>(userDTO), String.class);
+		restTemplate.exchange(URL_USER + userDTO.getId(), HttpMethod.PATCH, new HttpEntity<UserDTO>(userDTO), String.class);
 	}
 	
 	@Override

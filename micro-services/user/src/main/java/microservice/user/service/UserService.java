@@ -44,7 +44,9 @@ public class UserService {
 	UserRestClient userRestClient;
 	
 	public User getUserById(Integer idUser) {
-		return userRepository.findById(idUser).orElseThrow(() -> new RuntimeException());
+		User user = userRepository.findById(idUser).orElseThrow(() -> new RuntimeException());
+		System.out.println("[UserService][getUserById]"+user);
+		return user;
 	}
 	
 	public Integer login(UserLoginDTO userLoginDTO) {
