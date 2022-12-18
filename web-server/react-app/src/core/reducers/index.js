@@ -1,4 +1,5 @@
 import { CardsActions } from '../actions/cards.action';
+import { ChatActions } from '../actions/chat.action';
 import { GameActions } from '../actions/game.action';
 import { UserActions } from '../actions/user.action';
 
@@ -16,6 +17,7 @@ const initStateValue = {
     cardOpponentSelectedInGame: null,
     turnGameUserId: null,
     userPointInGame: 0,
+    messages: [],
 };
 
 export const rootReducer = (state = initStateValue, action) => {
@@ -133,6 +135,19 @@ export const rootReducer = (state = initStateValue, action) => {
         return {
             ...state,
             cardSelected: null,
+        };
+    }
+
+    if (action.type === ChatActions.CHAT_MESSAGE) {
+        let temp = [...state.messages];
+        console.log(temp.at(-1) + " xd " + action.payload);
+        if (!(temp.at(-1) === action.payload)) {
+            temp.push(action.payload);
+        }
+        console.log(temp);
+        return {
+            ...state,
+            messages: temp,
         };
     }
 

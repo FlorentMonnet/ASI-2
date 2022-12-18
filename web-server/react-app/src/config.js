@@ -36,6 +36,7 @@ const myConstClass = {
         ADD_WAITING_LIST: 'addOnWaitingList',
         OPPONENT_FOUND: 'opponentFound',
         CHAT_MESSAGE: 'chatMessage',
+        RECEIVED_CHAT_MESSAGE: 'receivedChatMessage',
         ROOM_JOINED: 'roomJoined',
         GAME_ATTACK: 'gameAttack',
         UPDATE_GAME: 'updateGame',

@@ -1,23 +1,53 @@
 import Config from '../config';
 import { socket } from './index';
-import React, { useState, useEffect } from 'react';
+import { addChatMessage } from '../core/actions/chat.action';
 
-// socket.on(Config.SOCKET_EVENT.OPPONENT_FOUND, (userIdFound) => {
-//     alert('Opponent found ' + userIdFound);
-// });
-// const [messages, setMessages] = useState([]);
+class ChatService {
+    static _instance;
 
-// socket.on('chat message', function (msg) {
-//     var current_date = new Date();
-//     var hh = String(current_date.getHours()).padStart(2, '0');
-//     var mm = String(current_date.getMinutes() + 1).padStart(2, '0');
-//     var ss = String(current_date.getSeconds() + 1).padStart(2, '0');
-//     current_date = hh + ':' + mm + ':' + ss;
-//     setMessages([...messages, [msg, current_date, socket.id]])
-// });
+    constructor(
+        socket = null,
+        dispatch = null
+    ) {
+        if (!ChatService._instance) {
+            ChatService._instance = this;
+        }
+        if (
+            socket !== null &&
+            dispatch !== null
+        ) {
+            this.socket = socket;
+            this.dispatch = dispatch;
+            socket.on(Config.SOCKET_EVENT.RECEIVED_CHAT_MESSAGE, (message) => {
+                console.log("received a message!");
+                console.log("id:" + socket.id);
+                dispatch(
+                    addChatMessage(message)
+                );
+            });
 
-export default {
-    emitMessage(message) {
-        socket.emit(Config.SOCKET_EVENT.CHAT_MESSAGE, message);
+            this._instance = this;
+        } else {
+            throw new Error(
+                'Impossible de creer un Chat Service sans paramètres'
+            );
+        }
+        return ChatService._instance;
     }
+
+    static getInstance() {
+        if (!ChatService._instance) {
+            throw new Error('ChatService jamais instancié');
+        } else {
+            return this._instance;
+        }
+    }
+
+    emitMessage(message) {
+        console.log("emitting message: \"" + message + "\" from socket: " + socket.id);
+        this.socket.emit(Config.SOCKET_EVENT.CHAT_MESSAGE, message);
+    }
+
+
 }
+export default ChatService;
