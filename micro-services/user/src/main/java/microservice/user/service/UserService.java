@@ -22,7 +22,7 @@ import microservice.user.repository.UserRepository;
 import microservice.user.rest.auth.AuthRestClient;
 import microservice.common.TransactionUserDTO;
 import microservice.common.TransactionUserRestClient;
-
+import microservice.user.rest.card.UserRestClient;
 import microservice.user.service.queue.UserSenderQueueService;
 
 @Service
@@ -47,8 +47,13 @@ public class UserService {
 	
 
 	
+	@Autowired
+	UserRestClient userRestClient;
+	
 	public User getUserById(Integer idUser) {
-		return userRepository.findById(idUser).orElseThrow(() -> new RuntimeException());
+		User user = userRepository.findById(idUser).orElseThrow(() -> new RuntimeException());
+		System.out.println("[UserService][getUserById]"+user);
+		return user;
 	}
 	
 	public Integer login(UserLoginDTO userLoginDTO) {
@@ -120,6 +125,7 @@ public class UserService {
 					userRegisterDTO.getMail()
 				);
 		userRepository.save(user);
+		userRestClient.initUserCards(user.getId_user());
 		return user;
 	}
 	

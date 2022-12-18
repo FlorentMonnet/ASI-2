@@ -22,6 +22,7 @@ function Login() {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
+                Accept: 'application/json; charset=UTF-8',
             },
             body: JSON.stringify(login),
         })
@@ -29,21 +30,29 @@ function Login() {
                 if (response.status === 200) {
                     return response.json();
                 } else {
-                    alert(
+                    throw new Error(
                         "Une erreur est survenue lors de la connexion de l'utlisateur"
                     );
                 }
             })
             .then((json) => {
                 if (json !== undefined || json !== 0) {
-                    fetch(Config.API_USER_PATH + 'user/' + json)
+                    fetch(Config.API_USER_PATH + 'user/' + json, {
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8',
+                            Accept: 'application/json; charset=UTF-8',
+                        },
+                    })
                         .then((response) => response.json())
                         .then((json) => {
-                            console.log(json)
+                            console.log(json);
                             dispatch(connectUserAction(json));
                             navigate('/');
                         });
                 }
+            })
+            .catch((e) => {
+                alert(e);
             });
     }
 

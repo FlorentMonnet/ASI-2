@@ -11,6 +11,9 @@ import {
     selectorUserCardsToPlay,
 } from '../../core/selectors/card.selector';
 import Card from '../Card';
+import GameService from '../../ws/gameService';
+import { selectorUserConnected } from '../../core/selectors/user.selector';
+import { socket } from '../../ws';
 
 function SelectCardForGame() {
     const navigate = useNavigate();
@@ -19,12 +22,24 @@ function SelectCardForGame() {
     const dispatch = useDispatch();
     const cardList = useSelector(selectorUserCards);
     const cardListToPlay = useSelector(selectorUserCardsToPlay);
+    const user = useSelector(selectorUserConnected);
+
+    //Call
+    var gameService = new GameService(socket, navigate, dispatch, user);
 
     useEffect(() => {
         dispatch(resetCardForGame());
 
-        fetch(Config.API_CARD_PATH + 'cards')
-            .then((response) => response.json())
+        fetch(Config.API_CARD_PATH + 'cardsToSell/' + user.id, {
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                Accept: 'application/json; charset=UTF-8',
+            },
+        })
+            .then((response) => {
+                console.log('youhou');
+                return response.json();
+            })
             .then((json) => {
                 dispatch(userCardsToSell(json));
             });
@@ -32,7 +47,13 @@ function SelectCardForGame() {
 
     function goToGame() {
         if (cardListToPlay.length === 4) {
-            navigate('/play');
+            //navigate('/play');
+            const data = {
+                user: user,
+                cards: cardListToPlay,
+            };
+            gameService.addOnWaitingList(JSON.stringify(data));
+            navigate('/loading-game');
         } else {
             alert('Select 4 card');
         }

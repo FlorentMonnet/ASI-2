@@ -1,84 +1,59 @@
-import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
-import Config from '../../config';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import ChatService from '../../ws/chatService';
+import { selectorMessages } from '../../core/selectors/chat.selector';
+function ChatWindow() {
 
-function ChatWindow(props) {
+    const messages = useSelector(selectorMessages);
 
-    const { user } = props;
-
-    const [messages, setMessages] = useState([]);
-
-    const sendMessage = () => {
+    function sendMessage() {
+        const chatService = ChatService.getInstance();
         var input = document.getElementById('message_input');
-        const io = require("socket.io-client");
-
-        const socket = io(Config.SOCKET_PATH, {
-            cors: {
-                origin: Config.SOCKET_PATH,
-                methods: ["GET", "POST"],
-            }
-        });
-
         if (input) {
             if (input.value) {
-                socket.emit('chat message', input.value);
+                chatService.emitMessage(input.value);
                 input.value = '';
             }
         }
-
-        socket.on('chat message', function (msg) {
-            var current_date = new Date();
-            var hh = String(current_date.getHours()).padStart(2, '0');
-            var mm = String(current_date.getMinutes() + 1).padStart(2, '0');
-            var ss = String(current_date.getSeconds() + 1).padStart(2, '0');
-            current_date = hh + ':' + mm + ':' + ss;
-            setMessages([...messages, [msg, current_date, socket.id]])
-        });
     }
 
     return (
         <div>
-            {user != null ? (
-                <div>
-                    <div className="ui segment">
-                        {messages.map((message) => {
+            <div>
+                <div className="ui segment">
+                    {messages == null ? (
+                        <span>No messages</span>
+                    ) : (
+                        messages.map((message) => {
                             return (<div className="ui raised segment">
-                                {/* Mettre un test pr voir qui est le sender */}
-                                {message[2] == null ? (
-                                    <a className="ui blue ribbon label">C moi</a>
-                                ) : (
-                                    <a className="ui green ribbon label">{user.surName}</a>
-                                )}
-                                <span> {message[1]}</span>
-                                <p>{message[0]}</p>
+                                {/* <a className="ui green ribbon label">You</a> */}
+                                {/* <a className="ui blue ribbon label">Opponent</a> */}
+                                <p>{message}</p>
                             </div>);
-                        })}
+                        })
+                    )}
 
-                    </div>
 
-                    <div className="ui form">
-                        <div className="field">
-                            <textarea
-                                id="message_input"
-                                placeholder="Send a message"
-                                rows="2"
-                            ></textarea>
-                        </div>
-                    </div>
-
-                    <button
-                        onClick={sendMessage}
-                        id="send_message_button"
-                        className="fluid ui right labeled icon button"
-                    >
-                        <i className="right arrow icon"></i>
-                        Send
-                    </button>
                 </div>
-            ) : (
-                <div className="column">
+
+                <div className="ui form">
+                    <div className="field">
+                        <textarea
+                            id="message_input"
+                            placeholder="Send a message"
+                            rows="2"
+                        ></textarea>
+                    </div>
                 </div>
-            )}
+                <button
+                    onClick={() => sendMessage()}
+                    id="send_message_button"
+                    className="fluid ui right labeled icon button"
+                >
+                    <i className="right arrow icon"></i>
+                    Send
+                </button>
+            </div>
         </div>
 
     );

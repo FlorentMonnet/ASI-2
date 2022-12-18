@@ -22,6 +22,11 @@ public class TransactionOrder {
 	public void setCard_id(int card_id) {
 		this.card_id = card_id;
 	}
+
+	@Override
+	public String toString() {
+		return "TransactionOrder [user_id=" + user_id + ", card_id=" + card_id + "]";
+	}
 	
 
 }

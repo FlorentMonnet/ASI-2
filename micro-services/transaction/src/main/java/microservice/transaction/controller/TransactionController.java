@@ -37,6 +37,7 @@ public class TransactionController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/sell")
 	private HttpServletResponse sellCard(@RequestBody TransactionOrder order, HttpServletResponse response) {
+		System.out.println("[TransactionController][sellCard]"+order);
 		return transactionService.sellCard(order.getUser_id(), order.getCard_id(), response);
 	}
 	

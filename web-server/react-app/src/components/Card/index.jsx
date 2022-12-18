@@ -4,12 +4,18 @@ import {
     addCardForGame,
     selectCard,
     selectCardInGame,
+    selectOpponentCardInGame,
+    setSelectedCardToNull,
+    userCardsToSell,
 } from '../../core/actions/cards.action';
 import { useSelector } from 'react-redux';
 import { selectorUserConnected } from '../../core/selectors/user.selector';
 import Config from '../../config';
 import { connectUserAction } from '../../core/actions/user.action';
-import { selectorUserCardsToPlay } from '../../core/selectors/card.selector';
+import {
+    selectorCardsToSell,
+    selectorUserCardsToPlay,
+} from '../../core/selectors/card.selector';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
@@ -34,8 +40,11 @@ function Card(props) {
                 }}
             >
                 <td>
-                    <img className="ui avatar image" src={card.cardReference.imgUrl} />{' '}
-                    <span>{card.name}</span>
+                    <img
+                        className="ui avatar image"
+                        src={card.cardReference.imgUrl}
+                    />{' '}
+                    <span>{card.cardReference.name}</span>
                 </td>
                 <td>{card.cardReference.description}</td>
                 <td>{card.cardReference.family}</td>
@@ -71,7 +80,7 @@ function Card(props) {
                                         <span id="cardHPId">{card.hp}</span>
                                     </div>
                                     <div className="column">
-                                        <h5>{card.name}</h5>
+                                        <h5>{card.cardReference.name}</h5>
                                     </div>
                                     <div className="column">
                                         <span id="energyId">{card.energy}</span>{' '}
@@ -93,12 +102,12 @@ function Card(props) {
                                 </div>
                                 <div className="ui fluid image">
                                     <a className="ui left corner label">
-                                        {card.name}
+                                        {card.cardReference.name}
                                     </a>
                                     <img
                                         id="cardImgId"
                                         className="ui centered image"
-                                        src={card.imgUrl}
+                                        src={card.cardReference.imgUrl}
                                         alt="img"
                                     />
                                 </div>
@@ -113,7 +122,7 @@ function Card(props) {
                                         className="overflowHiden"
                                         readOnly="True"
                                         rows="5"
-                                        value={card.description}
+                                        value={card.cardReference.description}
                                     ></textarea>
                                 </div>
                             </div>
@@ -138,7 +147,7 @@ function Card(props) {
                             </span>
                             <i className="protect icon"></i>
                             <span id="cardDefenceId">
-                                Defense {card.defence}
+                                Defense {card.defense}
                             </span>
                         </div>
                         <button
@@ -174,7 +183,7 @@ function Card(props) {
                                     </a>
                                 </div>
                                 <div className="column">
-                                    <h5>{card.name}</h5>
+                                    <h5>{card.cardReference.name}</h5>
                                 </div>
                                 <div
                                     className="column"
@@ -217,18 +226,34 @@ function Card(props) {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
+                Accept: 'application/json; charset=UTF-8',
             },
             body: JSON.stringify(transaction),
         })
-            .then((response) => response.json())
+            //json) backend doesn't send reponses yet
+            //.then((response) => response.json())
             .then((json) => {
                 console.log(json);
-                if (json) {
+                if (true) {
+                    //Normally check return result
+
                     // for refresh user
-                    fetch(Config.API_PATH + 'user/' + user.id)
+                    fetch(Config.API_USER_PATH + 'user/' + user.id)
                         .then((response) => response.json())
                         .then((json) => {
                             dispatch(connectUserAction(json));
+                        });
+
+                    let urlToFetch =
+                        mode === Config.MODE.SELL
+                            ? Config.API_CARD_PATH + 'cardsToSell/' + user.id
+                            : Config.API_CARD_PATH + 'cardsToBuy';
+                    // for refresh cards
+                    fetch(urlToFetch)
+                        .then((response) => response.json())
+                        .then((json) => {
+                            dispatch(userCardsToSell(json));
+                            dispatch(setSelectedCardToNull());
                         });
                 }
             });
@@ -258,6 +283,8 @@ function Card(props) {
             }
         } else if (mode === Config.MODE.GAME) {
             dispatch(selectCardInGame(card));
+        } else if (mode === Config.MODE.GAME_ADVERSE) {
+            dispatch(selectOpponentCardInGame(card));
         }
     }
 

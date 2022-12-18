@@ -1,9 +1,9 @@
 const API_PATH = 'http://localhost:80/api/';
 const myConstClass = {
     IMAGE_PATH: '/public/ressources',
-    API_USER_PATH: API_PATH + "user-microservice/",
-    API_CARD_PATH: API_PATH + "card-microservice/",
-    API_TRANSACTION_PATH: API_PATH + "transaction-microservice/",
+    API_USER_PATH: API_PATH + 'user-microservice/',
+    API_CARD_PATH: API_PATH + 'card-microservice/',
+    API_TRANSACTION_PATH: API_PATH + 'transaction-microservice/',
     SOCKET_PATH: 'http://localhost:3001',
     HEADER_CONFIG: {
         play: {
@@ -30,6 +30,17 @@ const myConstClass = {
         GAME_ZONE: 'GameZone',
         GAME_ADVERSE: 'GameAdverse',
         HEADER: 'Header',
+    },
+    SOCKET_EVENT: {
+        CONNECT: 'connect',
+        ADD_WAITING_LIST: 'addOnWaitingList',
+        OPPONENT_FOUND: 'opponentFound',
+        CHAT_MESSAGE: 'chatMessage',
+        RECEIVED_CHAT_MESSAGE: 'receivedChatMessage',
+        ROOM_JOINED: 'roomJoined',
+        GAME_ATTACK: 'gameAttack',
+        UPDATE_GAME: 'updateGame',
+        END_GAME: 'endGame',
     },
 };
 

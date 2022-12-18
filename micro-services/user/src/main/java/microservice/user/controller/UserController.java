@@ -44,7 +44,11 @@ public class UserController{
 
 	@GetMapping("/user/{id_user}")
 	public UserDTO getUserById(@PathVariable Integer id_user) {
-		return userMapper.toDTO(userService.getUserById(id_user));
+		User user = userService.getUserById(id_user);
+		System.out.println(" [UserController][getUserById]"+user);
+		UserDTO userDTO = userMapper.toDTO(user);
+		System.out.println(" [UserController][getUserById]"+userDTO);
+		return userDTO;
 	}
 	
 	@PostMapping("/user")

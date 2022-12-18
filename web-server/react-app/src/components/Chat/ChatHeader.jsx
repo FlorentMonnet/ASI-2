@@ -1,5 +1,5 @@
 function ChatHeader(props) {
-    const { user } = props;
+    // const { user } = props;
     return (
         <div className="ui segment">
             <div className="ui top attached label">
@@ -7,15 +7,15 @@ function ChatHeader(props) {
                     <div className="column">Chat</div>
                     <div className="column">
                         <div className="ui two column grid">
-                            {user === null ? (
-                                <div className="column">
+                            {/* {user === null ? ( */}
+                                {/* <div className="column">
                                 'Adversaire'
-                                </div>
-                            ) : (
+                                </div> */}
+                            {/* ) : (
                                 <div className="column">
                                     {user.surName} {user.lastName}
                                 </div>
-                            )}
+                            )} */}
                             <div className="column">
                                 <i className="user circle icon"></i>
                             </div>

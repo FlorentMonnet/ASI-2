@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Progress } from 'semantic-ui-react';
 import Config from '../../config';
 
 function User(props) {
-    const { mode, user } = props;
+    const { mode, user, point } = props;
 
     function displayInHeader() {
         if (user === null) {
@@ -37,19 +38,14 @@ function User(props) {
                     </div>
                 </div>
                 <div className="row">
-                    <div className=" column">{user.login}</div>
+                    <div className=" column">{user.name}</div>
                 </div>
 
                 <div className="row">
                     <div className="column">
-                        <div
-                            className="ui teal progress"
-                            data-percent="74"
-                            id="progressBarId1"
-                        >
-                            <div className="bar"></div>
-                            <div className="label">Action Points</div>
-                        </div>
+                        <Progress percent={point} color="teal" progress>
+                            Action Points
+                        </Progress>
                     </div>
                 </div>
             </div>

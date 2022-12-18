@@ -74,24 +74,7 @@ public class TransactionService {
 		
 		// Création d'un transaction de type SELL
 		Transaction transaction = new Transaction(user_id, card_id, TransactionAction.SELL,false,false);
-		this.addTransactionToSellQueue(transaction);/*
-		UserDTO userDTO = optionalUserDTO.get();
-		CardDTO cardDTO = optionalCardDTO.get();
-		
-
-
-		// Mise à null de l'id_user de la Card
-		cardDTO.setId_user(null);
-		//cardRestClient.updateCard(c);
-		
-		// Mise à jour de l'argent de l'utilisateur
-		userDTO.setMoney(userDTO.getMoney() + cardDTO.getPrice());
-		userRestClient.updateUser(userDTO);
-		
-		// Création d'un transaction de type SELL
-		Transaction sT = new Transaction(user_id, card_id, TransactionAction.SELL,false,false);
-		storeRepository.save(sT);*/
-		
+		this.addTransactionToSellQueue(transaction);
 		return null;
 	}
 
@@ -156,10 +139,12 @@ public class TransactionService {
 	public void sellTransaction(Transaction transaction) {
 		transaction = storeRepository.save(transaction);
 		Optional<UserDTO> optionalUserDTO = userRestClient.getUserById(transaction.getUserId());
+
 		Optional<CardDTO> optionalCardDTO = cardRestClient.getCardbById(transaction.getCardId());
 		UserDTO userDTO = optionalUserDTO.get();
 		CardDTO cardDTO = optionalCardDTO.get();
-		System.out.println("[TransactionService] [buyCard]"+transaction.toString());
+		System.out.println("[TransactionService] [sellCard]"+userDTO);
+		System.out.println("[TransactionService] [sellCard]"+transaction.toString());
 		// Mise à jour de l'argent de l'utilisateur
 		userDTO.setMoney(userDTO.getMoney() + cardDTO.getPrice());
 		TransactionUserDTO transactionUserDTO = new TransactionUserDTO(transaction.getId(),userDTO);
