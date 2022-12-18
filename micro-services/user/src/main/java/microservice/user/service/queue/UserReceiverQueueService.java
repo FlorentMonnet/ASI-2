@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 
-import microservice.user.dto.UserRegisterDTO;
+
+import microservice.common.TransactionUserDTO;
+
+import microservice.common.UserRegisterDTO;
+
 import microservice.user.entity.User;
-import microservice.user.rest.transaction.TransactionUserDTO;
 import microservice.user.service.UserService;
 @Service
 public class UserReceiverQueueService {

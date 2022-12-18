@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import microservice.transaction.dto.TransactionCardDTO;
-import microservice.transaction.dto.TransactionUserDTO;
+import microservice.common.TransactionCardDTO;
+import microservice.common.TransactionUserDTO;
 import microservice.transaction.entity.Transaction;
 import microservice.transaction.entity.TransactionOrder;
 import microservice.transaction.service.TransactionService;

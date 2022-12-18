@@ -17,13 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import microservice.card.dto.CardDTO;
-import microservice.card.dto.CardReferenceDTO;
+import microservice.common.TransactionCardDTO;
+import microservice.common.CardDTO;
 import microservice.card.entity.Card;
 import microservice.card.mapper.CardMapper;
-import microservice.card.mapper.CardReferenceMapper;
-import microservice.card.rest.transaction.TransactionCardDTO;
 import microservice.card.service.CardService;
+
 
 @CrossOrigin(origins="*")
 @RestController

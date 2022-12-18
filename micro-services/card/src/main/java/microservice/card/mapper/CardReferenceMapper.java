@@ -6,7 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import microservice.card.entity.CardReference;
-import microservice.card.dto.CardReferenceDTO;
+import microservice.common.CardReferenceDTO;
+
 
 @Component
 public class CardReferenceMapper {

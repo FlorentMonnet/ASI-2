@@ -1,25 +1,22 @@
 package microservice.card.service;
 
-import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import microservice.card.dto.CardReferenceDTO;
 import microservice.card.entity.Card;
 import microservice.card.entity.CardReference;
 import microservice.card.mapper.CardMapper;
 import microservice.card.mapper.CardReferenceMapper;
 import microservice.card.repository.CardRepository;
-import microservice.card.rest.transaction.TransactionCardDTO;
-import microservice.card.rest.transaction.TransactionCardRestClient;
+
 import microservice.card.service.queue.CardSenderQueueService;
+import microservice.common.TransactionCardDTO;
+import microservice.common.TransactionCardRestClient;
 
 @Service
 public class CardService {
@@ -38,10 +35,11 @@ public class CardService {
 	@Autowired
 	CardReferenceMapper cardReferenceMapper;
 	
-	@Autowired
-	TransactionCardRestClient transactionCardRestClient;
+	private TransactionCardRestClient transactionCardRestClient;
 	private Random rand = new Random();
-	
+	public CardService() {
+		transactionCardRestClient = new TransactionCardRestClient();
+	}
 	public List<Card> getCards() {
 		List<Card> cards = new ArrayList<>();
 		cardRepository.findAll().forEach(cards::add);

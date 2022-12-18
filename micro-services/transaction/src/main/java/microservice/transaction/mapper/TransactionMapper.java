@@ -1,6 +1,6 @@
 package microservice.transaction.mapper;
 
-import microservice.transaction.dto.TransactionDTO;
+import microservice.common.TransactionDTO;
 import microservice.transaction.entity.Transaction;
 
 public class TransactionMapper {

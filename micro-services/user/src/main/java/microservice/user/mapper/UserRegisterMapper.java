@@ -1,12 +1,13 @@
 package microservice.user.mapper;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import microservice.user.dto.UserLoginDTO;
-import microservice.user.dto.UserRegisterDTO;
+import microservice.common.UserLoginDTO;
+import microservice.common.UserRegisterDTO;
 import microservice.user.entity.User;
 
 @Component

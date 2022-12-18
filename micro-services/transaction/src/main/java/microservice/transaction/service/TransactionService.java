@@ -11,24 +11,24 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import microservice.transaction.dto.TransactionCardDTO;
-import microservice.transaction.dto.TransactionUserDTO;
+import microservice.common.CardDTO;
+import microservice.common.CardRestClient;
+import microservice.common.TransactionAction;
+import microservice.common.TransactionCardDTO;
+import microservice.common.TransactionUserDTO;
+import microservice.common.UserDTO;
+import microservice.common.UserRestClient;
 import microservice.transaction.entity.Transaction;
-import microservice.transaction.entity.TransactionAction;
 import microservice.transaction.repository.TransactionRepository;
-import microservice.transaction.rest.card.CardDTO;
-import microservice.transaction.rest.card.CardRestClient;
-import microservice.transaction.rest.user.UserDTO;
-import microservice.transaction.rest.user.UserRestClient;
 import microservice.transaction.service.queue.TransactionSenderQueueService;
 
 @Service
 public class TransactionService {
 	
-	@Autowired
+	
 	private CardRestClient cardRestClient;
 	
-	@Autowired
+
 	private UserRestClient userRestClient;
 	
 	@Autowired
@@ -39,6 +39,8 @@ public class TransactionService {
 
 
 	public TransactionService() {
+		cardRestClient = new CardRestClient();
+		userRestClient = new UserRestClient();
 	}
 
 	public HttpServletResponse buyCard(Integer user_id, Integer card_id, HttpServletResponse response) {
@@ -200,6 +202,7 @@ public class TransactionService {
 			transaction.setUserOk(true);
 			transaction.setTimeSt(new Timestamp(System.currentTimeMillis()));
 			storeRepository.save(transaction);
+			
 			cardDTO.setId_user(null);
 			System.out.println(cardDTO);
 			TransactionCardDTO transactionCardDTO = new TransactionCardDTO(transaction.getId(),cardDTO);

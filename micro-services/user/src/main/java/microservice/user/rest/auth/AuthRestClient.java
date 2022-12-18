@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import microservice.user.dto.UserRegisterDTO;
+import microservice.common.UserRegisterDTO;
 
 @Component
 public class AuthRestClient implements AuthRest{

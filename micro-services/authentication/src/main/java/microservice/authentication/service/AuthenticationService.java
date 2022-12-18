@@ -7,8 +7,8 @@ import java.util.Map;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import microservice.authentication.dto.UserRegisterDTO;
 import microservice.authentication.utils.JWTUtils;
+import microservice.common.UserRegisterDTO;
 
 @Service
 public class AuthenticationService {

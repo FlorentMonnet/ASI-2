@@ -2,7 +2,7 @@ package microservice.user.rest.auth;
 
 import java.util.List;
 
-import microservice.user.dto.UserRegisterDTO;
+import microservice.common.UserRegisterDTO;
 
 public interface AuthRest {
 	public String encryptPassword(UserRegisterDTO userRegisterDTO);

@@ -13,13 +13,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import microservice.user.dto.UserDTO;
-import microservice.user.dto.UserLoginDTO;
-import microservice.user.dto.UserRegisterDTO;
-import microservice.user.entity.User;
+
+import microservice.common.TransactionUserDTO;
+import microservice.common.UserDTO;
+
+import microservice.common.UserLoginDTO;
+import microservice.common.UserRegisterDTO;
+
 import microservice.user.mapper.UserMapper;
-import microservice.user.rest.transaction.TransactionUserDTO;
 import microservice.user.service.UserService;
+
+
+
 
 @CrossOrigin(origins="*")
 @RestController
@@ -39,11 +44,7 @@ public class UserController{
 
 	@GetMapping("/user/{id_user}")
 	public UserDTO getUserById(@PathVariable Integer id_user) {
-		User user = userService.getUserById(id_user);
-		System.out.println(" [UserController][getUserById]"+user);
-		UserDTO userDTO = userMapper.toDTO(user);
-		System.out.println(" [UserController][getUserById]"+userDTO);
-		return userDTO;
+		return userMapper.toDTO(userService.getUserById(id_user));
 	}
 	
 	@PostMapping("/user")

@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import microservice.card.entity.Card;
-import microservice.card.dto.CardDTO;
+import microservice.common.CardDTO;
+
 
 @Component
 public class CardMapper {
@@ -25,7 +26,6 @@ public class CardMapper {
 			card.setPrice(cardDTO.getPrice());
 			card.setId_user(cardDTO.getId_user());
 			card.setCardReference(cardReferenceMapper.toModel(cardDTO.getCardReference()));
-			
 			return card;
 		}
 		
