@@ -1,10 +1,13 @@
 package microservice.card.service.queue;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 
 import microservice.card.entity.Card;
+import microservice.card.entity.CardReference;
 import microservice.card.rest.transaction.TransactionCardDTO;
 import microservice.card.service.CardService;
 @Service
@@ -17,6 +20,12 @@ public class CardReceiverQueueService {
 	public void receiveCreationCard(Card card) {
 	  System.out.println("<Received in creation queue <" + card.toString() + ">");
 	  cardService.addCard(card);
+	}
+	
+	@JmsListener(destination = "initUserCards", containerFactory = "connectionFactory")
+	public void receiveCreationCard(Integer id_user) {
+	  System.out.println("<Received in init user cards queue <" + id_user.toString() + ">");
+	  cardService.initUserCards(id_user);
 	}
 
 	@JmsListener(destination = "updateCard", containerFactory = "connectionFactory")
@@ -35,5 +44,11 @@ public class CardReceiverQueueService {
 	public void receiveCardToSell(TransactionCardDTO transactionCardDTO) {
 	  System.out.println("<Received in sell queue <" + transactionCardDTO.toString() + ">");
 	  cardService.updateCardToSell(transactionCardDTO);
+	}
+	
+	@JmsListener(destination = "initUserCards", containerFactory = "connectionFactory")
+	public void receiveCardToSell(Integer id_user) {
+	  System.out.println("<Received in initUserCards queue <" + id_user.toString() + ">");
+	  cardService.initUserCards(id_user);
 	}
 }

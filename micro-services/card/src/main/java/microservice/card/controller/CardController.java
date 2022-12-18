@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import microservice.card.dto.CardDTO;
+import microservice.card.dto.CardReferenceDTO;
 import microservice.card.entity.Card;
 import microservice.card.mapper.CardMapper;
+import microservice.card.mapper.CardReferenceMapper;
 import microservice.card.rest.transaction.TransactionCardDTO;
 import microservice.card.service.CardService;
 
@@ -71,7 +73,7 @@ public class CardController {
 	}
 	
 	@GetMapping("/cardsToSell/{id_user}")
-	private List<CardDTO> getCardsToSell(Integer id_user) {
+	private List<CardDTO> getCardsToSell(@PathVariable Integer id_user) {
 		return cardMapper.toDTOList(cardService.getAllCardToSell(id_user));
 	}
 	
@@ -83,5 +85,10 @@ public class CardController {
 	@PatchMapping("/sell-card/{id}")
 	public void updateCardToSell(@RequestBody TransactionCardDTO transactionCardDTO,@PathVariable Integer id) {
 		cardService.addTransactionCardToSellQueue(transactionCardDTO);
+	}
+	
+	@PostMapping("/init-user-cards")
+	public String addCardFromReference(@RequestBody Integer id_user) {
+		return cardService.addIdUserToInitUserCardsQueue(id_user);
 	}
 }

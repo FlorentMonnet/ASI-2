@@ -4,11 +4,12 @@ import { cardInit, userCardsToSell } from '../../core/actions/cards.action';
 import {
     selectorCardsToBuy,
     selectorCardsToSell,
-    selectorSelectedCard
+    selectorSelectedCard,
 } from '../../core/selectors/card.selector';
 
 import Card from '../Card';
 import Config from '../../config';
+import { selectorUserConnected } from '../../core/selectors/user.selector';
 
 function CardList(props) {
     const { mode } = props;
@@ -18,12 +19,19 @@ function CardList(props) {
     const cardsListToBuy = useSelector(selectorCardsToBuy);
     const cardsListToSell = useSelector(selectorCardsToSell);
     const selectedCard = useSelector(selectorSelectedCard);
+    const user = useSelector(selectorUserConnected);
+
     useEffect(() => {
         let urlToFetch =
             mode === Config.MODE.SELL
-                ? Config.API_CARD_PATH + 'cardsToBuy'
-                : Config.API_CARD_PATH + 'cards';
-        fetch(urlToFetch)
+                ? Config.API_CARD_PATH + 'cardsToSell/' + user.id
+                : Config.API_CARD_PATH + 'cardsToBuy';
+        fetch(urlToFetch, {
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                Accept: 'application/json; charset=UTF-8',
+            },
+        })
             .then((response) => response.json())
             .then((json) => {
                 mode === Config.MODE.SELL
@@ -67,7 +75,8 @@ function CardList(props) {
             </div>
             <div className="five wide column">
                 <div id="card">
-                    {JSON.stringify(selectedCard) !== '{}' ? (
+                    {JSON.stringify(selectedCard) !== '{}' &&
+                    selectedCard !== null ? (
                         <Card card={selectedCard} display="card" mode={mode} />
                     ) : (
                         ''

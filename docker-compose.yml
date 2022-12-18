@@ -71,7 +71,7 @@ services:
       - springboot-user
       - springboot-auth
       - springboot-transaction
-      - react-app
+      # - react-app
     networks:
       - shared-network
 
@@ -150,7 +150,15 @@ services:
       - 3000:3000
     networks:
       - shared-network
-     
+
+  node-server:
+    container_name: node-server
+    build:
+      ./web-server/node-server
+    ports:
+      - 3001:3001
+    networks:
+      - shared-network     
 networks:
   shared-network:
     external: true

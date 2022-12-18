@@ -28,13 +28,14 @@ function Register() {
                 money: 0,
                 name: name,
                 surname: surname,
-                mail: email
+                mail: email,
             };
 
             fetch(Config.API_USER_PATH + 'register', {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
+                    Accept: 'application/json; charset=UTF-8',
                 },
                 body: JSON.stringify(user),
             }).then((response) => {
