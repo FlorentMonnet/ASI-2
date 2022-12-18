@@ -4,7 +4,7 @@ const myConstClass = {
     API_USER_PATH: API_PATH + 'user-microservice/',
     API_CARD_PATH: API_PATH + 'card-microservice/',
     API_TRANSACTION_PATH: API_PATH + 'transaction-microservice/',
-    SOCKET_PATH: 'http://localhost:80/socket',
+    SOCKET_PATH: 'http://localhost:3001',
     HEADER_CONFIG: {
         play: {
             iconHeader: 'gamepad',
