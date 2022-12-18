@@ -39,6 +39,8 @@ public class TransactionService {
 
 
 	public TransactionService() {
+		cardRestClient = new CardRestClient();
+		userRestClient = new UserRestClient();
 	}
 
 	public HttpServletResponse buyCard(Integer user_id, Integer card_id, HttpServletResponse response) {

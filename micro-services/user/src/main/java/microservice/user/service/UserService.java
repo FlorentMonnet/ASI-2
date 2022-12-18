@@ -20,8 +20,6 @@ import microservice.user.mapper.UserRegisterMapper;
 import microservice.user.repository.UserRepository;
 
 import microservice.user.rest.auth.AuthRestClient;
-import microservice.common.TransactionUserDTO;
-import microservice.common.TransactionUserRestClient;
 import microservice.user.rest.card.UserRestClient;
 import microservice.user.service.queue.UserSenderQueueService;
 
@@ -43,12 +41,14 @@ public class UserService {
 	@Autowired
 	AuthRestClient authRestClient;
 
-	TransactionUserRestClient transactionUserRestClient;
+	private TransactionUserRestClient transactionUserRestClient;
 	
-
+	private UserRestClient userRestClient;
 	
-	@Autowired
-	UserRestClient userRestClient;
+	public UserService() {
+		userRestClient = new UserRestClient();
+		transactionUserRestClient = new TransactionUserRestClient();
+	}
 	
 	public User getUserById(Integer idUser) {
 		User user = userRepository.findById(idUser).orElseThrow(() -> new RuntimeException());
